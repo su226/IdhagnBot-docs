@@ -1,0 +1,43 @@
+.example {
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: var(--ifm-leading);
+}
+
+.example :global .card__header {
+  padding: .5rem var(--ifm-card-horizontal-spacing);
+  padding-right: 0;
+  font-family: var(--ifm-font-family-monospace);
+  flex-grow: 1;
+  white-space: pre-wrap;
+}
+
+.example :global .card__header::before {
+  content: ">>> ";
+  opacity: .56;
+}
+
+.exampleHeader {
+  display: flex;
+}
+
+.exampleToggle {
+  padding: 0 var(--ifm-card-horizontal-spacing);
+  display: flex;
+  align-items: center;
+}
+
+.exampleToggle svg {
+  width: 24px;
+  opacity: .56;
+}
+
+.example :global .card__body {
+  font-family: var(--ifm-font-family-monospace);
+  white-space: pre-wrap;
+  background-color: var(--ifm-code-background);
+}
+
+.example blockquote p::before {
+  content: ">>> ";
+}

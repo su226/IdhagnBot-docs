@@ -1,0 +1,133 @@
+---
+description: 文字梗图生成器
+---
+import Command from "@site/src/components/Command";
+import Example, {ExampleGroup} from "@site/src/components/Example";
+
+# meme_text
+文字梗图生成器
+
+## 用户说明
+下文包含大量预览，全部均已折叠，点开时才会加载，流量党慎点。<br />
+~~有钱到可疑的兽人控~~土豪、WiFi 党或电脑党可以点这里：
+
+<ExampleGroup>
+
+<Command name="lolcat" brief="彩虹和独角兽！" perm="meme_text.lolcat">
+
+/lolcat &lt;文本&gt;
+灵感来自github.com/busyloop/lolcat
+
+</Command>
+<Example input="lolcat 非常好视频，英雄联盟，爱来自瓷器❤️" collapsed>
+
+![](/img/example_meme_text/lolcat.png)
+
+</Example>
+
+<Command name={["orly", "动物书"]} brief="学计算机的应该不陌生" perm="meme_text.orly">
+
+usage: /orly [-header HEADER] [-subtitle SUBTITLE] [-position {左上,左下,右上,右下,lt,lb,rt,rb}] [-author AUTHOR]
+             [-color COLOR] [-image IMAGE] [-no-grayscale]
+             title1 [title2]
+
+positional arguments:
+  title1                标题第一行
+  title2                标题第二行
+
+options:
+  -header HEADER        页眉
+  -subtitle SUBTITLE    副标题
+  -position {左上,左下,右上,右下,lt,lb,rt,rb}
+                        副标题方位
+  -author AUTHOR        作者（默认为昵称）
+  -color COLOR          颜色，0-16为内置颜色，也可是颜色代码，默认为内置颜色中随机
+  -image IMAGE          图片，0-41为内置图片，也可是链接，默认为内置图片中随机
+  -no-grayscale         不对下载的图片去色
+
+</Command>
+<Example input="orly QQ机器人 从入门到入土" collapsed>
+
+![](/img/example_meme_text/orly.png)
+
+</Example>
+
+<Command name={["p站", "ph"]} brief="生成你懂得的logo" perm="meme_text.pornhub">
+/p站 &lt;左侧文本&gt; &lt;右侧文本&gt;
+</Command>
+<Example input="p站 Git hub" collapsed>
+
+![](/img/example_meme_text/ph.png)
+
+</Example>
+
+<Command name="喜报" brief="NullPointerException" perm="meme_text.goodnews">
+/喜报 &lt;文本&gt;
+</Command>
+<Example input="喜报 草" collapsed>
+
+![](/img/example_meme_text/goodnews.png)
+
+</Example>
+
+<Command name={["成瘾前后", "成瘾"]} brief="会露出笑容" perm="meme_text.addict">
+/成瘾 &lt;文本&gt;
+</Command>
+<Example input="成瘾前后 ArchLinux" collapsed>
+
+![](/img/example_meme_text/addict.png)
+
+</Example>
+
+<Command name={["抖音", "tiktok"]} brief="记录每种生物" perm="meme_text.tiktok">
+/抖音 &lt;文本&gt;
+</Command>
+<Example input="抖音 记录每种生物" collapsed>
+
+![](/img/example_meme_text/tiktok.png)
+
+</Example>
+
+<Command name={["油管", "yt", "youtube"]} brief="生成油管logo" perm="meme_text.youtube">
+/油管 &lt;左侧文本&gt; &lt;右侧文本&gt;
+</Command>
+<Example input="油管 Bili Bili" collapsed>
+
+![](/img/example_meme_text/youtube.png)
+
+</Example>
+
+<Command name={["诺基亚", "nokia", "无内鬼"]} brief="生成诺基亚无内鬼梗图" perm="meme_text.nokia">
+
+/诺基亚 &lt;文本&gt;
+自动换行，文本不能超过 7 行
+
+</Command>
+<Example input="诺基亚 无内鬼来点涩图" collapsed>
+
+![](/img/example_meme_text/nokia.png)
+
+</Example>
+
+<Command name={["谷歌", "google"]} brief="G,O,O,G,L,E,咕噜咕噜" perm="meme_text.google">
+/谷歌 &lt;文本&gt;
+</Command>
+<Example input="谷歌 Microsoft" collapsed>
+
+![](/img/example_meme_text/google.png)
+
+</Example>
+
+</ExampleGroup>
+
+### 关于诺基亚
+由于 Nonebot2 会忽略命令名之后第一个字前的所有空格和空行，如果你需要诺基亚的开头是空格或空行，你可以在诺基亚后面加一个 `.` 点号。
+
+<Example input="诺基亚.   ←这里有几个空格" collapsed>
+
+![](/img/example_meme_text/nokia_whitespace.png)
+
+</Example>
+
+## 搭建说明
+虽然 meme_text 本身没有配置文件，但 `/诺基亚` 需要一个叫 `pixel` 的[特殊字体](/docs/guide/misc#杂项方法)，推荐使用 [GNU Unifont](http://www.unifoundry.com/unifont/index.html)（冷知识：Minecraft 的中文字体也是这个）

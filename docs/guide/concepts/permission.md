@@ -1,0 +1,62 @@
+---
+sidebar_position: 3
+---
+# 权限
+:::caution
+由于使用频率不高，权限系统并不完善，目前权限系统更多的作用是“单独某个群禁用某些命令”。
+:::
+
+IdhagnBot 在 Nonebot2 的权限基础上开发了一套树形权限系统，灵感来自 [CraftBukkit 的权限 API](https://bukkit.fandom.com/wiki/Plugin_Tutorial_(Eclipse)#Permissions) 和 [LuckPerms](https://luckperms.net/)（LuckPerms 本意是用在 Minecraft 插件服务器上，但 Mirai 这个 QQ 机器人框架也有[基于 LuckPerms 的权限插件](https://github.com/Karlatemp/LuckPerms-Mirai)）
+
+## 用户说明
+
+对于用户，[`/help`](/docs/guide/concepts/help) 显示的帮助页面会自动过滤掉无法使用的命令，包括无权限的命令，以及 [上下文](/docs/guide/concepts/context) 中提到的“不使用于当前上下文”的命令。并且在执行命令时，无论是命令不存在、不适用、还是没有权限，都会显示为“命令不存在、权限不足或不适用于当前上下文”，这是因为 IdhagnBot 同时服务多群的设计理念，为了防止某个群的命令，尤其是自定义命令，暴露给其他的群。
+
+## 搭建说明
+IdhagnBot 采用树形结构管理权限，并且当一个权限节点不存在时会检查它的父权限节点，这是为了便于群主同时禁用一个插件下的所有命令（注意这些被禁用的命令仍然会被加载，目前 IdhagnBot 不能完全阻止插件被 import）：比如当群主想禁用整个 petpet_v2 插件时，只需将权限节点 petpet_v2 设置为 false，如果想禁用 [`/pet`](/docs/guide/plugins/petpet_v2) 以外，所有来自 petpet_v2 的命令，可以将权限节点 petpet_v2 设置为 false，并将权限节点 petpet_v2.pet 设置为 true。
+
+当一个节点没有父节点时，会查找根节点，它在配置文件中写作 `.`（一个英文点号），当根节点也不存在时，会检查用户是否满足命令的权限级别，权限级别由小到大分别是 member（群员和私聊用户）、admin（群管理员）、owner（群主） 和 super（Nonebot2 配置文件指定的超级用户），只有用户权限级别大于命令权限级别时可以执行。
+
+你可以为每一个用户单独配置权限，但为了便于管理，一个用户可以有多个角色（Role），每个角色可以设置不同的权限节点，可以继承其他角色，并且每个用户都隐式属于 default 角色。当不同角色有同一个权限节点时，以优先级高的角色为准，用户自身的权限高于所有角色的权限，注意当前节点一定优先于父节点，比如：用户有两个角色 vip（优先级 100）和 default（优先级 0），vip 角色有 some_node = true，default 角色有 some_node.child = false，此时用户有 some_node 中除 some_node.child 的所有权限。
+
+`/help` 并不会显示命令对应的权限节点，不过你可以运行 `pdm start --export-html <HTML文件名>` 来导出所有的帮助和权限节点信息。
+
+目前并没有用于管理权限的命令或图形界面，修改权限的唯一方法是直接修改状态文件（此处为状态文件的原因是以后可能会有用于配置权限的命令），这是为数不多可以直接修改的状态文件。
+
+配置文件有两个，states/permission_overrides.yaml 和 states/permissions/群号.yaml ，写法是完全相同的（见下），permission_overrides 的优先级高于 permissions。
+```yaml
+roles:
+  some_role: # 可以给角色取不同的名字
+    priority: 0 # 优先级，默认为 0
+    parents: # 父角色，默认为空
+    - some_other_role
+    entries: # 权限节点
+    - node: some_node.child # 节点名，用"."指代根节点
+      value: true
+users:
+  123456789: # QQ 号
+    roles: # 用户所属的角色，默认为空，default 不需要写在此处
+    - some_role
+    entries: # 为用户单独指定的权限，写法同上
+    - node: some_node.child
+      value: false
+    level: member # 覆盖用户的权限等级，注意超管用户只能在 Nonebot2 的配置文件中设置，而不能在此处
+commands:
+  some_node.child: # 覆盖命令的权限等级，此处需要命令的权限节点，而不是命令名
+    level: member
+```
+
+## 开发示例
+`CommandBuilder` 的第一个参数即为权限节点（此处为强制指定，便于日后 IdhagnBot 加入命令冷却等功能），命令的默认权限级别为 member，可以用 `CommandBuilder.level` 改变。
+
+```python
+from util import command
+
+# 节点名没有限制，但建议是"插件名.命令英文名"
+matcher = (command.CommandBuilder("some_plugin.some_command", "命令名")
+  .level("admin") # 覆盖权限等级
+  .build())
+@matcher.handle()
+async def handler() -> None:
+  pass
+```

@@ -1,0 +1,101 @@
+---
+description: 意义不是很大的每日推送
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# daily
+意义不是很大的每日推送
+
+## 用户说明
+在开启了每日推送的群里，你应该会每天早上收到类似于这样的消息（会有一点点长）：
+
+<Example input="今天" collapsed>
+
+大家好，今天是2022年9月5日，也是：
+su226想要无偿的第14天
+距su226的生日还剩126天
+还可以试试发送 /历史 看看历史上的今天
+今天的「摸鱼日历」是：
+![](/img/example_moyu.png)
+再用「60秒」看看世界：
+![](/img/example_60s.png)
+最后送上「每日一句」：
+![](/img/example_sentence.jpg)
+你可以发送 /摸鱼、/60s 或者 /一句 重新查看上面的内容，也可以发送 /今天 再次看到以上全部
+
+</Example>
+
+你也可以发送以下命令主动查看：
+
+<Command name="今天" brief="今天的问好你看了吗" perm="daily.today">
+包含 /摸鱼、/60s 和 /一句 的内容
+</Command>
+<Command name="历史" brief="看看历史上的今天" perm="daily.history">
+接口来自https://www.ipip5.com/today/
+</Command>
+<Command name={["摸鱼日历", "摸鱼"]} brief="今天也要开心摸鱼哦" perm="daily.moyu">
+接口来自https://api.j4u.ink
+</Command>
+<Command name={["60秒", "60s"]} brief="用60秒迅速看世界" perm="daily.news">
+接口来自https://api.qqsuu.cn
+</Command>
+<Command name={["每日一句", "一句"]} brief="是中英双语的" perm="daily.sentence">
+接口来自http://open.iciba.com
+</Command>
+
+<Example input="历史" collapsed>
+
+今天是2022年9月5日，历史上的今天是：
+917: 刘龚称帝，建立南汉
+1567: 日本战国时代大名伊达政宗出生
+1839: 第一次鸦片战争，英国对中国宣战
+1885: 晚清政治家左宗棠逝世
+1901: 美国总统威廉·麦金莱逝世
+1906: 热力学奠基人路德维希·玻尔兹曼逝世
+1914: 马恩河会战开始
+1926: 英军炮舰炮击万县，史称“万县惨案”
+1937: 最大一次纳粹集会在纽伦堡举行
+1967: 日本漫画家久米田康治出生
+1971: 中国画家潘天寿逝世
+1972: 慕尼黑奥运会发生慕尼黑惨案
+1997: 诺贝尔和平奖获得者特蕾莎修女逝世
+
+</Example>
+<Example input="摸鱼日历" collapsed>
+
+![](/img/example_moyu.png)
+
+</Example>
+<Example input="60秒" collapsed>
+
+![](/img/example_60s.png)
+
+</Example>
+<Example input="每日一句" collapsed>
+
+![](/img/example_sentence.jpg)
+<audio controls src="/img/example_sentence.ogg" />
+
+</Example>
+
+## 搭建说明
+你需要修改 `configs/daily.yaml`，加上需要推送的群聊：
+```yaml
+time: 07:00:00 # 时间，默认为 07:00:00
+groups: # 启用每日推送的群
+- 123456789
+countdown: # 倒计时
+- date: 2023-01-09
+  before: 距su226的生日还剩{}天 # 日期之前显示的内容，{} 会被替换为天数，省略时不显示
+  exact: 祝su226生日快乐 # 恰好当天时显示的内容，省略时不显示
+  after: su226的生日已过了{}天 # 日期之后显示的内容，{} 会被替换为天数，省略时不显示
+```
+
+状态文件在 `states/daily.yaml`，参考如下：
+:::caution
+你通常不应该修改状态文件，除非别无选择。
+:::
+```yaml
+last_send: '2022-08-24' # 上次发送的日期，用于判断是否已经发送过。
+```

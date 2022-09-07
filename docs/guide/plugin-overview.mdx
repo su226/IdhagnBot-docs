@@ -1,0 +1,38 @@
+---
+sidebar_position: 4
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# 插件总览
+IdhagnBot 提供了大量的通用插件，目前不能阻止插件加载，但你可以使用 [权限系统](/docs/guide/concepts/permission) 来阻止使用对应插件的命令。
+
+群主也可以编写自定义插件并放到 user_plugins 目录下，目前并不能直接加载 [Nonebot2 市场](https://v2.nonebot.dev/store) 里的插件，但你可以在 user_plugins 里的插件使用 [`nonebot.require`](https://v2.nonebot.dev/docs/api/plugin/load#require)。注意市场插件并不会使用 IdhagnBot 的权限、上下文、帮助等系统，可能会带来用户体验上的割裂感，请**自行权衡**。
+
+注意并不是所有通用插件都是开箱即用的，部分插件需要安装可选依赖或者修改配置文件。
+
+在 [插件列表](/docs/guide/plugins) 中会列出所有通用插件的命令格式、使用方法、配置文件和权限节点，对于自定义插件或市场插件，请向对应的作者求助。如果市场插件有兼容性问题，请先在纯净的 Nonebot2 环境（非 IdhagnBot）确认是市场插件本身的问题还是 IdhagnBot 的问题再 [发起 Issue](https://github.com/su226/IdhagnBot/issues)。
+
+你也可以在 Issue 中请求移植某个插件的功能，IdhagnBot 目前并没有一个特定的主题，因此只要具有一定实用性的插件均可以移植，但带有以下内容的插件会被**谨慎**考虑：
+
+* 需要第三方帐号或 Token，如：[绒狸](https://github.com/furleywolf/Furbot-Mirai)、[彩云小梦](https://github.com/MeetWq/nonebot-plugin-caiyunai)
+* 引入新的依赖包（[查看已有依赖](https://github.com/su226/IdhagnBot/blob/main/pyproject.toml)）
+* 要移植的插件，或需要的依赖为 GPL 或 AGPL 等严格协议
+  * 我希望 IdhagnBot 尽可能保持 MIT 等宽松协议
+* 依赖在中国大陆难以直接访问的服务，如 Google
+* 依赖作者不使用的服务（主要是游戏），如：[Arcaea查分](https://github.com/SEAFHMC/nonebot-plugin-arcaeabot)
+  * 实际上，我并不是不愿意移植，而是移植之后没办法充分测试，难以维护。
+* ~~卖萌~~
+  * ~~孩子真的不擅长卖萌qwq~~
+
+## 提示
+
+命令信息格式如下：
+<Command name={["命令名", "命令别名"]} brief="命令" perm="权限节点">
+此处是 /help 命令名 显示的帮助
+</Command>
+
+命令示例格式如下（右侧可折叠）：
+<Example input="命令输入">
+命令输出
+</Example>

@@ -1,0 +1,131 @@
+---
+sidebar_position: 4
+---
+# 帮助文档
+IdhagnBot 会为命令自动生成帮助，你也可以编写自定义的帮助项。
+
+## 用户说明
+在群聊或私聊中发送 `/help` 就可以查看所有帮助，你应该看到如下格式的帮助文档。不能执行的命令会被自动隐藏。
+```
+第 1 页，共 8 页
+使用 /帮助 <命令名> 查看详细用法
+.petpet_v2 - 梗图生成器
+/5000兆元 - 生成想要5000兆元风格文字
+/60秒 - 用60秒迅速看世界
+/emojimix - 缝合两个emoji
+/epicfree - 看看E宝又在送什么
+/fortune - 随机显示一条希望有用的格言
+/idhagnfetch - 显示机器人的状态
+/javascript - 在沙箱中运行NodeJS代码
+/lolcat - 彩虹和独角兽！
+```
+
+其中以 `.` 点号开头的是子分类，以 `/` 斜线开头的是命令，在查看帮助时**不能**带上这两个符号，比如：
+* ✅ 你应该使用 `/help petpet_v2` 和 `/help idhagnfetch`
+* ❌ 而非 `/help .petpet_v2` 和 `/help /idhagnfetch`
+
+子分类是树形的，意味着子分类下还可以有子分类，但目前 IdhagnBot 的通用插件并不包含二级子分类，如果有，你需要输入 `/help some_category some_child` 这样的形式来查看。
+
+在 /help 命令最后加上空格和数字可以指定页数，如：
+* `/help 2`
+* `/help petpet_v2 2`
+* `/help some_category some_child 2`
+
+在查看命令帮助时，会在末尾显示命令的别名，输入 `/help <别名>` 也能看到帮助，但别名不会显示在帮助列表中。并且当一个命令位于子分类中时，**不能**带上子分类，比如你应该输入 `/help rua` 而非 `/help petpet_v2 rua`。
+
+比如 `/help idhagnfetch` 和 `/help state` 都会显示如下内容：
+```
+/idhagnfetch - 显示机器人的状态
+服务器在线在重启系统（含崩溃自动重启）时归零
+机器人在线在重启机器人（含重启系统）时归零
+该命令有以下别名：状态、state、运行时间、uptime
+```
+
+部分命令，如 [`/rua`](/docs/guide/plugins/petpet_v2)，采用类似于 UNIX shell 的命令解析（参见 Python 标准库：[argparse](https://docs.python.org/zh-cn/3/library/argparse.html) 和 [shlex](https://docs.python.org/zh-cn/3/library/shlex.html)），为了和其他不使用 shell 解析的命令统一，输入 `/rua -h` 或者 `/rua --help` 查看帮助的方法已被禁用。
+
+## 搭建说明
+命令帮助会被自动创建，如果需要完整的列表，同样可以运行 `pdm start --export-html <HTML文件名>` 来导出。
+
+如果需要创建自定义的帮助项目，可以编辑 `configs/help.yaml`，参考如下：
+```yaml
+page_size: 10 # 每页的项目数，默认为 10
+user_helps: # 自定义帮助项
+- # 指定一个自定义命令
+  priority: 0 # 排序优先级，优先级相同时权限小的在前面，权限也相同时按字典序排列，默认为 0
+  node_str: some_node.some_child # 权限节点，不满足权限时不显示帮助项目，默认为不检查
+  has_group: # 参见 上下文#用户说明 里的第一类命令，默认为不检查
+  - 123456789
+  in_group: # 参见 上下文#用户说明 里的第二类命令，默认为不检查
+  - 123456789
+  private: true # true：只在私聊显示，false：只在群聊显示，null：都显示，默认为 null
+  level: member # 权限等级，默认为 member
+  category: some_category.some_child # 分类，默认为根分类（即直接输入 /help 显示的分类）
+  command: # 命令名，第一个为主名称（会在帮助列表中显示），其余为别名，不可以省略
+  - 主名称
+  - 别名1
+  - 别名2
+  brief: "帮助列表中的简单描述，默认为空"
+  usage: "输入 /help 命令名 时的完整描述，默认为空"
+- # 指定一行自定义文本，所有自定义文本都会排在优先级相同的命令前面
+  priority: 0
+  node_str: ""
+  has_group: []
+  in_group: []
+  private: null
+  level: member
+  category: ""
+  # 以上选项含义相同，并且都可以省略
+  string: "内容，不可以省略"
+- "如果不需要参数，也可以直接输入字符串"
+category_brief: # 在指定 category 时，如果对应分类不存在，会自动创建一个没有描述的分类，可以在这里指定描述
+  some_category.some_child: "这是描述blabla"
+```
+
+## 开发示例
+`CommandBuilder` 会自动为命令创建帮助，参见以下示例：
+```python
+from nonebot.rule import ArgumentParser
+from util import command
+
+# 简单命令示例：
+# 其余参数，如 level、in_group、has_group 等也会自动应用到帮助上。
+matcher = (command.CommandBuilder("some_plugin.some_command", "命令名")
+  .brief("简单描述")
+  .usage("使用说明")
+  .build())
+@matcher.handle()
+async def handler() -> None:
+  pass
+
+# argparse / nonebot.on_shell_command 示例：
+# CommandBuilder.shell 会自动加上命令名，此处无需指定 prog
+# add_help=False 的原因见上
+parser = ArgumentParser(add_help=False)
+matcher = (command.CommandBuilder("some_plugin.some_command", "命令名")
+  .brief("简单描述")
+  .shell(parser) # 当使用 argparse 时，会使用 ArgumentParser.format_help 自动创建 usage
+  .usage("覆盖使用说明") # 如果确实需要覆盖 usage，必须在 CommandBuilder.shell 之后
+  .build())
+@matcher.handle()
+async def handler() -> None:
+  pass
+```
+
+同 help.yaml，CommandBuilder 遇到不存在的 category 时也会自动创建，可以使用以下代码添加描述和自定义文本：
+```python
+from util import help
+
+# 第二个参数为 True 时，不存在自动创建，否则抛出异常，默认为 False
+category = help.CategoryItem.find("some_category.some_child", True)
+category.brief = "这是描述blabla"
+data = help.CommonData(priority=123) # 使用 CommonData 指定优先级、权限节点等，也可以不指定
+category.add(help.StringItem("你也可以加入自定义文本", data))
+# 尽管可以自行实例化 CommandItem，但建议优先考虑 CommandBuilder
+category.add(help.CommandItem(["命令名"], "简单描述", "使用说明", data))
+
+# CommandItem 也有 find 方法，参数接受命令名而非权限节点
+command = help.CommandItem.find("命令名")
+
+# 使用 CategoryItem.ROOT 获取根分类
+category = help.CategoryItem.ROOT
+```

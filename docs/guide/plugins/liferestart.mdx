@@ -1,0 +1,300 @@
+---
+description: 人生重开模拟器
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# liferestart
+人生重开模拟器
+
+## 用户说明
+这个插件移植自 [VickScarlet/lifeRestart](https://github.com/VickScarlet/lifeRestart)，虽然已有 Python 移植版 [cc004/lifeRestart-py](https://github.com/cc004/lifeRestart-py)，但它是 AGPL 协议，因此我自己也移植了一个：[su226/LifeRestartPy](https://github.com/su226/LifeRestartPy)
+
+发送 `/人生重开 经典` 或者 `/人生重开 角色` 即可游玩，考虑到使用次数较多，也可分别简写为 `/重开 c` 和 `/重开 h`，完整用法见下。
+
+<Command name={["人生重开", "liferestart", "life", "restart", "remake", "人生", "重开"]} brief="现可在群里快速重开" perm="liferestart">
+
+usage: /人生重开 {经典,c,查看角色,角色列表,创建角色,重命名角色,角色,h,成就,重开排行,成就排行,事件排行,天赋排行} ...
+
+positional arguments:
+  {经典,c,查看角色,角色列表,创建角色,重命名角色,角色,h,成就,重开排行,成就排行,事件排行,天赋排行}
+    经典 (c)              游玩经典模式
+    查看角色                查看自己或别人的角色
+    角色列表                列出别人的角色
+    创建角色                创建自己的角色
+    重命名角色               重命名自己的角色
+    角色 (h)              游玩名人或自定义角色
+    成就                  查看成就和统计
+    重开排行                查看重开次数排行
+    成就排行                查看成就数排行
+    事件排行                查看天赋游玩率排行
+    天赋排行                查看事件收集率排行
+
+</Command>
+
+<Example input="人生重开 c" collapsed>
+
+种子：198828329
+0: 天赋异禀 - 初始可用属性点+2
+1: 钻石健身卡 - 家境>10时体质+3
+2: 乡间微风 - 你出生在农村
+3: 低压 - 你的家人不会心脏病
+4: 旅行者 - 你喜欢旅游
+5: 占位符 - 少一个可选天赋
+6: 属蛇 - 不会被蛇咬死
+7: 四十不惑 - 40岁时智力+2
+8: 宙斯 - 参加奥赛的几率提高
+9: 把握不住 - 你有强迫症
+10: 形象管理 - 24岁时颜值+2
+\- 发送 3 个空格分隔的数字选择天赋，第一个天赋将会被继承
+\- 发送 “随” 随机选择
+\- 发送 “换” 重新抽天赋
+\- 发送 “退” 退出游戏
+
+> 随
+
+已选天赋:
+天赋异禀 - 初始可用属性点+2
+乡间微风 - 你出生在农村
+钻石健身卡 - 家境>10时体质+3
+可分配 22 点属性
+\- 发送 4 个空格分隔的数字分配颜值、智力、体质和家境
+\- 发送 “随” 随机分配
+\- 发送 “退” 退出游戏
+
+> 随
+
+![](/img/example_liferestart.png)
+
+</Example>
+
+## 搭建说明
+不同群聊同一玩家共享数据，自定义角色一旦创建目前只能手动编辑状态文件删除。
+
+IdhagnBot 默认使用原版人生重开模拟器的 JSON 数据，你可以自行 [下载最新版](https://github.com/VickScarlet/lifeRestart/tree/master/public/data/zh-cn) 替换掉 IdhagnBot 附带的版本，注意 IdhagnBot 对语法错误较为严格，且 IdhagnBot 不允许属性点为浮点数，如有报错请自行修改。（这些限制同样也适用于 LifeRestartPy）
+
+`configs/liferestart.yaml`：
+```yaml
+game: # LifeRestartPy的设置，涉及到游戏数据，以下为默认值
+  stat:
+    total: 20 # 初始可用属性点
+    min: 0 # 最小分配
+    max: 10 # 最大分配
+    spirit: 5 # 初始快乐
+    rarity: # 评级
+      event_percentage: # 事件收集率
+      - {min: 0, rarity: 0}
+      - {min: 20, rarity: 1}
+      - {min: 40, rarity: 2}
+      - {min: 60, rarity: 3}
+      talent_percentage: # 天赋收集率
+      - {min: 0, rarity: 0}
+      - {min: 30, rarity: 1}
+      - {min: 60, rarity: 2}
+      - {min: 90, rarity: 3}
+      finished_games: # 完成游戏数
+      - {min: 0, rarity: 0, message_id: finished_games_0}
+      - {min: 10, rarity: 1, message_id: finished_games_1}
+      - {min: 30, rarity: 1, message_id: finished_games_2}
+      - {min: 50, rarity: 2, message_id: finished_games_3}
+      - {min: 70, rarity: 2, message_id: finished_games_4}
+      - {min: 100, rarity: 3, message_id: finished_games_5}
+      achievements: # 成就数
+      - {min: 0, rarity: Rarity.COMMON, message_id: achievements_0}
+      - {min: 10, rarity: Rarity.UNCOMMON, message_id: achievements_1}
+      - {min: 30, rarity: Rarity.UNCOMMON, message_id: achievements_2}
+      - {min: 50, rarity: Rarity.RARE, message_id: achievements_3}
+      - {min: 70, rarity: Rarity.RARE, message_id: achievements_4}
+      - {min: 100, rarity: Rarity.LEGENDARY, message_id: achievements_5}
+      charm: # 颜值
+      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
+      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
+      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
+      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
+      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
+      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
+      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
+      money: # 家境
+      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
+      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
+      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
+      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
+      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
+      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
+      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
+      spirit: # 快乐
+      - {min: 0, rarity: Rarity.COMMON, message_id: spirit_0}
+      - {min: 1, rarity: Rarity.COMMON, message_id: spirit_1}
+      - {min: 2, rarity: Rarity.COMMON, message_id: spirit_2}
+      - {min: 4, rarity: Rarity.COMMON, message_id: spirit_3}
+      - {min: 7, rarity: Rarity.UNCOMMON, message_id: spirit_4}
+      - {min: 9, rarity: Rarity.RARE, message_id: spirit_5}
+      - {min: 11, rarity: Rarity.LEGENDARY, message_id: spirit_6}
+      intelligence: # 智力
+      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
+      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
+      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
+      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
+      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
+      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
+      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
+      - {min: 21, rarity: Rarity.LEGENDARY, message_id: intelligence_7}
+      - {min: 131, rarity: Rarity.LEGENDARY, message_id: intelligence_8}
+      - {min: 501, rarity: Rarity.LEGENDARY, message_id: intelligence_9}
+      strength: # 体质
+      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
+      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
+      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
+      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
+      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
+      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
+      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
+      - {min: 21, rarity: Rarity.LEGENDARY, message_id: strength_7}
+      - {min: 101, rarity: Rarity.LEGENDARY, message_id: strength_8}
+      - {min: 401, rarity: Rarity.LEGENDARY, message_id: strength_9}
+      - {min: 1001, rarity: Rarity.LEGENDARY, message_id: strength_10}
+      - {min: 2001, rarity: Rarity.LEGENDARY, message_id: strength_11}
+      age: # 享年
+      - {min: 0, rarity: Rarity.COMMON, message_id: age_0}
+      - {min: 1, rarity: Rarity.COMMON, message_id: age_1}
+      - {min: 10, rarity: Rarity.COMMON, message_id: age_2}
+      - {min: 18, rarity: Rarity.COMMON, message_id: age_3}
+      - {min: 40, rarity: Rarity.COMMON, message_id: age_4}
+      - {min: 60, rarity: Rarity.UNCOMMON, message_id: age_5}
+      - {min: 70, rarity: Rarity.UNCOMMON, message_id: age_6}
+      - {min: 80, rarity: Rarity.RARE, message_id: age_7}
+      - {min: 90, rarity: Rarity.RARE, message_id: age_8}
+      - {min: 95, rarity: Rarity.LEGENDARY, message_id: age_9}
+      - {min: 100, rarity: Rarity.LEGENDARY, message_id: age_10}
+      - {min: 500, rarity: Rarity.LEGENDARY, message_id: age_11}
+      overall: # 总评
+      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
+      - {min: 41, rarity: Rarity.COMMON, message_id: common_1}
+      - {min: 50, rarity: Rarity.COMMON, message_id: common_2}
+      - {min: 60, rarity: Rarity.COMMON, message_id: common_3}
+      - {min: 80, rarity: Rarity.UNCOMMON, message_id: common_4}
+      - {min: 100, rarity: Rarity.RARE, message_id: common_5}
+      - {min: 110, rarity: Rarity.LEGENDARY, message_id: common_6}
+      - {min: 120, rarity: Rarity.LEGENDARY, message_id: common_7}
+      messages: # 以上 message_id 对应的内容
+        common_0: 地狱
+        common_1: 折磨
+        common_2: 不佳
+        common_3: 普通
+        common_4: 优秀
+        common_5: 罕见
+        common_6: 逆天
+        common_7: 传说
+
+        spirit_0: 地狱
+        spirit_1: 折磨
+        spirit_2: 不幸
+        spirit_3: 普通
+        spirit_4: 幸福
+        spirit_5: 极乐
+        spirit_6: 天命
+
+        age_0: 胎死腹中
+        age_1: 早夭
+        age_2: 少年
+        age_3: 盛年
+        age_4: 中年
+        age_5: 花甲
+        age_6: 古稀
+        age_7: 杖朝
+        age_8: 南山
+        age_9: 不老
+        age_10: 修仙
+        age_11: 仙寿
+
+        intelligence_7: 识海
+        intelligence_8: 元神
+        intelligence_9: 仙魂
+
+        strength_7: 凝气
+        strength_8: 筑基
+        strength_9: 金丹
+        strength_10: 元婴
+        strength_11: 仙体
+
+        finished_games_0: 抽到紫色概率不变
+        finished_games_1: 抽到紫色概率翻倍
+        finished_games_2: 抽到紫色概率三倍
+        finished_games_3: 抽到紫色概率四倍
+        finished_games_4: 抽到紫色概率五倍
+        finished_games_5: 抽到紫色概率六倍
+
+        achievements_0: 抽到橙色概率不变
+        achievements_1: 抽到橙色概率翻倍
+        achievements_2: 抽到橙色概率三倍
+        achievements_3: 抽到橙色概率四倍
+        achievements_4: 抽到橙色概率五倍
+        achievements_5: 抽到橙色概率六倍
+  talent: 
+    limit: 3 # 可选数量
+    choices: 10 # 一次抽多少
+    weight: # 权重
+      total: 1000 # 总体 (常见 + 稀有 + 罕见 + 传说)
+      uncommon: 100 # 稀有 
+      rare: 10 # 罕见
+      legendary: 1 # 传说
+    boost: # 抽卡权重影响
+      # 格式为 [最小值, {uncommon: 稀有倍率, rare: 罕见倍率, legendary: 传说倍率}]
+      finished_games: # 完成游戏数
+      - [10, {rare: 1}]
+      - [30, {rare: 2}]
+      - [50, {rare: 3}]
+      - [70, {rare: 4}]
+      - [100, {rare: 5}]
+      achievements: # 成就数
+      - [10, {legendary: 1}]
+      - [30, {legendary: 2}]
+      - [50, {legendary: 3}]
+      - [70, {legendary: 4}]
+      - [100, {legendary: 5}]
+  character:
+    stat_value_weight: # 自定义角色初始点数的权重
+      0: 1
+      1: 2
+      2: 3
+      3: 4
+      4: 5
+      5: 6
+      6: 5
+      7: 4
+      8: 3
+      9: 2
+      10: 1
+    talent_count_weight: # 自定义角色天赋数的权重
+      1: 1
+      2: 2
+      3: 3
+      4: 2
+      5: 1
+    choices: 3 # 历史遗留，未使用
+progress_group_by: 50 # 每 n 条进度分一张图片发送（防止风控）
+character_group_by: 25 # 自定义角色列表每 n 个角色分一张图片发送（防止风控）
+```
+
+`states/liferestart.yaml`：
+:::caution
+你通常不应该修改状态文件，除非别无选择。
+:::
+```yaml
+statistics:
+  1234567890: # QQ 号
+    talents: [123, 456] # 收集的天赋 ID
+    events: [123, 456] # 收集的事件 ID
+    achievements: [123, 456] # 收集的成就 ID
+    finished_games: 0 # 完成游戏数
+    inherited_talent: 0 # 继承的天赋 ID
+    character: # 自定义角色，未生成时为 null
+      id: -1 # 固定为 -1
+      name: 名字
+      talents: [123, 456] # 天赋 ID 列表
+      charm: 5 # 初始颜值
+      intelligence: 5 # 初始智力
+      strength: 5 # 初始体质
+      money: 5  # 初始家境
+      seed: 0 # 生成角色时的种子
+```

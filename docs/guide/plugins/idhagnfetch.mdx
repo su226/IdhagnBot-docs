@@ -1,0 +1,50 @@
+---
+description: neofetch | lolcat
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# idhagnfetch
+neofetch --kitty ~/图片/兽设与绘画/蓝莓/希望永存.png | lolcat -s 300<br /><small>夹 带 私 货 <span style={{opacity: .5}}>ps: AUR 上似乎只有 rust-lolcat-git 能和带图片的 neofetch 一起用</span></small>
+
+## 用户说明
+发送 `/idhagnfetch` 即可查看机器人的配置和状态*，嫌太长也有别名*。
+
+<Command name={["idhagnfetch", "状态", "state", "运行时间", "uptime"]} brief="显示机器人的状态" perm="idhagnfetch">
+
+服务器在线在重启系统（含崩溃自动重启）时归零
+机器人在线在重启机器人（含重启系统）时归零
+
+</Command>
+<Example input="idhagnfetch">
+
+![](/img/example_idhagnfetch.png)
+
+</Example>
+
+## 搭建说明
+idhagnfetch 需要安装 psutil：`pdm install -G psutil`，否则将不会加载
+
+idhagnfetch 默认输出全部条目，如上图，如需要调整可以修改配置文件`configs/idhagnfetch.yaml`：
+```yaml
+avatar_size: 320 # 头像尺寸，默认为 320，为 0 时不显示头像
+                 # 注意：为考虑移动端的体验，实际大小会乘 2
+enable_header: true # 是否显示标题“idhagnfetch 决不是参考的……”，默认为 true
+enable_account: true # 是否显示QQ号，默认为 true
+items: # 显示的条目，默认如下（全部）
+- system # 系统（包括 Linux 发行版名）
+- uptime # 系统运行时间
+- cpu # CPU 型号，优先读取 /proc/cpuinfo，Windows 下使用 platform.uname
+- cpu_usage # CPU 占用
+- gpus_and_usage # GPU 型号和占用，只支持 Linux，其他系统自动隐藏
+                 # 占用只支持 N 卡闭源驱动和 A 卡，其他显示为未知
+- memory # 内存占用
+- swap # 交换（虚拟内存）占用
+- python # Python 版本
+- nonebot # Nonebot2 版本
+- idhagnbot # IdhagnBot 版本（目前未使用）
+- bot_uptime # 机器人运行时间
+background_color: 0x212121 # 背景颜色，默认值见左侧
+primary_color: 0x80d8ff # 主要颜色，默认值见左侧
+secondary_color: 0xffffff # 次要颜色，默认值见左侧
+```

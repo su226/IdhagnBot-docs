@@ -1,0 +1,94 @@
+---
+description: fortune | cowsay | lolcat
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# fortune
+fortune | cowsay | lolcat
+
+## 用户说明
+本命令的灵感及数据来源于同名 UNIX / Linux 命令，当执行 `/fortune` 时会随机会展示一条格言。
+
+<Command name="fortune" brief="随机显示一条希望有用的格言" perm="fortune">
+
+/fortune - 随机显示一条可能有用的格言
+usage: /fortune [--offensive] [--source] [--equal] [--list] [--length 长度] [--long | --short] [[权重] 文件 ...]
+positional arguments:
+  [权重] 文件             来源，默认为全部，权重可以是小数，不提供权重时会根据文本数量计算
+options:
+  --offensive, -o     包含可能不雅的文本，可能被群主或超管禁用
+  --source, -u        显示文本来源
+  --equal, -e         所有来源权重相等，而非根据文本数量计算
+  --list, -i          显示文件列表
+  --length 长度, -n 长度  长度限制，默认为 160，只有和 --long 或 --short 一起使用时才有意义
+  --long, -l          只显示长于指定长度的文本
+  --short, -s         只显示短于指定长度的文本
+灵感及数据来自同名 UNIX / Linux 命令
+
+</Command>
+<Example input="fortune 7.5 computers 2.5 linux perl">
+
+Besides, including &lt;std_ice_cubes.h&gt; is a fatal error on machines that
+don't have it yet.  Bad language design, there...  :-)
+		-- Larry Wall in &lt;1991Aug22.220929.6857@netlabs.com&gt;
+
+</Example>
+<Example input="fortune -i" collapsed>
+
+8.13% people 1251
+7.82% definitions 1203
+7.45% cookie 1147
+6.92% computers 1065
+4.68% songs-poems 720
+4.58% politics 704
+4.23% miscellaneous 651
+4.09% work 630
+4.07% science 626
+3.79% men-women 583
+3.56% zippy 548
+3.51% knghtbrd 540
+3.24% platitudes 498
+3.08% art 474
+2.81% wisdom 432
+2.8% fortunes 431
+2.6% linux 400
+1.85% disclaimer 284
+1.77% perl 273
+1.71% literature 263
+1.48% startrek 227
+1.35% drugs 207
+1.34% law 206
+1.33% education 205
+1.29% humorists 198
+1.28% food 197
+1.05% ethnic 162
+1.03% rules-of-acquisition 159
+0.98% kids 151
+0.97% love 150
+0.96% sports 147
+0.83% riddles 127
+0.55% debian 85
+0.53% tao 82
+0.48% medicine 74
+0.47% paradoxum 72
+0.35% goedel 54
+0.34% news 53
+0.34% pets 52
+0.19% magic 30
+0.08% translate-me 12
+0.06% ascii-art 10
+0.02% pratchett 3
+
+</Example>
+
+## 搭建说明
+IdhagnBot 自己实现了 strfile 的读取而不依赖于 fortune，因此理论上也可以在 Windows 中使用。
+
+IdhagnBot 在搜索 strfile 时默认不会包含子目录，包括有一些可能不雅的文本的 off 目录，除非群主在配置文件中启用，并且用户加上了 --offensive 参数。
+
+`configs/fortune.yaml`
+```yaml
+fortunes: /usr/share/fortune # 搜索 strfile 的目录
+offensive: false # 允许查看子目录 / 允许查看可能不雅的文本（位于 off 子目录下）
+```

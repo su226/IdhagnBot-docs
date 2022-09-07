@@ -1,0 +1,7 @@
+label: 插件列表
+position: 5
+link:
+  type: generated-index
+  slug: guide/plugins
+  description: |
+    以下是 IdhagnBot 的通用插件列表。

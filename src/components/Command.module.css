@@ -1,0 +1,20 @@
+.command {
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: var(--ifm-leading);
+}
+
+.command :global .card__header {
+  padding: .5rem var(--ifm-card-horizontal-spacing);
+}
+
+.command :global .card__body {
+  font-family: var(--ifm-font-family-monospace);
+  white-space: pre-wrap;
+  background-color: var(--ifm-code-background);
+  padding-bottom: var(--ifm-card-vertical-spacing);
+}
+
+.command :global .card__footer {
+  padding: .5rem var(--ifm-card-horizontal-spacing);
+}
