@@ -1,0 +1,15 @@
+.placeholder {
+  --ifm-link-color: var(--ifm-color-danger);
+  --ifm-link-hover-color: var(--ifm-color-danger);
+}
+
+.placeholderTooltip {
+  margin: 14px 2px 2px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: rgba(97,97,97,0.92);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+}

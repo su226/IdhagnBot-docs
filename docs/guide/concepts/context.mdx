@@ -1,6 +1,8 @@
 ---
 sidebar_position: 1
 ---
+import PlaceholderLink from "@site/src/components/PlaceholderLink";
+
 # 上下文
 如果你是用户，你可能想过能否在私聊中触发机器人；如果你是群主，你可能想过为什么机器人启动后不响应群聊。
 
@@ -10,8 +12,8 @@ sidebar_position: 1
 在群聊中使用 IdhagnBot，只能使用当前群聊里的命令，在私聊中使用 IdhagnBot，分这几种情况：
 
 * 一部分命令会自动检测你是否加了可以使用对应命令的群，只要加的群有至少一个能使用该命令，就会在帮助里显示，并且可以在私聊中使用。IdhagnBot 的通用插件中并不包含此类命令，但群主在编写 `user_plugins` 时可以加入此类命令。
-* 一部分命令需要你手动提供你所在的群号，只有提供了群号且对应群可以使用该命令时，命令才会在帮助里显示，并且才能在私聊中使用。如：[`/签到`](/docs/guide/plugins/sign)
-* 一部分命令可以直接使用，其中一部分命令如果手动提供了群号，在功能上会有所不同。如：[`/硬币`](/docs/guide/plugins/coin)（没有不同）、[`/rua`](/docs/guide/plugins/petpet_v2)（有细微不同）
+* 一部分命令需要你手动提供你所在的群号，只有提供了群号且对应群可以使用该命令时，命令才会在帮助里显示，并且才能在私聊中使用。如：<PlaceholderLink href="/docs/guide/plugins/sign">`/签到`</PlaceholderLink>
+* 一部分命令可以直接使用，其中一部分命令如果手动提供了群号，在功能上会有所不同。如：<PlaceholderLink href="/docs/guide/plugins/coin">`/硬币`</PlaceholderLink>（没有不同）、<PlaceholderLink href="/docs/guide/plugins/petpet_v2">`/rua`</PlaceholderLink>（有细微不同）
 
 提供群号的方式是在私聊中发送 `/ctx 群号`，除了群号也可以使用群主在配置中指定的别名，要查看当前群聊的可用别名，请在群聊中发送 `/alias`。
 

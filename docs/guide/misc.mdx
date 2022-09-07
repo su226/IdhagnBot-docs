@@ -1,11 +1,13 @@
 ---
 sidebar_position: 6
 ---
+import PlaceholderLink from "@site/src/components/PlaceholderLink";
+
 # 杂项
 一些杂项功能的说明和配置，用户通常不需要涉及这些，以下内容主要供群主和开发者查阅。
 
 ## 货币系统
-IdhagnBot 有一个简单的货币系统，目前只有 [purchase](/docs/guide/plugins/purchase) 和 [sign](/docs/guide/plugins/sign) 插件使用这个系统，不同群聊之间的货币是独立的。具体请参考 [API 文档](/docs/api/util.currency)。
+IdhagnBot 有一个简单的货币系统，目前只有 <PlaceholderLink href="/docs/guide/plugins/purchase">purchase</PlaceholderLink> 和 <PlaceholderLink href="/docs/guide/plugins/sign">sign</PlaceholderLink> 插件使用这个系统，不同群聊之间的货币是独立的。具体请参考 <PlaceholderLink href="/docs/api/util.currency">API 文档</PlaceholderLink>。
 
 状态文件在 `states/coin.yaml`，参考如下：
 
@@ -19,7 +21,7 @@ groups:
 ```
 
 ## 用户别名
-在使用 [`/rua`](/docs/guide/plugins/petpet_v2) 等命令时，需要指定一个用户，除了可以直接输入 QQ 号或者 @ 对方，IdhagnBot 还会将群员昵称和群名片中的空格和特殊符号去掉，用于查找群员。
+在使用 [`/人生重开`](/docs/guide/plugins/liferestart) 等命令时，需要指定一个用户，除了可以直接输入 QQ 号或者 @ 对方，IdhagnBot 还会将群员昵称和群名片中的空格和特殊符号去掉，用于查找群员。
 
 但当群员的昵称和群名片只包含特殊符号而不包含任何中文、英文、数字时，IdhagnBot 将不能通过名字找到他，此时你可以为他手动指定别名。
 
@@ -46,7 +48,7 @@ aliases:
 ### 开发示例
 通常你需要使用 `util.account_aliases.match_uid`，这个函数会在内部处理大部分细节，在出错时抛出 `util.util.AggregateError`，包含*相对*友好的错误信息，当一个名称既能精确匹配也能模糊匹配时，精确匹配优先。
 
-如果需要更底层的方法，你可以使用 `util.account_aliases.get_aliases` 和 `util.account_aliases.match`，参见 [API 文档](/docs/api/util.account_aliases)。
+如果需要更底层的方法，你可以使用 `util.account_aliases.get_aliases` 和 `util.account_aliases.match`，参见 <PlaceholderLink href="/docs/api/util.account_aliases">API 文档</PlaceholderLink>。
 
 ## 日志
 IdhagnBot 和 Nonebot2 一样，也使用 Loguru 作为日志库，但 IdhagnBot 覆盖了 Nonebot2 的默认格式。
@@ -68,11 +70,13 @@ stdio_as_log: true # 将 stdout 和 stderr 分别作为 INFO 和 ERROR 等级的
 开发示例请参见 [Loguru](https://github.com/Delgan/loguru)。
 
 ## 杂项方法
-[`util.util`](/docs/api/util.util) 包含一些实用但琐碎的方法。*这个命名也许应该改成 `util.misc` 的，我有点脑抽……*
+<!-- 这里的零宽字符是 MDX v1 的限制，参见: https://docusaurus.io/zh-CN/docs/markdown-features/react#markdown-and-jsx-interoperability -->
 
-[`util.color`](/docs/api/util.color) 包含一些解析颜色字符串和处理颜色的方法，解析颜色字符串时支持 3 位或 6 位十六进制、CSS 颜色名、`rgb(r, g, b)`、`hsl(h, s, l)`、Material Design 颜色名，不支持 Alpha 通道。
+&zwj;<PlaceholderLink href="/docs/api/util.util">`util.util`</PlaceholderLink> 包含一些实用但琐碎的方法。*这个命名也许应该改成 `util.misc` 的，我有点脑抽……*
 
-[`util.binomial`](/docs/api/util.binomial) 包含一个二项分布随机数生成器，从 NPM 模块 [@stdlib/random-base-binomial](https://github.com/stdlib-js/random-base-binomial/blob/main/lib/sample2.js) 移植过来，目的是让 coin 和 dice 不再依赖 NumPy。
+&zwj;<PlaceholderLink href="/docs/api/util.color">`util.color`</PlaceholderLink> 包含一些解析颜色字符串和处理颜色的方法，解析颜色字符串时支持 3 位或 6 位十六进制、CSS 颜色名、`rgb(r, g, b)`、`hsl(h, s, l)`、Material Design 颜色名，不支持 Alpha 通道。
+
+&zwj;<PlaceholderLink href="/docs/api/util.binomial">`util.binomial`</PlaceholderLink> 包含一个二项分布随机数生成器，从 NPM 模块 [@stdlib/random-base-binomial](https://github.com/stdlib-js/random-base-binomial/blob/main/lib/sample2.js) 移植过来，目的是让 coin 和 dice 不再依赖 NumPy。
 
 `config/util.yaml`
 ```yaml
@@ -102,12 +106,12 @@ IdhagnBot 使用 PangoCairo 来渲染文字，以提供 Emoji 等特殊符号的
 [配置文件见上](#杂项方法)
 
 ### 开发示例
-util.text 主要提供 layout、render 和 paste 三个函数，paste 会将文字粘贴到目标图像上（并返回渲染的图片），是最便捷的函数。如果需要更多的控制，render 返回 [PIL.Image.Image](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image)，layout 返回 [Pango.Layout](https://lazka.github.io/pgi-docs/Pango-1.0/classes/Layout.html)。具体请参考 [API 文档](/docs/api/util.text)。
+util.text 主要提供 layout、render 和 paste 三个函数，paste 会将文字粘贴到目标图像上（并返回渲染的图片），是最便捷的函数。如果需要更多的控制，render 返回 [PIL.Image.Image](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image)，layout 返回 [Pango.Layout](https://lazka.github.io/pgi-docs/Pango-1.0/classes/Layout.html)。具体请参考 <PlaceholderLink href="/docs/api/util.text">API 文档</PlaceholderLink>。
 
 ## 浏览器渲染
 IdhagnBot ~~由于作者的精神洁癖，~~偏向尽可能使用 Pillow、PyCairo、NumPy、OpenCV 等库生成图片而非调用浏览器，但以下功能由于极其复杂只能使用浏览器渲染：
 
-* [wikipedia](/docs/guide/plugins/wikipedia)
+* <PlaceholderLink href="/docs/guide/plugins/wikipedia">wikipedia</PlaceholderLink>
 
 [配置文件见上](#杂项方法)
 

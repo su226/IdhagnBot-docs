@@ -126,7 +126,7 @@ function HomepageMain(): JSX.Element {
         <div className={styles.usage}>
           <h3><Icon path={mdiAccountSupervisor} />我是群主</h3>
           <p>
-            你可以参考<Link to="/docs/intro">文档</Link>学习如何安装和配置 IdhagnBot。<br />
+            你可以参考<Link to="/docs/guide">文档</Link>学习如何安装和配置 IdhagnBot。<br />
             <del>如果和作者关系足够好的话，你也可以让作者托管在他自己的（并不是非常稳定的）电脑上。</del>
           </p>
         </div>
