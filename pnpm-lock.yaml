@@ -14,6 +14,7 @@ specifiers:
   '@tsconfig/docusaurus': ^1.0.5
   '@types/node': ^18.7.13
   '@types/react': ^18.0.18
+  '@types/react-dom': ^18.0.6
   clsx: ^1.2.1
   prism-react-renderer: ^1.3.5
   react: ^17.0.2
@@ -42,6 +43,7 @@ devDependencies:
   '@tsconfig/docusaurus': 1.0.6
   '@types/node': 18.7.13
   '@types/react': 18.0.18
+  '@types/react-dom': 18.0.6
   typescript: 4.8.2
 
 packages:
@@ -2991,6 +2993,12 @@ packages:
 
   /@types/range-parser/1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
+
+  /@types/react-dom/18.0.6:
+    resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
+    dependencies:
+      '@types/react': 18.0.18
+    dev: true
 
   /@types/react-router-config/5.0.6:
     resolution: {integrity: sha512-db1mx37a1EJDf1XeX8jJN7R3PZABmJQXR8r28yUjVMFSjkmnQo6X6pOEEmNl+Tp2gYQOGPdYbFIipBtdElZ3Yg==}

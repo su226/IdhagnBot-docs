@@ -1,0 +1,1277 @@
+---
+description: 头像梗图生成器
+---
+import CollapseGroup from "@site/src/components/CollapseGroup";
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# petpet_v2
+头像梗图生成器
+
+大部分梗图来自 [nonebot-plugin-petpet](https://github.com/noneplugin/nonebot-plugin-petpet)，`/卢浮宫`、`/做旧` 来自 [神奇海螺](https://lab.magiconch.com/)，还有少部分梗图为作者~~瞎~~整活。
+
+## 用户说明
+所有命令的帮助文档均位于子分类 `petpet_v2`，可以使用 [`/help petpet_v2`](/docs/guide/concepts/help) 查看，并且所有命令都使用类似于 UNIX Shell 的命令解析。支持**输入**动图的命令会在本页和 `/help` 中标注为 `[动]`（其余命令只会使用动图的第一帧）。**输出**动图的默认格式是 GIF，高级用户也可使用 APNG 或 WebP 格式，注意这两个格式在官方 QQ 客户端中可能不能正常显示，但在 [Icalingua++](https://github.com/Icalingua-plus-plus/Icalingua-plus-plus) 等第三方客户端是可以正常显示和保存的。
+
+在指定用户时你可以使用 QQ 号、用户名、直接 @ 对方、嵌入图片或指定图片链接，另外还有这 4 个特殊值：
+* `~` 代表你自己（不指定**来源**时默认是这个）
+* `0` 代表机器人（不指定**目标**时默认是这个）
+* `?` 代表回复的用户（你需要回复一条消息）
+* `-` 代表发送一张图片
+
+部分命令需要一个名字，在使用 QQ 号或 @ 时会自动获取群名片或昵称，而嵌入图片、指定图片链接和发送图片时**必须**用参数指定名字。（通常叫 `--name`）有的命令还可选指定性别，来决定用 `他`、`她` 还是 `它`，同样会从资料中获取，也可以用参数手动指定，但并**不必要**，因为默认会使用 `它`。（通常叫 `--gender`，并且除了 `male`「他」、`female`「她」、`unknown`「它」，还可以用 `animal`「牠」和 `god`「祂」~~，我承认这两个有我的恶趣味~~）
+
+### 示例
+*虽然大概没人对[我这种设定](https://su226.tk/2021/07/24/my-fursona/)感兴趣，但以防万一，以下示例我用的是另外两个小号。（是的，头像分别是[奈亚子](https://zh.moegirl.org.cn/奈亚子)和[克子](https://zh.moegirl.org.cn/克子)）*
+
+:::caution ~~别说我没警告过你~~
+流量党慎点
+:::
+下文包含大量（79张，每20张一组）预览，全部均已折叠，点开时才会加载。<br />
+~~有钱到可疑的兽人控~~土豪、WiFi 党或电脑党可以点蓝色按钮。
+
+<CollapseGroup title="1 - 20">
+<Example input="cxk @奈亚拉托提镨 -s @克图格铔" collapsed>
+
+![](/example/petpet_v2/cxk.png)
+</Example>
+<Example input="indihome @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/indihome.gif)
+</Example>
+<Example input="ori @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/ori.png)
+</Example>
+<Example input="petpet @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/petpet.gif)
+</Example>
+<Example input="protogen @奈亚拉托提镨" collapsed>
+
+~~千万不要扫这个二维码~~
+![](/example/petpet_v2/protogen.png)
+</Example>
+<Example input="windows @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/windows.png)
+</Example>
+<Example input="一样 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/alike.png)
+</Example>
+<Example input="不要靠近 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/away.png)
+</Example>
+<Example input="为什么at我 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/why_at_me.png)
+</Example>
+<Example input="交朋友 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/friend.png)
+</Example>
+<Example input="亲亲 @奈亚拉托提镨 -s @克图格铔" collapsed>
+
+![](/example/petpet_v2/kiss.gif)
+</Example>
+<Example input="像样的亲亲 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/decent_kiss.png)
+</Example>
+<Example input="像画 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/paint.png)
+</Example>
+<Example input="兑换劵 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/coupon.png)
+</Example>
+<Example input="关注 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/follow.png)
+</Example>
+<Example input="典中典 虽然我不知道说什么 但是这样看起来很典 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/dianzhongdian.png)
+</Example>
+<Example input="劈瓜 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/watermelon.png)
+</Example>
+<Example input="卢浮宫 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/louvre.png)
+</Example>
+<Example input="吃 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/eat.gif)
+</Example>
+<Example input="吸 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/suck.gif)
+</Example>
+</CollapseGroup>
+<CollapseGroup title="21 - 40">
+<Example input="唱片 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/disc.gif)
+</Example>
+<Example input="啃 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/bite.gif)
+</Example>
+<Example input="啾啾 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/jiujiu.gif)
+</Example>
+<Example input="国旗 @奈亚拉托提镨" collapsed>
+
+这个不敢发图，你们自己意会。
+</Example>
+<Example input="垃圾 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/trash.gif)
+</Example>
+<Example input="墙纸 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/wallpaper.png)
+</Example>
+<Example input="字符画 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/asciiart.png)
+</Example>
+<Example input="安全感 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/safe_sense.png)
+</Example>
+<Example input="完美 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/perfect.png)
+</Example>
+<Example input="小天使 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/angel.png)
+</Example>
+<Example input="小画家 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/painter.png)
+</Example>
+<Example input="平板 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/pad.png)
+</Example>
+<Example input="想 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/think.png)
+</Example>
+<Example input="截图 @奈亚拉托提镨 测试 -- @克图格铔 test" collapsed>
+
+![](/example/petpet_v2/message.screenshot.png)
+</Example>
+<Example input="打 @奈亚拉托提镨 -s @克图格铔" collapsed>
+
+![](/example/petpet_v2/slap.gif)
+</Example>
+<Example input="打工 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/work.png)
+</Example>
+<Example input="打拳 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/punch.gif)
+</Example>
+<Example input="扔 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/throw.png)
+</Example>
+<Example input="扔2 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/throw2.gif)
+</Example>
+<Example input="拍拍 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/pat.gif)
+</Example>
+</CollapseGroup>
+<CollapseGroup title="41 - 60">
+<Example input="捂脸 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/cover.png)
+</Example>
+<Example input="捣 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/pound.gif)
+</Example>
+<Example input="搓 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/rub.gif)
+</Example>
+<Example input="撕 @奈亚拉托提镨 -s @克图格铔" collapsed>
+
+![](/example/petpet_v2/rip.png)
+</Example>
+<Example input="敲 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/hit.gif)
+</Example>
+<Example input="敲头 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/knock.gif)
+</Example>
+<Example input="旺仔 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/wantwant.png)
+</Example>
+<Example input="永远喜欢 @奈亚拉托提镨 @克图格铔" collapsed>
+
+![](/example/petpet_v2/forever.png)
+</Example>
+<Example input="永远爱你 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/love.gif)
+</Example>
+<Example input="注意力涣散 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/distracted.png)
+</Example>
+<Example input="滚屏 @奈亚拉托提镨 测试 -- @克图格铔 test" collapsed>
+
+![](/example/petpet_v2/message.scroll.gif)
+</Example>
+<Example input="滚雪球 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/roll.gif)
+</Example>
+<Example input="爬 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/getout.png)
+</Example>
+<Example input="玩 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/play.gif)
+</Example>
+<Example input="电子包浆 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/patina.png)
+</Example>
+<Example input="电视 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/tv.gif)
+</Example>
+<Example input="笔记本 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/laptop.png)
+</Example>
+<Example input="精神支柱 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/support.png)
+</Example>
+<Example input="结婚 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/marry.png)
+</Example>
+<Example input="群青 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/blue.png)
+</Example>
+</CollapseGroup>
+<CollapseGroup title="61 - 79">
+<Example input="膜拜 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/worship.gif)
+</Example>
+<Example input="舔 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/prpr.png)
+</Example>
+<Example input="警察 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/police.png)
+</Example>
+<Example input="警部 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/police2.png)
+</Example>
+<Example input="讲课 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/teach.png)
+</Example>
+<Example input="诱拐 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/kidnap.png)
+</Example>
+<Example input="贴贴 @奈亚拉托提镨 -s @克图格铔" collapsed>
+
+![](/example/petpet_v2/intimate.gif)
+</Example>
+<Example input="趴 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/lying.gif)
+</Example>
+<Example input="转 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/spin.gif)
+</Example>
+<Example input="这是我的老婆 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/wife.png)
+</Example>
+<Example input="远离 @奈亚拉托提镨 @克图格铔" collapsed>
+
+![](/example/petpet_v2/away2.png)
+</Example>
+<Example input="采访 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/interview.gif)
+</Example>
+<Example input="锤 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/hammer.gif)
+</Example>
+<Example input="镜像 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/mirror.png)
+</Example>
+<Example input="问 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/ask.png)
+</Example>
+<Example input="阿尼亚 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/anya.png)
+</Example>
+<Example input="需要 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/need.png)
+</Example>
+<Example input="震惊 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/shock.gif)
+</Example>
+<Example input="鱼眼 @奈亚拉托提镨" collapsed>
+
+![](/example/petpet_v2/fisheye.gif)
+</Example>
+</CollapseGroup>
+
+### 文档
+虽然文档并不含图，但考虑到大段文字观感并不好，因此也折叠了，同样是每 20 个一组。
+
+<CollapseGroup title="1 - 20">
+<Command name={["cxk", "蔡徐坤", "篮球", "jntm", "鸡你太美"]} brief="制作蔡徐坤打篮球图" perm="petpet_v2.cxk" collapsed>
+
+usage: /cxk [-source 源] [目标]
+
+positional arguments:
+  目标         可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -source 源  同上
+
+</Command>
+<Command name={["indihome", "印尼宽带", "印尼", "宽带"]} brief="叮~" perm="petpet_v2.indihome" collapsed>
+
+usage: /indihome [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name={["ori", "拥抱光明", "奥日", "奥里"]} brief="该传火了" perm="petpet_v2.ori" collapsed>
+
+usage: /ori [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name={["petpet", "pet", "rua"]} brief="rua~" perm="petpet_v2.petpet" collapsed>
+
+usage: /petpet [-circle] [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -circle, -圆  让头像变圆
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="protogen" brief="愿者上钩" perm="petpet_v2.protogen" collapsed>
+
+usage: /protogen [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name={["windows", "win10"]} brief="much imporve so amaze wow" perm="petpet_v2.windows" collapsed>
+
+usage: /windows [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+简介那句来自Windoge 10（逃
+
+</Command>
+<Command name="一样" perm="petpet_v2.alike" collapsed>
+
+usage: /一样 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="不要靠近" perm="petpet_v2.away" collapsed>
+
+usage: /不要靠近 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="为什么at我" perm="petpet_v2.why_at_me" collapsed>
+
+usage: /为什么at我 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="交朋友" perm="petpet_v2.friend" collapsed>
+
+usage: /交朋友 [-name NAME] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -name NAME, -名字 NAME  自定义名字，对于图片链接必须指定，对于QQ用户默认使用昵称
+
+</Command>
+<Command name={["亲亲", "亲", "kiss"]} perm="petpet_v2.kiss" collapsed>
+
+usage: /亲亲 [-source 源] [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -source 源    同上
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="像样的亲亲" perm="petpet_v2.decent_kiss" collapsed>
+
+usage: /像样的亲亲 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="像画" perm="petpet_v2.paint" collapsed>
+
+usage: /像画 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="兑换劵" perm="petpet_v2.coupon" collapsed>
+
+usage: /兑换劵 [--text 文本] [目标]
+
+positional arguments:
+  目标                可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  --text 文本, -t 文本  自定义文本，默认为"xxx陪睡劵（永久有效）"
+
+</Command>
+<Command name="关注" perm="petpet_v2.follow" collapsed>
+
+usage: /关注 [-name NAME] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -name NAME, -名字 NAME  自定义名字，对于图片链接默认为"男同"，对于QQ用户默认使用昵称
+
+</Command>
+<Command name="典中典" perm="petpet_v2.dianzhongdian" collapsed>
+
+usage: /典中典 第一行 第一行 [目标]
+
+positional arguments:
+  第一行  第一行文本
+  第一行  第二行文本，英文或日文请自行翻译
+  目标   可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name={["劈瓜", "劈", "刘华强", "华强"]} brief="你他喵劈我瓜是吧" perm="petpet_v2.watermelon" collapsed>
+
+usage: /劈瓜 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="卢浮宫" brief="[动]" perm="petpet_v2.louvre" collapsed>
+
+usage: /卢浮宫 [--style {thin,normal,semibold,bold,black,emboss}] [--edge EDGE] [--shade SHADE] [--no-denoise]
+            [--webp | --png]
+            [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --style {thin,normal,semibold,bold,black,emboss}, -s {thin,normal,semibold,bold,black,emboss}
+                        线条风格，可用: thin (精细)、normal (一般)、semibold (稍粗)、bold (超粗)、black (极粗)、emboss (浮雕)，默认: normal
+  --edge EDGE, -e EDGE  边缘强度，为 [80, 126] 之间的整数，默认: 118
+  --shade SHADE, -a SHADE
+                        暗部强度，为 [20, 200] 之间的整数，默认: 108
+  --no-denoise, -d      不进行降噪
+  --webp, -w            使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p     使用APNG而非GIF格式（如果传入动图）
+
+特别感谢: https://lab.magiconch.com/one-last-image/
+
+</Command>
+<Command name="吃" perm="petpet_v2.eat" collapsed>
+
+usage: /吃 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="吸" perm="petpet_v2.suck" collapsed>
+
+usage: /吸 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+</CollapseGroup>
+<CollapseGroup title="21 - 40">
+<Command name="唱片" perm="petpet_v2.disc" collapsed>
+
+usage: /唱片 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  --webp, -w         使用WebP而非GIF格式
+  --png, --apng, -p  使用APNG而非GIF格式
+
+</Command>
+<Command name="啃" perm="petpet_v2.bite" collapsed>
+
+usage: /啃 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="啾啾" perm="petpet_v2.jiujiu" collapsed>
+
+usage: /啾啾 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="国旗" perm="petpet_v2.china" collapsed>
+
+usage: /国旗 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="垃圾" perm="petpet_v2.trash" collapsed>
+
+usage: /垃圾 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="墙纸" brief="[动]" perm="petpet_v2.wallpaper" collapsed>
+
+usage: /墙纸 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name="字符画" brief="[动]" perm="petpet_v2.asciiart" collapsed>
+
+usage: /字符画 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name="安全感" perm="petpet_v2.safe_sense" collapsed>
+
+usage: /安全感 [-gender GENDER] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -gender GENDER, -性别 GENDER
+                        自定义性别，对于图片链接默认为未知，对于QQ用户默认为资料性别，可以是"male"（他）、"female"（她）、"unknown"（它）、"animal"（牠）、"god"（祂）
+
+</Command>
+<Command name="完美" perm="petpet_v2.perfect" collapsed>
+
+usage: /完美 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name={["小天使", "angel"]} perm="petpet_v2.angel" collapsed>
+
+usage: /小天使 [-name NAME] [-gender GENDER] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -name NAME, -名字 NAME  自定义名字，对于图片链接必须指定，对于QQ用户默认使用昵称
+  -gender GENDER, -性别 GENDER
+                        自定义性别，对于图片链接默认为未知，对于QQ用户默认为资料性别，可以是"male"（他）、"female"（她）、"unknown"（它）、"animal"（牠）、"god"（祂）
+
+</Command>
+<Command name="小画家" perm="petpet_v2.painter" collapsed>
+
+usage: /小画家 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="平板" brief="[动]" perm="petpet_v2.pad" collapsed>
+
+usage: /平板 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name="想" brief="[动]" perm="petpet_v2.think" collapsed>
+
+usage: /想 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name="截图" perm="petpet_v2.message.screenshot" collapsed>
+
+usage: 截图 [--name 名字] [--repeat 次数] 用户 内容 [内容 ...]
+
+positional arguments:
+  用户                  可使用@、QQ号、昵称或群名片
+  内容                  可使用类似HTML的富文本；由于技术限制，消息带空格请使用引号包裹
+
+options:
+  --name 名字, -n 名字    自定义显示的名字
+  --repeat 次数, -r 次数  复读次数
+
+多条消息可使用--分割
+
+</Command>
+<Command name={["打", "打脸"]} perm="petpet_v2.slap" collapsed>
+
+usage: /打 [-source 源] [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -source 源    同上
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="打工" perm="petpet_v2.work" collapsed>
+
+usage: /打工 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="打拳" brief="现实中我唯唯诺诺，网络上我重拳出击" perm="petpet_v2.punch" collapsed>
+
+usage: /打拳 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="扔" perm="petpet_v2.throw" collapsed>
+
+usage: /扔 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="扔2" perm="petpet_v2.throw2" collapsed>
+
+usage: /扔2 [-rotate 角度] [-webp | -apng] [目标]
+
+positional arguments:
+  目标                  可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -rotate 角度, -旋转 角度  指定旋转角度而非随机
+  -webp               使用WebP而非GIF格式
+  -apng, -png         使用APNG而非GIF格式
+
+</Command>
+<Command name={["拍拍", "拍", "pat"]} perm="petpet_v2.pat" collapsed>
+
+usage: /拍拍 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+\~\~你TM拍我瓜是吧\~\~
+
+</Command>
+</CollapseGroup>
+<CollapseGroup title="41 - 60">
+<Command name="捂脸" perm="petpet_v2.cover" collapsed>
+
+usage: /捂脸 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="捣" perm="petpet_v2.pound" collapsed>
+
+usage: /捣 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="搓" perm="petpet_v2.rub" collapsed>
+
+usage: /搓 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="撕" perm="petpet_v2.rip" collapsed>
+
+usage: /撕 [-source 源] [目标]
+
+positional arguments:
+  目标         可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -source 源  也可使用"滑稽"或者"熊猫头"
+
+</Command>
+<Command name="敲" perm="petpet_v2.hit" collapsed>
+
+usage: /敲 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="敲头" perm="petpet_v2.knock" collapsed>
+
+usage: /敲头 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name={["旺仔", "旺旺"]} brief="李子明的最爱" perm="petpet_v2.wantwant" collapsed>
+
+usage: /旺仔 [-name NAME] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -name NAME, -名字 NAME  自定义名字，对于图片链接必须指定，对于QQ用户默认使用昵称
+
+</Command>
+<Command name="永远喜欢" perm="petpet_v2.forever" collapsed>
+
+usage: /永远喜欢 [-name NAME] [目标 ...]
+
+positional arguments:
+  目标          可使用@、QQ号、昵称、群名片或图片链接，最多7个
+
+options:
+  -name NAME
+
+</Command>
+<Command name="永远爱你" perm="petpet_v2.love" collapsed>
+
+usage: /永远爱你 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name={["注意力涣散", "distracted"]} perm="petpet_v2.distracted" collapsed>
+
+usage: /注意力涣散 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="滚屏" perm="petpet_v2.message.scroll" collapsed>
+
+usage: 截图 [--name 名字] [--repeat 次数] 用户 内容 [内容 ...]
+
+positional arguments:
+  用户                  可使用@、QQ号、昵称或群名片
+  内容                  可使用类似HTML的富文本；由于技术限制，消息带空格请使用引号包裹
+
+options:
+  --name 名字, -n 名字    自定义显示的名字
+  --repeat 次数, -r 次数  复读次数
+
+多条消息可使用--分割
+
+</Command>
+<Command name="滚雪球" perm="petpet_v2.roll" collapsed>
+
+usage: /滚雪球 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="爬" perm="petpet_v2.getout" collapsed>
+
+usage: /爬 [-template 编号] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -template 编号, -模板 编号  使用指定表情包而非随机，编号是[0, 91]之间的整数
+
+</Command>
+<Command name={["玩", "顶", "play"]} perm="petpet_v2.play" collapsed>
+
+usage: /玩 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name={["电子包浆", "赛博包浆", "电子做旧", "赛博做旧", "包浆", "做旧"]} brief="[动]" perm="petpet_v2.patina" collapsed>
+
+usage: /电子包浆 [--yuv-loss {none,green,purple}] [--repeat REPEAT] [--blur BLUR] [--quality QUALITY] [--noise NOISE]
+             [--no-member-name] [--watermark WATERMARK] [--offset OFFSET] [--webp | --png]
+             [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --yuv-loss {none,green,purple}, -y {none,green,purple}
+                        YUV精度损失，可用: none (无)、green (发绿)、purple (发紫)，默认: green
+  --repeat REPEAT, -r REPEAT
+                        做旧次数，为 [1, 20] 之间的整数，默认: 12
+  --blur BLUR, -b BLUR  模糊强度，为 [0, 100] 之间的小数，默认: 0
+  --quality QUALITY, -q QUALITY
+                        JPEG压缩质量，为[0, 101] 之间的整数，101为不压缩，默认: 60
+  --noise NOISE, -n NOISE
+                        噪点强度，为[0, 127] 之间的整数，默认: 0
+  --no-member-name, -m  不使用群员的名字作为水印
+  --watermark WATERMARK, -a WATERMARK
+                        自定义水印，可以指定多次，你可能需要配合 --no-member-name 使用
+  --offset OFFSET, -o OFFSET
+                        随机偏移，默认: 0.5
+  --webp, -w            使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p     使用APNG而非GIF格式（如果传入动图）
+
+特别感谢: https://magiconch.com/patina/
+
+</Command>
+<Command name="电视" perm="petpet_v2.tv" collapsed>
+
+usage: /电视 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name={["笔记本", "玩游戏"]} brief="[动]" perm="petpet_v2.laptop" collapsed>
+
+usage: /笔记本 [--text 内容] [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --text 内容, -t 内容   自定义内容，默认为"来玩休闲游戏啊"
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name="精神支柱" perm="petpet_v2.support" collapsed>
+
+usage: /精神支柱 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="结婚" perm="petpet_v2.marry" collapsed>
+
+usage: /结婚 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="群青" perm="petpet_v2.blue" collapsed>
+
+usage: /群青 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+</CollapseGroup>
+<CollapseGroup title="61 - 79">
+<Command name="膜拜" perm="petpet_v2.worship" collapsed>
+
+usage: /膜拜 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name={["舔", "舔屏", "prpr"]} brief="[动]少舔屏，小心屏幕进水" perm="petpet_v2.prpr" collapsed>
+
+usage: /舔 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name={["警察", "police"]} brief="低调使用小心进局子" perm="petpet_v2.police" collapsed>
+
+usage: /警察 [-name NAME] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -name NAME, -名字 NAME  自定义名字，对于图片链接必须指定，对于QQ用户默认使用昵称
+
+</Command>
+<Command name="警部" perm="petpet_v2.police2" collapsed>
+
+usage: /警部 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="讲课" brief="[动]" perm="petpet_v2.teach" collapsed>
+
+usage: /讲课 [--text 内容] [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  --text 内容, -t 内容   自定义内容，默认为空
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name="诱拐" perm="petpet_v2.kidnap" collapsed>
+
+usage: /诱拐 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="贴贴" perm="petpet_v2.intimate" collapsed>
+
+usage: /贴贴 [-source 源] [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -source 源    同上
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="趴" perm="petpet_v2.lying" collapsed>
+
+usage: /趴 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="转" perm="petpet_v2.spin" collapsed>
+
+usage: /转 [-duration 毫秒数] [-original] [-ccw | -acw] [-webp | -apng] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -duration 毫秒数, -时长 毫秒数
+                        [1, 200]之间的整数，默认为50
+  -original, -原图        使用原图，可能出现文件过大发送失败
+  -ccw, -顺时针            始终使用顺时针而非随机
+  -acw, -逆时针            始终使用逆时针而非随机
+  -webp                 使用WebP而非GIF格式
+  -apng, -png           使用APNG而非GIF格式
+
+</Command>
+<Command name={["这是我的老婆", "老婆"]} perm="petpet_v2.wife" collapsed>
+
+usage: /这是我的老婆 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="远离" perm="petpet_v2.away2" collapsed>
+
+usage: /远离 [-t TEXT] [目标 ...]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接，最多8个
+
+options:
+  -t TEXT, --text TEXT  自定义文本
+
+</Command>
+<Command name="采访" perm="petpet_v2.interview" collapsed>
+
+usage: /采访 [-source 源] [-text TEXT] [-webp | -apng] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -source 源             也可使用"滑稽"
+  -text TEXT, -文本 TEXT  默认为"采访大佬经验"
+  -webp                 使用WebP而非GIF格式
+  -apng, -png           使用APNG而非GIF格式
+
+</Command>
+<Command name="锤" perm="petpet_v2.hammer" collapsed>
+
+usage: /锤 [-webp | -apng] [目标]
+
+positional arguments:
+  目标           可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -webp        使用WebP而非GIF格式
+  -apng, -png  使用APNG而非GIF格式
+
+</Command>
+<Command name="镜像" perm="petpet_v2.mirror" collapsed>
+
+usage: /镜像 [--direction {top,bottom,left,right,t,b,l,r}] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  --direction {top,bottom,left,right,t,b,l,r}, -d {top,bottom,left,right,t,b,l,r}
+                        镜像方向
+
+</Command>
+<Command name={["问", "问问"]} perm="petpet_v2.ask" collapsed>
+
+usage: /问 [-name NAME] [-gender GENDER] [目标]
+
+positional arguments:
+  目标                    可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  -name NAME, -名字 NAME  自定义名字，对于图片链接必须指定，对于QQ用户默认使用昵称
+  -gender GENDER, -性别 GENDER
+                        自定义性别，对于图片链接默认为未知，对于QQ用户默认为资料性别，可以是"male"（他）、"female"（她）、"unknown"（它）、"animal"（牠）、"god"（祂）
+
+</Command>
+<Command name={["阿尼亚", "阿尼亚喜欢"]} brief="[动]" perm="petpet_v2.anya" collapsed>
+
+usage: /阿尼亚 [-text 内容] [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接（可传入动图）
+
+options:
+  -text 内容, -文本 内容   自定义内容，默认为"阿尼亚喜欢这个"
+  --webp, -w         使用WebP而非GIF格式（如果传入动图）
+  --png, --apng, -p  使用APNG而非GIF格式（如果传入动图）
+
+</Command>
+<Command name="需要" perm="petpet_v2.need" collapsed>
+
+usage: /需要 [目标]
+
+positional arguments:
+  目标  可使用@、QQ号、昵称、群名片或图片链接
+
+</Command>
+<Command name="震惊" perm="petpet_v2.shock" collapsed>
+
+usage: /震惊 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  --webp, -w         使用WebP而非GIF格式
+  --png, --apng, -p  使用APNG而非GIF格式
+
+</Command>
+<Command name="鱼眼" perm="petpet_v2.fisheye" collapsed>
+
+usage: /鱼眼 [--webp | --png] [目标]
+
+positional arguments:
+  目标                 可使用@、QQ号、昵称、群名片或图片链接
+
+options:
+  --webp, -w         使用WebP而非GIF格式
+  --png, --apng, -p  使用APNG而非GIF格式
+
+</Command>
+</CollapseGroup>
+
+## 搭建说明
+`petpet_v2` 并没有特别的配置，但这些命令需要 numpy 和 opencv，使用 `pdm install -G opencv` 来安装它们。
+* `/鱼眼`
+* `/卢浮宫`
+* `/包浆`
+* `/震惊`
+
+你可能还需要查看 [用户别名](/docs/guide/misc#用户别名)、[字体渲染](/docs/guide/misc#字体渲染) 和 [图片采样](/docs/guide/misc#图片采样)

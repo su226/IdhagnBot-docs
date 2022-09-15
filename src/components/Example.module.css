@@ -4,30 +4,54 @@
   margin-bottom: var(--ifm-leading);
 }
 
-.example :global .card__header {
-  padding: .5rem var(--ifm-card-horizontal-spacing);
-  padding-right: 0;
+.exampleHeader {
+  display: flex;
+}
+
+.exampleHeader :global .card__header {
+  padding: .5rem 0;
   font-family: var(--ifm-font-family-monospace);
   flex-grow: 1;
   white-space: pre-wrap;
 }
 
-.example :global .card__header::before {
-  content: ">>> ";
-  opacity: .56;
+.exampleHeader :global .card__header:first-child {
+  padding-left: var(--ifm-card-horizontal-spacing);
 }
 
-.exampleHeader {
-  display: flex;
+.exampleHeader :global .card__header:last-child {
+  padding-right: var(--ifm-card-horizontal-spacing);
 }
 
-.exampleToggle {
+.exampleButton {
   padding: 0 var(--ifm-card-horizontal-spacing);
   display: flex;
   align-items: center;
+  transition-property: background-color;
+  transition-duration: var(--ifm-button-transition-duration);
+  transition-timing-function: var(--ifm-transition-timing-default);
+  cursor: pointer;
 }
 
-.exampleToggle svg {
+.exampleButton:hover,
+.exampleButton:focus {
+  background-color: var(--ifm-color-secondary);
+}
+
+.exampleButton:active {
+  background-color: var(--ifm-color-secondary-dark);
+}
+
+[data-theme=dark] .exampleButton:hover,
+[data-theme=dark] .exampleButton:focus {
+  background-color: var(--ifm-color-gray-800);
+}
+
+[data-theme=dark] .exampleButton:active {
+  background-color: var(--ifm-color-gray-700);
+}
+
+.exampleButton svg {
   width: 24px;
   opacity: .56;
 }
@@ -36,8 +60,13 @@
   font-family: var(--ifm-font-family-monospace);
   white-space: pre-wrap;
   background-color: var(--ifm-code-background);
+  padding-bottom: var(--ifm-card-vertical-spacing);
 }
 
 .example blockquote p::before {
   content: ">>> ";
+}
+
+.example :global .card__footer {
+  padding: .5rem var(--ifm-card-horizontal-spacing);
 }

@@ -1,8 +1,6 @@
 ---
 sidebar_position: 4
 ---
-import PlaceholderLink from "@site/src/components/PlaceholderLink";
-
 # 帮助文档
 IdhagnBot 会为命令自动生成帮助，你也可以编写自定义的帮助项。
 
@@ -43,7 +41,7 @@ IdhagnBot 会为命令自动生成帮助，你也可以编写自定义的帮助�
 该命令有以下别名：状态、state、运行时间、uptime
 ```
 
-部分命令，如 <PlaceholderLink href="/docs/guide/plugins/petpet_v2">`/rua`</PlaceholderLink>，采用类似于 UNIX shell 的命令解析（参见 Python 标准库：[argparse](https://docs.python.org/zh-cn/3/library/argparse.html) 和 [shlex](https://docs.python.org/zh-cn/3/library/shlex.html)），为了和其他不使用 shell 解析的命令统一，输入 `/rua -h` 或者 `/rua --help` 查看帮助的方法已被禁用。
+部分命令，如 [`/rua`](/docs/guide/plugins/petpet_v2)，采用类似于 UNIX shell 的命令解析（参见 Python 标准库：[argparse](https://docs.python.org/zh-cn/3/library/argparse.html) 和 [shlex](https://docs.python.org/zh-cn/3/library/shlex.html)），为了和其他不使用 shell 解析的命令统一，输入 `/rua -h` 或者 `/rua --help` 查看帮助的方法已被禁用。
 
 ## 搭建说明
 命令帮助会被自动创建，如果需要完整的列表，同样可以运行 `pdm start --export-html <HTML文件名>` 来导出。

@@ -1,31 +1,70 @@
 ---
 description: 文字梗图生成器
 ---
+import CollapseGroup from "@site/src/components/CollapseGroup";
 import Command from "@site/src/components/Command";
-import Example, {ExampleGroup} from "@site/src/components/Example";
+import Example from "@site/src/components/Example";
 
 # meme_text
 文字梗图生成器
 
+部分梗图来自 [nonebot-plugin-memes](https://github.com/noneplugin/nonebot-plugin-memes) 和 [nonebot-plugin-logo](https://github.com/noneplugin/nonebot-plugin-logo)，`/orly` 来自 [nanmu42/orly](https://github.com/nanmu42/orly)。
+
 ## 用户说明
-下文包含大量预览，全部均已折叠，点开时才会加载，流量党慎点。<br />
+### 示例
+:::caution ~~别说我没警告过你~~
+流量党慎点
+:::
+下文包含大量（9张）预览，全部均已折叠，点开时才会加载。<br />
 ~~有钱到可疑的兽人控~~土豪、WiFi 党或电脑党可以点这里：
 
-<ExampleGroup>
+<CollapseGroup>
+<Example input="lolcat 非常好视频，英雄联盟，爱来自瓷器❤️" collapsed>
 
-<Command name="lolcat" brief="彩虹和独角兽！" perm="meme_text.lolcat">
+![](/example/meme_text/lolcat.png)
+</Example>
+<Example input="orly QQ机器人 从入门到入土" collapsed>
+
+![](/example/meme_text/orly.png)
+</Example>
+<Example input="p站 Git hub" collapsed>
+
+![](/example/meme_text/ph.png)
+</Example>
+<Example input="喜报 草" collapsed>
+
+![](/example/meme_text/goodnews.png)
+</Example>
+<Example input="成瘾前后 ArchLinux" collapsed>
+
+![](/example/meme_text/addict.png)
+</Example>
+<Example input="抖音 记录每种生物" collapsed>
+
+![](/example/meme_text/tiktok.png)
+</Example>
+<Example input="油管 Bili Bili" collapsed>
+
+![](/example/meme_text/youtube.png)
+</Example>
+<Example input="诺基亚 无内鬼来点涩图" collapsed>
+
+![](/example/meme_text/nokia.png)
+</Example>
+<Example input="谷歌 Microsoft" collapsed>
+
+![](/example/meme_text/google.png)
+</Example>
+</CollapseGroup>
+
+### 文档
+<CollapseGroup>
+<Command name="lolcat" brief="彩虹和独角兽！" perm="meme_text.lolcat" collapsed>
 
 /lolcat &lt;文本&gt;
 灵感来自github.com/busyloop/lolcat
-
 </Command>
-<Example input="lolcat 非常好视频，英雄联盟，爱来自瓷器❤️" collapsed>
-
-![](/img/example_meme_text/lolcat.png)
-
-</Example>
-
-<Command name={["orly", "动物书"]} brief="学计算机的应该不陌生" perm="meme_text.orly">
+<Command name={["orly", "动物书"]} brief="学计算机的应该不陌生" perm="meme_text.orly" collapsed>
 
 usage: /orly [-header HEADER] [-subtitle SUBTITLE] [-position {左上,左下,右上,右下,lt,lb,rt,rb}] [-author AUTHOR]
              [-color COLOR] [-image IMAGE] [-no-grayscale]
@@ -44,88 +83,38 @@ options:
   -color COLOR          颜色，0-16为内置颜色，也可是颜色代码，默认为内置颜色中随机
   -image IMAGE          图片，0-41为内置图片，也可是链接，默认为内置图片中随机
   -no-grayscale         不对下载的图片去色
-
 </Command>
-<Example input="orly QQ机器人 从入门到入土" collapsed>
-
-![](/img/example_meme_text/orly.png)
-
-</Example>
-
-<Command name={["p站", "ph"]} brief="生成你懂得的logo" perm="meme_text.pornhub">
+<Command name={["p站", "ph"]} brief="生成你懂得的logo" perm="meme_text.pornhub" collapsed>
 /p站 &lt;左侧文本&gt; &lt;右侧文本&gt;
 </Command>
-<Example input="p站 Git hub" collapsed>
-
-![](/img/example_meme_text/ph.png)
-
-</Example>
-
-<Command name="喜报" brief="NullPointerException" perm="meme_text.goodnews">
+<Command name="喜报" brief="NullPointerException" perm="meme_text.goodnews" collapsed>
 /喜报 &lt;文本&gt;
 </Command>
-<Example input="喜报 草" collapsed>
-
-![](/img/example_meme_text/goodnews.png)
-
-</Example>
-
-<Command name={["成瘾前后", "成瘾"]} brief="会露出笑容" perm="meme_text.addict">
+<Command name={["成瘾前后", "成瘾"]} brief="会露出笑容" perm="meme_text.addict" collapsed>
 /成瘾 &lt;文本&gt;
 </Command>
-<Example input="成瘾前后 ArchLinux" collapsed>
-
-![](/img/example_meme_text/addict.png)
-
-</Example>
-
-<Command name={["抖音", "tiktok"]} brief="记录每种生物" perm="meme_text.tiktok">
+<Command name={["抖音", "tiktok"]} brief="记录每种生物" perm="meme_text.tiktok" collapsed>
 /抖音 &lt;文本&gt;
 </Command>
-<Example input="抖音 记录每种生物" collapsed>
-
-![](/img/example_meme_text/tiktok.png)
-
-</Example>
-
-<Command name={["油管", "yt", "youtube"]} brief="生成油管logo" perm="meme_text.youtube">
+<Command name={["油管", "yt", "youtube"]} brief="生成油管logo" perm="meme_text.youtube" collapsed>
 /油管 &lt;左侧文本&gt; &lt;右侧文本&gt;
 </Command>
-<Example input="油管 Bili Bili" collapsed>
-
-![](/img/example_meme_text/youtube.png)
-
-</Example>
-
-<Command name={["诺基亚", "nokia", "无内鬼"]} brief="生成诺基亚无内鬼梗图" perm="meme_text.nokia">
+<Command name={["诺基亚", "nokia", "无内鬼"]} brief="生成诺基亚无内鬼梗图" perm="meme_text.nokia" collapsed>
 
 /诺基亚 &lt;文本&gt;
 自动换行，文本不能超过 7 行
-
 </Command>
-<Example input="诺基亚 无内鬼来点涩图" collapsed>
-
-![](/img/example_meme_text/nokia.png)
-
-</Example>
-
-<Command name={["谷歌", "google"]} brief="G,O,O,G,L,E,咕噜咕噜" perm="meme_text.google">
+<Command name={["谷歌", "google"]} brief="G,O,O,G,L,E,咕噜咕噜" perm="meme_text.google" collapsed>
 /谷歌 &lt;文本&gt;
 </Command>
-<Example input="谷歌 Microsoft" collapsed>
-
-![](/img/example_meme_text/google.png)
-
-</Example>
-
-</ExampleGroup>
+</CollapseGroup>
 
 ### 关于诺基亚
 由于 Nonebot2 会忽略命令名之后第一个字前的所有空格和空行，如果你需要诺基亚的开头是空格或空行，你可以在诺基亚后面加一个 `.` 点号。
 
 <Example input="诺基亚.   ←这里有几个空格" collapsed>
 
-![](/img/example_meme_text/nokia_whitespace.png)
+![](/example/meme_text/nokia_whitespace.png)
 
 </Example>
 

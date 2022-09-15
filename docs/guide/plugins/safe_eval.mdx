@@ -1,0 +1,120 @@
+---
+description: （可能不）安全地运行 Python 和 NodeJS 代码
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# safe_eval
+（可能不）安全地运行 Python 和 NodeJS 代码
+
+:::caution
+代码均在本地使用 [bubblewrap](https://github.com/containers/bubblewrap) 沙箱运行，虽然有一定的措施，但不排除有未发现的**安全隐患**，请自行斟酌是否[禁用此命令](#禁用命令)。
+
+同时提醒用户，IdhagnBot只是一只小猫咪，别整天想着对他做奇怪的事情。<small>（这话说出来不太对劲的）</small>
+:::
+
+## 用户说明
+发送 `/python <代码>` 或者 `/javascript <代码>` 即可运行代码，代码可以换行。
+
+运行有一定的时间、内存、输出和进程数限制，并且不接受标准输入。
+
+<Command name="python" brief="在沙箱中运行Python代码" perm="safe_eval.python">
+
+/python &lt;代码&gt;
+代码可以换行，不会自动输出最后的结果
+限制：
+不能访问沙箱外文件
+只能使用Python标准库
+进程限制为 128 个
+时间限制为 10 秒
+内存限制为 128.0 M
+输出限制为 1024 字节
+
+</Command>
+<Example input={"python print(\"Hello, World!\")"}>
+
+退出代码：0
+标准输出：
+Hello, World!
+标准错误：（空）
+
+</Example>
+<Example input={"python\nimport os\nwhile True:\n  os.fork()"}>
+
+退出代码：1
+标准输出：（空）
+标准错误：（末尾没有换行）
+BlockingIOError: [Errno 11] Resource temporarily unavailable
+*（部分内容省略）*
+
+</Example>
+<Example input={"python\nimport time\ntime.sleep(100)"}>
+
+退出代码：-9（超时）
+标准输出：（空）
+标准错误：（空）
+
+</Example>
+<Example input={"python\nimport random\na = bytearray()\nwhile True:\n  a.extend(random.randbytes(1048576))"}>
+
+退出代码：1
+标准输出：（空）
+标准错误：
+Traceback (most recent call last):
+&nbsp;&nbsp;File "//do_eval.py", line 8, in &lt;module&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;exec(data["code"], {}, {})
+&nbsp;&nbsp;File "&lt;string&gt;", line 4, in &lt;module&gt;
+MemoryError
+
+</Example>
+
+<Command name={["javascript", "js", "node"]} brief="在沙箱中运行NodeJS代码" perm="safe_eval.javascript">
+
+/node &lt;代码&gt;
+代码可以换行，不会自动输出最后的结果
+限制：
+不能访问沙箱外文件
+只能使用Node标准库
+进程限制为 128 个
+时间限制为 10 秒
+内存限制为 512.0 M
+输出限制为 1024 字节
+该命令有以下别名：js、node
+
+</Command>
+<Example input={"javascript console.log(\"Hello, World!\");"}>
+
+退出代码：0
+标准输出：
+Hello, World!
+标准错误：（空）
+
+</Example>
+
+## 搭建说明
+safe_eval 需要安装 bubblewrap，执行 JavaScript 还需要安装 node 和 npm。
+
+```shell
+pacman -S bubblewrap nodejs npm
+```
+
+这个模块使用 bubblewrap 来创建沙箱，并使用 rlimit 来限制进程数和内存，因此只支持 Linux。对于 Python 会使用标准库 [resources](https://docs.python.org/3/library/resource.html)，对于 NodeJS，在首次启动时会调用 `npm i posix` 来安装 [posix](https://www.npmjs.com/package/posix) 库。
+
+### 禁用命令
+如[插件总览](/docs/guide/plugin-overview)中所说，目前 IdhagnBot 没有提供阻止插件加载的办法，但你可以禁用所有人的 `safe_eval` 权限，或将 `safe_eval.python` 和 `safe_eval.python` 均设置为只允许超管执行。
+
+为了保险起见，也可以直接删掉 `plugins/safe_eval` 目录，所有公共代码都已抽离到 util 模块中，插件之间均没有依赖，可以放心删除。
+
+`states/permissions/群号.yaml` 或 `states/permission_override.yaml`
+```yaml
+roles: # 禁用权限节点
+  default:
+    entries:
+    - node: safe_eval # 还记得权限是树形的吗？
+      value: false
+commands: # 或者覆盖权限等级（可以二选一）
+  safe_eval.python: # 这里必须两个都写
+    level: super
+  safe_eval.javascript:
+    level: super
+```

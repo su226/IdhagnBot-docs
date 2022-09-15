@@ -1,0 +1,37 @@
+---
+description: 简易 Minecraft 服务器 Ping
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# minecraft
+简易 Minecraft 服务器 Ping
+
+## 用户说明
+如果群主设置了服务器地址，发送 `/minecraft` 就能看到服务器的状态和地址。
+
+如果服务器连接失败，你无需操心，IdhagnBot 会自动向超管发送反馈。
+
+<Command name={["minecraft", "mc"]} brief="查询Minecraft服务器的状态" perm="minecraft">
+如有异常会自动发送反馈
+</Command>
+<Example input="minecraft">
+
+A Minecraft Server
+版本：1.18.2
+1/10名玩家：su226
+地址：
+127.0.0.1 0ms
+
+</Example>
+
+## 搭建说明
+你需要编辑 `configs/minecraft.yaml` 指定服务器的地址，没有指定地址时，命令不能使用，对应的帮助条目也会隐藏。
+
+本插件只提供了简单的 Ping 功能，可以在不安装 Minecraft 插件或 Mod 的情况下查看服务器基本信息，如需要更复杂的功能，请参考 [Bot Connect](https://www.mcmod.cn/class/4903.html) 等 Minecraft 插件或 Mod。
+
+```yaml
+stat_address: 127.0.0.1 # 确认服务器是否运行和获取服务器信息（MOTD、图标和玩家数）的地址，必须指定
+ping_addresses: # Ping 的地址，可指定多个或不指定
+- 127.0.0.1
+```

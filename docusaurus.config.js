@@ -12,7 +12,7 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/logo.png",
+  favicon: "logo.png",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -36,7 +36,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/su226/IdhagnBot-docs",
+          editUrl: "https://github.com/su226/IdhagnBot-docs/edit/main",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -52,7 +52,7 @@ const config = {
         title: "IdhagnBot",
         logo: {
           alt: "IdhagnBot Logo",
-          src: "img/logo.png",
+          src: "logo.png",
         },
         items: [
           {
