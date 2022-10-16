@@ -2,7 +2,7 @@
 获取随机毛图
 
 ## 参数
-除[鉴权参数](/docs/misc/furbot/index#鉴权)外，无额外参数。
+除[鉴权参数](/docs/misc/furbot/#鉴权)外，无额外参数。
 
 ## 示例请求
 ```url
