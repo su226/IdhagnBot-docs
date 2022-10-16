@@ -1,27 +1,27 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@docusaurus/core': ^2.1.0
-  '@docusaurus/module-type-aliases': ^2.1.0
-  '@docusaurus/preset-classic': ^2.1.0
-  '@docusaurus/theme-classic': ^2.1.0
+  '@docusaurus/core': ^2.0.1
+  '@docusaurus/module-type-aliases': ^2.0.1
+  '@docusaurus/preset-classic': ^2.0.1
+  '@docusaurus/theme-classic': ^2.0.1
   '@docusaurus/theme-common': ^2.1.0
-  '@docusaurus/types': ^2.1.0
+  '@docusaurus/types': ^2.0.1
   '@easyops-cn/docusaurus-search-local': ^0.32.0
   '@mdi/js': ^7.0.96
   '@mdi/react': ^1.6.1
   '@mdx-js/react': ^1.6.22
   '@popperjs/core': ^2.11.6
-  '@tsconfig/docusaurus': ^1.0.6
-  '@types/node': ^18.11.0
-  '@types/react': ^18.0.21
+  '@tsconfig/docusaurus': ^1.0.5
+  '@types/node': ^18.7.13
+  '@types/react': ^18.0.18
   '@types/react-dom': ^18.0.6
   clsx: ^1.2.1
   prism-react-renderer: ^1.3.5
   react: ^17.0.2
   react-dom: ^17.0.2
   react-popper: ^2.3.0
-  typescript: ^4.8.4
+  typescript: ^4.7.4
 
 dependencies:
   '@docusaurus/core': 2.1.0_7m5eh2dwh23ac3j7pgn7aquvay
@@ -581,7 +581,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.12.9
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.19.0
       '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.12.9
       '@babel/plugin-transform-parameters': 7.18.8_@babel+core@7.12.9
 
@@ -2827,7 +2827,6 @@ packages:
 
   /@types/express-serve-static-core/4.17.31:
     resolution: {integrity: sha512-DxMhY+NAsTwMMFHBTtJFNp5qiHKJ7TeqOo23zVEM9alT1Ml27Q3xcTH0xwxn7Q0BbMcVEJOs/7aQtUWupUQN3Q==}
-    deprecated: '[WARNING] Use 4.17.30 instead of 4.17.31, reason: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/62240/files'
     dependencies:
       '@types/node': 18.11.0
       '@types/qs': 6.9.7
