@@ -45,6 +45,10 @@ const config = {
     ],
   ],
 
+  themes: [
+    require.resolve("@easyops-cn/docusaurus-search-local")
+  ],
+
   themeConfig:
     /** @type {import("@docusaurus/preset-classic").ThemeConfig} */
     ({
@@ -64,6 +68,11 @@ const config = {
             label: "API",
             type: "docSidebar",
             sidebarId: "api",
+          },
+          {
+            label: "杂项",
+            type: "docSidebar",
+            sidebarId: "misc",
           },
           {
             href: "https://su226.tk/",

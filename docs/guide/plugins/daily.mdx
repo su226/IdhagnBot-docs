@@ -3,6 +3,7 @@ description: 意义不是很大的每日推送
 ---
 import Command from "@site/src/components/Command";
 import Example from "@site/src/components/Example";
+import PlaceholderLink from "@site/src/components/PlaceholderLink";
 
 # daily
 意义不是很大的每日推送
@@ -12,17 +13,57 @@ import Example from "@site/src/components/Example";
 
 <Example input="今天" collapsed>
 
-大家好，今天是2022年9月5日，也是：
-su226想要无偿的第14天
-距su226的生日还剩126天
-还可以试试发送 /历史 看看历史上的今天
-今天的「摸鱼日历」是：
-![](/example/moyu.png)
-再用「60秒」看看世界：
-![](/example/60s.png)
-最后送上「每日一句」：
-![](/example/sentence.jpg)
-你可以发送 /摸鱼、/60s 或者 /一句 重新查看上面的内容，也可以发送 /今天 再次看到以上全部
+七点几勒，起床先啦！各位兽受们早上好
+<details open>
+<summary>合并转发</summary>
+
+昨天最能水的成员：
+🥇 su226 - 5 条
+
+---
+
+![绒狸每日鉴毛](/example/furbot/daily.jpg)
+
+---
+
+今天是：
+距su226的生日还剩85天
+
+---
+
+今天是10月16日，历史上的今天是：
+1553 - 德国画家老卢卡斯·克拉纳赫逝世
+1642 - 明朝崇祯皇帝的妃子田秀英去世
+1758 - 美国辞典编纂者诺亚·韦伯斯特出生
+1793 - 法国国王路易十六的王后玛丽·安托瓦内特逝世
+1806 - 俄土战争再起
+1813 - 莱比锡会战爆发
+1841 - 日本首相伊藤博文出生
+1846 - 人类首次公开使用乙醚止痛
+1854 - 德国社会主义活动家卡尔·考茨基出生
+1854 - 英国作家王尔德诞辰
+1913 - 中国物理学家、“两弹一星”元勋钱三强出生
+1943 - 日本大正天皇的生母柳原爱子去世
+1945 - 联合国粮食及农业组织成立
+1949 - 中国与蒙古国建交
+1959 - 美国前国务卿马歇尔逝世
+
+---
+
+![](/example/daily/moyu.png)
+你可以发送 /摸鱼 再次查看
+
+---
+
+![](/example/daily/60s.png)
+你可以发送 /60秒 再次查看
+
+---
+
+![](/example/daily/sentence.png)
+你可以发送 /一句 再次查看
+
+</details>
 
 </Example>
 
@@ -46,50 +87,74 @@ su226想要无偿的第14天
 
 <Example input="历史" collapsed>
 
-今天是2022年9月5日，历史上的今天是：
-917: 刘龚称帝，建立南汉
-1567: 日本战国时代大名伊达政宗出生
-1839: 第一次鸦片战争，英国对中国宣战
-1885: 晚清政治家左宗棠逝世
-1901: 美国总统威廉·麦金莱逝世
-1906: 热力学奠基人路德维希·玻尔兹曼逝世
-1914: 马恩河会战开始
-1926: 英军炮舰炮击万县，史称“万县惨案”
-1937: 最大一次纳粹集会在纽伦堡举行
-1967: 日本漫画家久米田康治出生
-1971: 中国画家潘天寿逝世
-1972: 慕尼黑奥运会发生慕尼黑惨案
-1997: 诺贝尔和平奖获得者特蕾莎修女逝世
+今天是10月16日，历史上的今天是：
+1553 - 德国画家老卢卡斯·克拉纳赫逝世
+1642 - 明朝崇祯皇帝的妃子田秀英去世
+1758 - 美国辞典编纂者诺亚·韦伯斯特出生
+1793 - 法国国王路易十六的王后玛丽·安托瓦内特逝世
+1806 - 俄土战争再起
+1813 - 莱比锡会战爆发
+1841 - 日本首相伊藤博文出生
+1846 - 人类首次公开使用乙醚止痛
+1854 - 德国社会主义活动家卡尔·考茨基出生
+1854 - 英国作家王尔德诞辰
+1913 - 中国物理学家、“两弹一星”元勋钱三强出生
+1943 - 日本大正天皇的生母柳原爱子去世
+1945 - 联合国粮食及农业组织成立
+1949 - 中国与蒙古国建交
+1959 - 美国前国务卿马歇尔逝世
 
 </Example>
 <Example input="摸鱼日历" collapsed>
 
-![](/example/moyu.png)
+![](/example/daily/moyu.png)
 
 </Example>
 <Example input="60秒" collapsed>
 
-![](/example/60s.png)
+![](/example/daily/60s.png)
 
 </Example>
 <Example input="每日一句" collapsed>
 
-![](/example/sentence.jpg)
-<audio controls src="/example/sentence.ogg" />
+![](/example/daily/sentence.png)
+<audio controls src="/example/daily/sentence.mp3" />
 
 </Example>
 
+:::caution
+主动查看每日鉴毛和发言排行的功能分别位于插件 [furbot](/docs/guide/plugins/furbot) 和 <PlaceholderLink href="/docs/guide/plugins/wordcloud">wordcloud</PlaceholderLink>，并不是本插件。
+
+在私聊中发送“/今天”不会显示排行。~~废话，私聊哪来群员~~
+:::
+
 ## 搭建说明
-你需要修改 `configs/daily.yaml`，加上需要推送的群聊：
+你需要修改 `configs/daily.yaml`，加上需要推送的群聊，绒狸每日鉴毛还需[配置绒狸 Token](/docs/guide/plugins/furbot#搭建说明)。
 ```yaml
-time: 07:00:00 # 时间，默认为 07:00:00
-groups: # 启用每日推送的群
-- 123456789
-countdown: # 倒计时
-- date: 2023-01-09
-  before: 距su226的生日还剩{}天 # 日期之前显示的内容，{} 会被替换为天数，省略时不显示
-  exact: 祝su226生日快乐 # 恰好当天时显示的内容，省略时不显示
-  after: su226的生日已过了{}天 # 日期之后显示的内容，{} 会被替换为天数，省略时不显示
+default_time: 07:00:00 # 推送时间，默认为 07:00:00
+default_modules: # 要发送的内容，默认为空，以下为包含全部模块的示例
+- type: string # 固定的字符串
+  string: 七点几勒，起床先啦！各位兽受们早上好
+- # 被数组包裹的内容将会作为合并转发发送，由于协议端限制，只能包裹一层
+  - type: rank # 水群排行（需安装 SQL 相关依赖：pdm install -G sql）
+    limit: 10 # 最大排行长度，默认为 10
+  - type: furbot # 绒狸每日鉴毛（需配置绒狸 Token）
+  - type: countdown # 倒计时
+    countdowns:
+    - date: 2023-01-09
+      before: 距su226的生日还剩{}天 # 日期之前显示的内容，{} 会被替换为天数，省略时不显示
+      exact: 祝su226生日快乐 # 恰好当天时显示的内容，省略时不显示
+      after: su226的生日已过了{}天 # 日期之后显示的内容，{} 会被替换为天数，省略时不显示
+  - type: history # 历史上的今天
+  - type: moyu # 摸鱼日历
+  - type: news # 60秒看世界
+  - type: sentence # 每日一句（不包括语音）
+groups:
+  123456789: {} # 要推送的群，可以指定多个
+  987654321: # 也可以为每个群单独覆盖配置
+    time: 07:01:00 # 建议稍微错开时间，如 07:00、07:01 等，以防发送失败
+    modules: [] # 覆盖要发送的内容
+  -1: {} # 你也可以使用 -1 来单独配置私聊显示的内容，注意私聊并不会定时推送。
 ```
 
 状态文件在 `states/daily.yaml`，参考如下：
@@ -97,5 +162,7 @@ countdown: # 倒计时
 你通常不应该修改状态文件，除非别无选择。
 :::
 ```yaml
-last_send: '2022-08-24' # 上次发送的日期，用于判断是否已经发送过。
+last_send: # 上次发送的日期，用于判断是否已经发送过。
+  123456789: '2022-10-16'
+  987654321: '2022-10-16'
 ```
