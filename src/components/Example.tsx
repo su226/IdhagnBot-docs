@@ -5,7 +5,7 @@ import clsx from "clsx";
 import React from "react";
 import { useExpandAll } from "./CollapseGroup";
 import classes from "./Example.module.css";
-import Tooltip from "./Tooltip";
+import Tooltip from "@mui/material/Tooltip";
 
 interface ExampleProps {
   input: string,
@@ -37,7 +37,7 @@ export default function Example(props: ExampleProps): JSX.Element {
   return (
     <div className={clsx("card", classes.example)}>
       <div className={classes.exampleHeader}>
-        <Tooltip tooltip={copied ? "已复制" : "复制命令"}>
+        <Tooltip title={copied ? "已复制" : "复制命令"}>
           <div className={classes.exampleButton} role="button" onClick={copy}>
             <Icon path={copied ? mdiCheck : mdiContentCopy} />
           </div>
@@ -45,7 +45,7 @@ export default function Example(props: ExampleProps): JSX.Element {
         <div className="card__header">
           {command}
         </div>
-        <Tooltip tooltip={collapsed ? "展开" : "收起"}>
+        <Tooltip title={collapsed ? "展开" : "收起"}>
           <div className={classes.exampleButton} role="button" onClick={() => setCollapsed(!collapsed)}>
             <Icon path={collapsed ? mdiPlus : mdiMinus} />
           </div>

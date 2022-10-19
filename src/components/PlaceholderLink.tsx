@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./PlaceholderLink.module.css";
-import Tooltip from "./Tooltip";
+import Tooltip from "@mui/material/Tooltip";
 
 interface PlaceholderLinkProps {
   href?: string,
@@ -10,7 +10,7 @@ interface PlaceholderLinkProps {
 export default function PlaceholderLink(props: PlaceholderLinkProps): JSX.Element {
   const title = props.href ? `${props.href} 未完成` : "文档未完成";
   return (
-    <Tooltip tooltip={title}>
+    <Tooltip title={title}>
       <a className={classes.placeholder} href="#!">
         {props.children}
       </a>

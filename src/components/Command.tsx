@@ -5,7 +5,7 @@ import clsx from "clsx";
 import React from "react";
 import { useExpandAll } from "./CollapseGroup";
 import classes from "./Example.module.css";
-import Tooltip from "./Tooltip";
+import Tooltip from "@mui/material/Tooltip";
 
 interface CommandProps {
   name: string | string[],
@@ -27,7 +27,7 @@ export default function Command(props: CommandProps): JSX.Element {
         <div className="card__header">
           <code>/{name}</code>{brief}
         </div>
-        <Tooltip tooltip={collapsed ? "展开" : "收起"}>
+        <Tooltip title={collapsed ? "展开" : "收起"}>
           <div className={classes.exampleButton} role="button" onClick={() => setCollapsed(!collapsed)}>
             <Icon path={collapsed ? mdiPlus : mdiMinus} />
           </div>

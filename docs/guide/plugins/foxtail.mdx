@@ -1,0 +1,131 @@
+---
+description: 兽云祭
+---
+import Command from "@site/src/components/Command";
+import Example from "@site/src/components/Example";
+
+# foxtail
+兽云祭
+
+## 用户说明
+发送命令“/兽云祭”或者**关键字**（不是命令，没有斜线）“来只兽” 查看兽图。
+
+无论是“/兽云祭”还是“来只兽”都接受额外参数，可以指定名字、类型、SID或者UID，如：“/兽云祭 司可sego”、“/兽云祭 毛图”、“来只兽 司可sego 毛图”、“来只兽 922”、“来只兽 gZIHj-AgTSx-QAvbD-fqk6V”
+
+在未启用绒狸、未配置绒狸Token或手动指定优先兽云祭时，也可以使用通用关键字“来只”触发命令。
+
+以下所有命令的帮助均位于 foxtail [子分类](/docs/guide/concepts/help)中，你可以使用“/help foxtail”查看。
+
+<Example input="help foxtail">
+
+第 1 页，共 1 页
+使用 /帮助 &lt;命令名&gt; 查看详细用法
+/兽云祭 - 使用兽云祭API的随机兽图
+/兽云祭信息 - 兽云祭服务器信息
+/兽云祭投稿 - 投稿兽图
+/兽云祭搜索 - 搜索兽图
+
+</Example>
+
+<Command name="兽云祭" brief="使用兽云祭API的随机兽图" perm="foxtail.picture">
+
+/兽云祭 [名字] [类型] - 发送随机兽图，名字和类型都可省略
+/兽云祭 &lt;图片SID或UID&gt; - 发送指定兽图
+内容来自兽云祭 API，官网：furbot.cn
+类型包括：设定(0)、毛图(1)、插画(2)
+也可以使用关键词“来只兽”触发
+
+</Command>
+<Example input="兽云祭">
+
+======== 兽云祭 ========
+名字: 司可sego
+SID: 922
+UID: gZIHj-AgTSx-QAvbD-fqk6V
+类型: 毛图(1)
+上传于: 2022-07-17 08:40:31
+点赞: 0
+收藏: 0
+![兽云祭样例](/example/foxtail.jpg)
+
+</Example>
+<Example input="兽云祭 司可sego" collapsed>
+
+*输出省略*
+
+</Example>
+<Example input="兽云祭 毛图" collapsed>
+
+*输出省略*
+
+</Example>
+<Example input="兽云祭 司可sego 毛图" collapsed>
+
+*输出省略*
+
+</Example>
+<Example input="兽云祭 922" collapsed>
+
+*输出省略*
+
+</Example>
+<Example input="兽云祭 gZIHj-AgTSx-QAvbD-fqk6V" collapsed>
+
+*输出省略*
+
+</Example>
+
+你可以使用“/兽云祭搜索”来搜索兽图（不建议用太短的关键字，结果可能会非常长！）
+
+<Command name="兽云祭搜索" brief="搜索兽图" perm="foxtail.search">
+
+/兽云祭 &lt;名字&gt; - 搜索兽图
+
+</Command>
+<Example input="兽云祭搜索 司可sego">
+
+======== 兽云祭 ========
+司可sego
+毛图：915、916、917、918、919、920、921、922、923、924、925、926、927、928
+
+</Example>
+
+另外你还可以发送“/兽云祭信息”查看服务器状态和图片总数，如果你对这个非常好奇的话。
+
+<Command name="兽云祭信息" brief="兽云祭服务器信息" perm="foxtail.info">
+
+*该命令没有帮助*
+
+</Command>
+<Example input="兽云祭信息">
+
+======== 兽云祭 ========
+主页访问次数：276
+图片查看次数：19668
+图片总数：5363
+公开图片数：276
+待审核图片数: 1
+运行时长: 101天
+
+</Example>
+
+考虑到过于复杂的命令难以理解，要向兽云祭投稿，你需要先使用[这里的图形界面](/docs/misc/foxtail-submit)生成投稿命令，再发送图片。
+
+*（那堆基于 argparse 的命令我自己用起来挺爽的，但没有 Linux 经验的人就不太爽了[手动捂脸]）*
+
+<Command name="兽云祭投稿" brief="投稿兽图" perm="foxtail.submit">
+
+/兽云祭投稿 &lt;投稿数据&gt;
+投稿数据可在这里生成：https://idhagnbot.su226.tk/docs/misc/foxtail-submit
+
+</Command>
+
+## 搭建说明
+兽云祭插件开箱即用，不需要申请 Token 等，因此唯一的配置项是关键字。
+
+不过你可能还想修改[绒狸插件](/docs/guide/plugins/furbot#搭建说明)配置文件中的 universal_keyword 和 universal_prefer，来让通用关键字“来只”优先使用兽云祭。如果绒狸不可用，比如没有配置 Token，这一步是不必要的。
+
+`configs/foxtail.yaml`
+```yaml
+keyword: 来只兽 # 关键词，如果为空字符串将禁用关键词触发，默认为 "来只兽"
+```
