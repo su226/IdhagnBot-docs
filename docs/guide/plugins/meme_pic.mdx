@@ -11,7 +11,7 @@ import Example, { Send, Recv, Note } from "@site/src/components/Example";
 大部分梗图来自 [nonebot-plugin-petpet](https://github.com/noneplugin/nonebot-plugin-petpet)，`/卢浮宫`、`/做旧` 来自 [神奇海螺](https://lab.magiconch.com/)，还有少部分梗图为作者~~瞎~~整活。
 
 ## 用户说明
-所有命令的帮助文档均位于子分类 `petpet_v2`，可以使用 [`/help petpet_v2`](/docs/guide/concepts/help) 查看，并且所有命令都使用类似于 UNIX Shell 的命令解析。支持**输入**动图的命令会在本页和 `/help` 中标注为 `[动]`（其余命令只会使用动图的第一帧）。**输出**动图的默认格式是 GIF，高级用户也可使用 APNG 或 WebP 格式，注意这两个格式在官方 QQ 客户端中可能不能正常显示，但在 [Icalingua++](https://github.com/Icalingua-plus-plus/Icalingua-plus-plus) 等第三方客户端是可以正常显示和保存的。
+所有命令的帮助文档均位于子分类 `meme_pic`，可以使用 [`/help meme_pic`](/docs/guide/concepts/help) 查看，并且所有命令都使用类似于 UNIX Shell 的命令解析。支持**输入**动图的命令会在本页和 `/help` 中标注为 `[动]`（其余命令只会使用动图的第一帧）。**输出**动图的默认格式是 GIF，高级用户也可使用 APNG 或 WebP 格式，注意这两个格式在官方 QQ 客户端中可能不能正常显示，但在 [Icalingua++](https://github.com/Icalingua-plus-plus/Icalingua-plus-plus) 等第三方客户端是可以正常显示和保存的。
 
 在指定用户时你可以使用 QQ 号、用户名、直接 @ 对方、嵌入图片或指定图片链接，另外还有这 4 个特殊值：
 * `~`、`自己`、`我` 代表你自己（不指定**来源**时默认是这个）
@@ -1965,7 +1965,7 @@ options:
 </CollapseAutoGroup>
 
 ## 搭建说明
-`petpet_v2` 并没有特别的配置，但以下命令需要 numpy 和 / 或 opencv，使用 `pdm install -G opencv` 来安装它们。
+`meme_pic` 并没有特别的配置，但以下命令需要 numpy 和 / 或 opencv，使用 `pdm install -G opencv` 来安装它们。
 * `/腐蚀` 和 `/膨胀`
 * `/鱼眼`
 * `/卢浮宫`

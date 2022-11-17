@@ -7,31 +7,32 @@ IdhagnBot 会为命令自动生成帮助，你也可以编写自定义的帮助�
 ## 用户说明
 在群聊或私聊中发送 `/help` 就可以查看所有帮助，你应该看到如下格式的帮助文档。不能执行的命令会被自动隐藏。
 ```
-第 1 页，共 8 页
+第 1 页，共 10 页
 使用 /帮助 <命令名> 查看详细用法
-.petpet_v2 - 梗图生成器
-/5000兆元 - 生成想要5000兆元风格文字
+.foxtail - 兽云祭
+.furbot - 绒狸
+.meme_pic - 头像梗图生成器
+.meme_word - 文字梗图生成器
 /60秒 - 用60秒迅速看世界
 /emojimix - 缝合两个emoji
 /epicfree - 看看E宝又在送什么
-/fortune - 随机显示一条希望有用的格言
+/fortune - 随机显示一条可能有用的格言
 /idhagnfetch - 显示机器人的状态
 /javascript - 在沙箱中运行NodeJS代码
-/lolcat - 彩虹和独角兽！
 ```
 
 其中以 `.` 点号开头的是子分类，以 `/` 斜线开头的是命令，在查看帮助时**不能**带上这两个符号，比如：
-* ✅ 你应该使用 `/help petpet_v2` 和 `/help idhagnfetch`
-* ❌ 而非 `/help .petpet_v2` 和 `/help /idhagnfetch`
+* ✅ 你应该使用 `/help meme_pic` 和 `/help idhagnfetch`
+* ❌ 而非 `/help .meme_pic` 和 `/help /idhagnfetch`
 
 子分类是树形的，意味着子分类下还可以有子分类，但目前 IdhagnBot 的通用插件并不包含二级子分类，如果有，你需要输入 `/help some_category some_child` 这样的形式来查看。
 
 在 /help 命令最后加上空格和数字可以指定页数，如：
 * `/help 2`
-* `/help petpet_v2 2`
+* `/help meme_pic 2`
 * `/help some_category some_child 2`
 
-在查看命令帮助时，会在末尾显示命令的别名，输入 `/help <别名>` 也能看到帮助，但别名不会显示在帮助列表中。并且当一个命令位于子分类中时，**不能**带上子分类，比如你应该输入 `/help rua` 而非 `/help petpet_v2 rua`。
+在查看命令帮助时，会在末尾显示命令的别名，输入 `/help <别名>` 也能看到帮助，但别名不会显示在帮助列表中。并且当一个命令位于子分类中时，**不能**带上子分类，比如你应该输入 `/help rua` 而非 `/help meme_pic rua`。
 
 比如 `/help idhagnfetch` 和 `/help state` 都会显示如下内容：
 ```
@@ -41,7 +42,7 @@ IdhagnBot 会为命令自动生成帮助，你也可以编写自定义的帮助�
 该命令有以下别名：状态、state、运行时间、uptime
 ```
 
-部分命令，如 [`/rua`](/docs/guide/plugins/petpet_v2)，采用类似于 UNIX shell 的命令解析（参见 Python 标准库：[argparse](https://docs.python.org/zh-cn/3/library/argparse.html) 和 [shlex](https://docs.python.org/zh-cn/3/library/shlex.html)），为了和其他不使用 shell 解析的命令统一，输入 `/rua -h` 或者 `/rua --help` 查看帮助的方法已被禁用。
+部分命令，如 [`/rua`](/docs/guide/plugins/meme_pic)，采用类似于 UNIX shell 的命令解析（参见 Python 标准库：[argparse](https://docs.python.org/zh-cn/3/library/argparse.html) 和 [shlex](https://docs.python.org/zh-cn/3/library/shlex.html)），为了和其他不使用 shell 解析的命令统一，输入 `/rua -h` 或者 `/rua --help` 查看帮助的方法已被禁用。
 
 ## 搭建说明
 命令帮助会被自动创建，如果需要完整的列表，同样可以运行 `pdm start --export-html <HTML文件名>` 来导出。
