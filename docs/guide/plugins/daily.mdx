@@ -2,7 +2,7 @@
 description: 意义不是很大的每日推送
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv, Forward } from "@site/src/components/Example";
 import PlaceholderLink from "@site/src/components/PlaceholderLink";
 
 # daily
@@ -11,25 +11,26 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 ## 用户说明
 在开启了每日推送的群里，你应该会每天早上收到类似于这样的消息（会有一点点长）：
 
-<Example input="今天" collapsed>
-
-七点几勒，起床先啦！各位兽受们早上好
-<details open>
-<summary>合并转发</summary>
+<Example>
+<Send>/今天</Send>
+<Recv>七点几勒，起床先啦！各位兽受们早上好</Recv>
+<Recv>
+<Forward collapsed>
+<Recv>
 
 昨天最能水的成员：
 🥇 su226 - 5 条
+</Recv>
+<Recv>
 
----
-
-![绒狸每日鉴毛](/example/furbot/daily.jpg)
-
----
+![绒狸每日鉴毛例图](/example/furbot/daily.jpg)
+</Recv>
+<Recv>
 
 今天是：
 距su226的生日还剩85天
-
----
+</Recv>
+<Recv>
 
 今天是10月16日，历史上的今天是：
 1553 - 德国画家老卢卡斯·克拉纳赫逝世
@@ -47,24 +48,24 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 1945 - 联合国粮食及农业组织成立
 1949 - 中国与蒙古国建交
 1959 - 美国前国务卿马歇尔逝世
+</Recv>
+<Recv>
 
----
-
-![](/example/daily/moyu.png)
+![摸鱼日历例图](/example/daily/moyu.png)
 你可以发送 /摸鱼 再次查看
+</Recv>
+<Recv>
 
----
-
-![](/example/daily/60s.png)
+![60秒例图](/example/daily/60s.png)
 你可以发送 /60秒 再次查看
+</Recv>
+<Recv>
 
----
-
-![](/example/daily/sentence.png)
+![每日一句例图](/example/daily/sentence.png)
 你可以发送 /一句 再次查看
-
-</details>
-
+</Recv>
+</Forward>
+</Recv>
 </Example>
 
 你也可以发送以下命令主动查看：
@@ -85,7 +86,9 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 接口来自http://open.iciba.com
 </Command>
 
-<Example input="历史" collapsed>
+<Example collapsed>
+<Send>/历史</Send>
+<Recv>
 
 今天是10月16日，历史上的今天是：
 1553 - 德国画家老卢卡斯·克拉纳赫逝世
@@ -104,26 +107,45 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 1949 - 中国与蒙古国建交
 1959 - 美国前国务卿马歇尔逝世
 
+</Recv>
 </Example>
-<Example input="摸鱼日历" collapsed>
+<Example collapsed>
+<Send>/摸鱼日历</Send>
+<Recv>
 
-![](/example/daily/moyu.png)
-
+![摸鱼日历例图](/example/daily/moyu.png)
+</Recv>
 </Example>
-<Example input="60秒" collapsed>
+<Example collapsed>
+<Send>/60秒</Send>
+<Recv>
 
-![](/example/daily/60s.png)
-
+![60秒例图](/example/daily/60s.png)
+</Recv>
 </Example>
-<Example input="每日一句" collapsed>
+<Example collapsed>
+<Send>/每日一句</Send>
+<Recv>
 
-![](/example/daily/sentence.png)
-<audio controls src="/example/daily/sentence.mp3" />
-
+![每日一句例图](/example/daily/sentence.png)
+</Recv>
+<Recv><audio controls src="/example/daily/sentence.mp3" /></Recv>
 </Example>
 
 :::caution
-主动查看每日鉴毛和发言排行的功能分别位于插件 [furbot](/docs/guide/plugins/furbot) 和 <PlaceholderLink href="/docs/guide/plugins/wordcloud">wordcloud</PlaceholderLink>，并不是本插件。
+似乎[今日兽兽的上游](https://github.com/ye-tutu/nonebot_plugin_everyfurry)停更了，现在运行 /今日兽兽 得到“似乎没有今日兽兽”是正常现象，这不是 IdhagnBot 的问题。
+:::
+
+<Command name={"今日兽兽"} perm="daily.everyfurry">
+接口来自https://hifurry.cn
+</Command>
+<Example>
+<Send>/今日兽兽</Send>
+<Recv>似乎没有今日兽兽</Recv>
+</Example>
+
+:::tip
+主动查看每日鉴毛、发言排行和 EPIC 喜加一的功能分别位于插件 [furbot](/docs/guide/plugins/furbot)、<PlaceholderLink href="/docs/guide/plugins/wordcloud">wordcloud</PlaceholderLink> 和 <PlaceholderLink href="/docs/guide/plugins/epicfree">epicfree</PlaceholderLink>，并不是本插件。
 
 在私聊中发送“/今天”不会显示排行。~~废话，私聊哪来群员~~
 :::
@@ -136,9 +158,11 @@ default_modules: # 要发送的内容，默认为空，以下为包含全部模�
 - type: string # 固定的字符串
   string: 七点几勒，起床先啦！各位兽受们早上好
 - # 被数组包裹的内容将会作为合并转发发送，由于协议端限制，只能包裹一层
+  - type: epicgames # EPIC 喜加一（只有今天可以领的游戏和昨天不同时才会显示）
   - type: rank # 水群排行（需安装 SQL 相关依赖：pdm install -G sql）
     limit: 10 # 最大排行长度，默认为 10
   - type: furbot # 绒狸每日鉴毛（需配置绒狸 Token）
+  - type: everyfurry # 今日兽兽（上游似乎停更，不建议继续使用）
   - type: countdown # 倒计时
     countdowns:
     - date: 2023-01-09

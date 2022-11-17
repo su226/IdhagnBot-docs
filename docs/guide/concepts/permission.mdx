@@ -21,9 +21,9 @@ IdhagnBot 采用树形结构管理权限，并且当一个权限节点不存在�
 
 `/help` 并不会显示命令对应的权限节点，不过你可以运行 `pdm start --export-html <HTML文件名>` 来导出所有的帮助和权限节点信息。
 
-目前并没有用于管理权限的命令或图形界面，修改权限的唯一方法是直接修改状态文件（此处为状态文件的原因是以后可能会有用于配置权限的命令），这是为数不多可以直接修改的状态文件。
+IdhagnBot 并没有用于管理权限的命令或图形界面，修改权限的唯一方法是直接修改配置文件。
 
-配置文件有两个，states/permission_overrides.yaml 和 states/permissions/群号.yaml ，写法是完全相同的（见下），permission_overrides 的优先级高于 permissions。
+configs/permission.yaml
 ```yaml
 roles:
   some_role: # 可以给角色取不同的名字
@@ -33,6 +33,11 @@ roles:
     entries: # 权限节点
     - node: some_node.child # 节点名，用"."指代根节点
       value: true
+      expire: 2022-01-01T00:00:00 # 过期时间，不指定时为永不过期
+      context: # 此处 context 是类似于 LuckPerms 的情境，可以不指定
+        group: 123456789 # 群号
+        level: admin # 用户权限等级
+        admin: true # 是否是管理员（权限等级≥admin）
 users:
   123456789: # QQ 号
     roles: # 用户所属的角色，默认为空，default 不需要写在此处
@@ -53,9 +58,11 @@ commands:
 from util import command
 
 # 节点名没有限制，但建议是"插件名.命令英文名"
-matcher = (command.CommandBuilder("some_plugin.some_command", "命令名")
+matcher = (
+  command.CommandBuilder("some_plugin.some_command", "命令名")
   .level("admin") # 覆盖权限等级
-  .build())
+  .build()
+)
 @matcher.handle()
 async def handler() -> None:
   pass

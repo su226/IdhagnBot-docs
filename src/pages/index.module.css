@@ -30,7 +30,7 @@
   color: var(--ifm-color-secondary);
 }
 
-[data-theme="dark"] .buttons :global .button.button--secondary.button--outline:not(:hover) {
+[data-theme=dark] .buttons :global .button.button--secondary.button--outline:not(:hover) {
   color: var(--ifm-color-gray-900);
 }
 

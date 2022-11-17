@@ -1,9 +1,9 @@
 ---
 description: 文字梗图生成器
 ---
-import CollapseGroup from "@site/src/components/CollapseGroup";
+import { CollapseAutoGroup } from "@site/src/components/CollapseGroup";
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv } from "@site/src/components/Example";
 
 # meme_text
 文字梗图生成器
@@ -15,56 +15,90 @@ import Example from "@site/src/components/Example";
 :::caution ~~别说我没警告过你~~
 流量党慎点
 :::
-下文包含大量（9张）预览，全部均已折叠，点开时才会加载。<br />
+下文包含大量（10张）预览，全部均已折叠，点开时才会加载。<br />
 ~~有钱到可疑的兽人控~~土豪、WiFi 党或电脑党可以点这里：
 
-<CollapseGroup>
-<Example input="lolcat 非常好视频，英雄联盟，爱来自瓷器❤️" collapsed>
+<CollapseAutoGroup every={20}>
+<Example collapsed>
+<Send>/lolcat 非常好视频，英雄联盟，爱来自瓷器❤️</Send>
+<Recv>
 
-![](/example/meme_text/lolcat.png)
+![lolcat例图](/example/meme_text/lolcat.png)
+</Recv>
 </Example>
-<Example input="orly QQ机器人 从入门到入土" collapsed>
+<Example collapsed>
+<Send>/orly QQ机器人 从入门到入土</Send>
+<Recv>
 
-![](/example/meme_text/orly.png)
+![orly例图](/example/meme_text/orly.png)
+</Recv>
 </Example>
-<Example input="p站 Git hub" collapsed>
+<Example collapsed>
+<Send>/p站 Git hub</Send>
+<Recv>
 
-![](/example/meme_text/ph.png)
+![p站例图](/example/meme_text/ph.png)
+</Recv>
 </Example>
-<Example input="喜报 草" collapsed>
+<Example collapsed>
+<Send>/喜报 草</Send>
+<Recv>
 
-![](/example/meme_text/goodnews.png)
+![喜报例图](/example/meme_text/goodnews.png)
+</Recv>
 </Example>
-<Example input="成瘾前后 ArchLinux" collapsed>
+<Example collapsed>
+<Send>/成瘾前后 ArchLinux</Send>
+<Recv>
 
-![](/example/meme_text/addict.png)
+![成瘾前后例图](/example/meme_text/addict.png)
+</Recv>
 </Example>
-<Example input="抖音 记录每种生物" collapsed>
+<Example collapsed>
+<Send>/抖音 记录每种生物</Send>
+<Recv>
 
-![](/example/meme_text/tiktok.png)
+![抖音例图](/example/meme_text/tiktok.png)
+</Recv>
 </Example>
-<Example input="油管 Bili Bili" collapsed>
+<Example collapsed>
+<Send>/油管 Bili Bili</Send>
+<Recv>
 
-![](/example/meme_text/youtube.png)
+![油管例图](/example/meme_text/youtube.png)
+</Recv>
 </Example>
-<Example input="诺基亚 无内鬼来点涩图" collapsed>
+<Example collapsed>
+<Send>/诺基亚 无内鬼来点涩图</Send>
+<Recv>
 
-![](/example/meme_text/nokia.png)
+![诺基亚例图](/example/meme_text/nokia.png)
+</Recv>
 </Example>
-<Example input="谷歌 Microsoft" collapsed>
+<Example collapsed>
+<Send>/谷歌 Microsoft</Send>
+<Recv>
 
-![](/example/meme_text/google.png)
+![谷歌例图](/example/meme_text/google.png)
+</Recv>
 </Example>
-</CollapseGroup>
+<Example collapsed>
+<Send>/osu owo</Send>
+<Recv>
+
+![osu例图](/example/meme_text/osu.png)
+</Recv>
+</Example>
+</CollapseAutoGroup>
 
 ### 文档
-<CollapseGroup>
+<CollapseAutoGroup every={20}>
 <Command name="lolcat" brief="彩虹和独角兽！" perm="meme_text.lolcat" collapsed>
 
 /lolcat &lt;文本&gt;
 灵感来自github.com/busyloop/lolcat
 </Command>
-<Command name={["orly", "动物书"]} brief="学计算机的应该不陌生" perm="meme_text.orly" collapsed>
+<Command name={["orly", "动物书"]} brief="学计算机的应该不陌生" perm="meme_text.orly" collapsed mono>
 
 usage: /orly [-header HEADER] [-subtitle SUBTITLE] [-position {左上,左下,右上,右下,lt,lb,rt,rb}] [-author AUTHOR]
              [-color COLOR] [-image IMAGE] [-no-grayscale]
@@ -107,16 +141,23 @@ options:
 <Command name={["谷歌", "google"]} brief="G,O,O,G,L,E,咕噜咕噜" perm="meme_text.google" collapsed>
 /谷歌 &lt;文本&gt;
 </Command>
-</CollapseGroup>
+<Command name={"osu"} brief="Click the circles?" perm="meme_text.osu" collapsed>
+
+/osu &lt;文本&gt;
+默认为“osu?”
+</Command>
+</CollapseAutoGroup>
 
 ### 关于诺基亚
 由于 Nonebot2 会忽略命令名之后第一个字前的所有空格和空行，如果你需要诺基亚的开头是空格或空行，你可以在诺基亚后面加一个 `.` 点号。
 
-<Example input="诺基亚.   ←这里有几个空格" collapsed>
+<Example collapsed>
+<Send>/诺基亚.   ←这里有几个空格</Send>
+<Recv>
 
 ![](/example/meme_text/nokia_whitespace.png)
-
+</Recv>
 </Example>
 
 ## 搭建说明
-虽然 meme_text 本身没有配置文件，但 `/诺基亚` 需要一个叫 `pixel` 的[特殊字体](/docs/guide/misc#杂项方法)，推荐使用 [GNU Unifont](http://www.unifoundry.com/unifont/index.html)（冷知识：Minecraft 的中文字体也是这个）
+虽然 meme_text 本身没有配置文件，但 `/诺基亚` 需要一个叫 `pixel` 的[特殊字体](/docs/guide/misc#杂项方法)，推荐使用 [GNU Unifont](http://www.unifoundry.com/unifont/index.html)*（冷知识：Minecraft 的中文字体也是这个）*

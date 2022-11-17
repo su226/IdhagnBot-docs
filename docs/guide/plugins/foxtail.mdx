@@ -2,7 +2,7 @@
 description: 兽云祭
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
 
 # foxtail
 兽云祭
@@ -16,7 +16,9 @@ import Example from "@site/src/components/Example";
 
 以下所有命令的帮助均位于 foxtail [子分类](/docs/guide/concepts/help)中，你可以使用“/help foxtail”查看。
 
-<Example input="help foxtail">
+<Example>
+<Send>/help foxtail</Send>
+<Recv>
 
 第 1 页，共 1 页
 使用 /帮助 &lt;命令名&gt; 查看详细用法
@@ -24,7 +26,7 @@ import Example from "@site/src/components/Example";
 /兽云祭信息 - 兽云祭服务器信息
 /兽云祭投稿 - 投稿兽图
 /兽云祭搜索 - 搜索兽图
-
+</Recv>
 </Example>
 
 <Command name="兽云祭" brief="使用兽云祭API的随机兽图" perm="foxtail.picture">
@@ -34,9 +36,10 @@ import Example from "@site/src/components/Example";
 内容来自兽云祭 API，官网：furbot.cn
 类型包括：设定(0)、毛图(1)、插画(2)
 也可以使用关键词“来只兽”触发
-
 </Command>
-<Example input="兽云祭">
+<Example>
+<Send>/兽云祭</Send>
+<Recv>
 
 ======== 兽云祭 ========
 名字: 司可sego
@@ -46,33 +49,28 @@ UID: gZIHj-AgTSx-QAvbD-fqk6V
 上传于: 2022-07-17 08:40:31
 点赞: 0
 收藏: 0
-![兽云祭样例](/example/foxtail.jpg)
-
+![兽云祭例图](/example/foxtail.jpg)
+</Recv>
 </Example>
-<Example input="兽云祭 司可sego" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/兽云祭 司可sego</Send>
+<Note>输出省略</Note>
 </Example>
-<Example input="兽云祭 毛图" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/兽云祭 毛图</Send>
+<Note>输出省略</Note>
 </Example>
-<Example input="兽云祭 司可sego 毛图" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/兽云祭 司可sego 毛图</Send>
+<Note>输出省略</Note>
 </Example>
-<Example input="兽云祭 922" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/兽云祭 922</Send>
+<Note>输出省略</Note>
 </Example>
-<Example input="兽云祭 gZIHj-AgTSx-QAvbD-fqk6V" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/兽云祭 gZIHj-AgTSx-QAvbD-fqk6V</Send>
+<Note>输出省略</Note>
 </Example>
 
 你可以使用“/兽云祭搜索”来搜索兽图（不建议用太短的关键字，结果可能会非常长！）
@@ -80,14 +78,15 @@ UID: gZIHj-AgTSx-QAvbD-fqk6V
 <Command name="兽云祭搜索" brief="搜索兽图" perm="foxtail.search">
 
 /兽云祭 &lt;名字&gt; - 搜索兽图
-
 </Command>
-<Example input="兽云祭搜索 司可sego">
+<Example>
+<Send>/兽云祭搜索 司可sego</Send>
+<Recv>
 
 ======== 兽云祭 ========
 司可sego
 毛图：915、916、917、918、919、920、921、922、923、924、925、926、927、928
-
+</Recv>
 </Example>
 
 另外你还可以发送“/兽云祭信息”查看服务器状态和图片总数，如果你对这个非常好奇的话。
@@ -95,9 +94,10 @@ UID: gZIHj-AgTSx-QAvbD-fqk6V
 <Command name="兽云祭信息" brief="兽云祭服务器信息" perm="foxtail.info">
 
 *该命令没有帮助*
-
 </Command>
-<Example input="兽云祭信息">
+<Example>
+<Send>/兽云祭信息</Send>
+<Recv>
 
 ======== 兽云祭 ========
 主页访问次数：276
@@ -106,7 +106,7 @@ UID: gZIHj-AgTSx-QAvbD-fqk6V
 公开图片数：276
 待审核图片数: 1
 运行时长: 101天
-
+</Recv>
 </Example>
 
 考虑到过于复杂的命令难以理解，要向兽云祭投稿，你需要先使用[这里的图形界面](/docs/misc/foxtail-submit)生成投稿命令，再发送图片。
@@ -117,7 +117,6 @@ UID: gZIHj-AgTSx-QAvbD-fqk6V
 
 /兽云祭投稿 &lt;投稿数据&gt;
 投稿数据可在这里生成：https://idhagnbot.su226.tk/docs/misc/foxtail-submit
-
 </Command>
 
 ## 搭建说明

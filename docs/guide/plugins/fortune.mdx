@@ -2,7 +2,7 @@
 description: fortune | cowsay | lolcat
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv } from "@site/src/components/Example";
 
 # fortune
 fortune | cowsay | lolcat
@@ -10,7 +10,7 @@ fortune | cowsay | lolcat
 ## 用户说明
 本命令的灵感及数据来源于同名 UNIX / Linux 命令，当执行 `/fortune` 时会随机会展示一条格言。
 
-<Command name="fortune" brief="随机显示一条希望有用的格言" perm="fortune">
+<Command name="fortune" brief="随机显示一条希望有用的格言" perm="fortune" mono>
 
 /fortune - 随机显示一条可能有用的格言
 usage: /fortune [--offensive] [--source] [--equal] [--list] [--length 长度] [--long | --short] [[权重] 文件 ...]
@@ -27,14 +27,18 @@ options:
 灵感及数据来自同名 UNIX / Linux 命令
 
 </Command>
-<Example input="fortune 7.5 computers 2.5 linux perl">
+<Example>
+<Send>/fortune 7.5 computers 2.5 linux perl</Send>
+<Recv>
 
 Besides, including &lt;std_ice_cubes.h&gt; is a fatal error on machines that
 don't have it yet.  Bad language design, there...  :-)
 		-- Larry Wall in &lt;1991Aug22.220929.6857@netlabs.com&gt;
-
+</Recv>
 </Example>
-<Example input="fortune -i" collapsed>
+<Example collapsed>
+<Send>/fortune -i</Send>
+<Recv>
 
 8.13% people 1251
 7.82% definitions 1203
@@ -79,7 +83,7 @@ don't have it yet.  Bad language design, there...  :-)
 0.08% translate-me 12
 0.06% ascii-art 10
 0.02% pratchett 3
-
+</Recv>
 </Example>
 
 ## 搭建说明

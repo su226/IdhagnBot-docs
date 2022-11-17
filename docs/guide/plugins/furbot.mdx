@@ -2,7 +2,7 @@
 description: 绒狸（需申请Token）
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
 
 # furbot
 绒狸（需申请Token）
@@ -16,7 +16,9 @@ import Example from "@site/src/components/Example";
 
 以下所有命令的帮助均位于 furbot [子分类](/docs/guide/concepts/help)中，你可以使用“/help furbot”查看。
 
-<Example input="help furbot">
+<Example>
+<Send>/help furbot</Send>
+<Recv>
 
 第 1 页，共 1 页
 使用 /帮助 &lt;命令名&gt; 查看详细用法
@@ -25,7 +27,7 @@ import Example from "@site/src/components/Example";
 /绒狸 - 使用绒狸API的随机兽图
 /绒狸投稿 - 向绒狸投稿毛毛
 /绒狸查询 - 查询毛毛的绒狸FID
-
+</Recv>
 </Example>
 
 <Command name="绒狸" brief="使用绒狸API的随机兽图" perm="furbot.picture">
@@ -34,25 +36,24 @@ import Example from "@site/src/components/Example";
 /绒狸 [名字或ID] - 发送指定毛图
 内容来自绒狸 API，官方群：893579624
 也可以使用关键词“来只毛”触发
-
 </Command>
-<Example input="绒狸">
+<Example>
+<Send>/绒狸</Send>
+<Recv>
 
 ======== 绒狸 ========
 ID: 6
 名字: 瑞狩
-![绒狸样例](/example/furbot/random.jpg)
-
+![绒狸例图](/example/furbot/random.jpg)
+</Recv>
 </Example>
-<Example input="绒狸 瑞狩" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/绒狸 瑞狩</Send>
+<Note>输出省略</Note>
 </Example>
-<Example input="绒狸 6" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/绒狸 6</Send>
+<Note>输出省略</Note>
 </Example>
 
 你可以使用“/绒狸查询”来查询毛毛的ID，注意为了保持 IdhagnBot 的简洁统一，IdhagnBot 并没有“来只毛”以外的关键字，**不能**使用其他绒狸机器人的关键字“查fid”。
@@ -62,13 +63,16 @@ ID: 6
 /绒狸查询 [名字]
 
 </Command>
-<Example input="绒狸查询 瑞狩">
+<Example>
+<Send>/绒狸查询 瑞狩</Send>
+<Recv>
 
 ======== 绒狸 ========
 查询结果
 名字：瑞狩
 ID：6、1172、1173、1240、1241、3149
 
+</Recv>
 </Example>
 
 除此之外，你还可以发送“/每日鉴毛”查看随机或指定一期每日鉴毛，注意由于 API 的限制，不能查看最新一期。~~你倒是可以用二分法自己慢慢找~~
@@ -80,23 +84,23 @@ ID：6、1172、1173、1240、1241、3149
 /每日鉴毛 &lt;ID&gt; - 指定ID的每日鉴毛
 
 </Command>
-<Example input="每日鉴毛">
+<Example>
+<Send>/每日鉴毛</Send>
+<Recv>
 
 ======== 绒狸 ========
 ID: 293
 名字: 阿布多瑞
-![每日鉴毛](/example/furbot/daily.jpg)
-
+![每日鉴毛例图](/example/furbot/daily.jpg)
+</Recv>
 </Example>
-<Example input="每日鉴毛 阿布多瑞" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/每日鉴毛 阿布多瑞</Send>
+<Note>输出省略</Note>
 </Example>
-<Example input="每日鉴毛 293" collapsed>
-
-*输出省略*
-
+<Example>
+<Send>/每日鉴毛 293</Send>
+<Note>输出省略</Note>
 </Example>
 
 只有[绒狸官方群](https://jq.qq.com/?_wv=1027&k=5YmdAAH9)的机器人能使用投稿和反馈，因此 IdhagnBot 的投稿命令会引导用户使用小程序。
@@ -106,10 +110,12 @@ ID: 293
 *该命令没有帮助*
 
 </Command>
-<Example input="绒狸投稿">
+<Example>
+<Send>绒狸投稿</Send>
+<Recv>
 
 ![小程序二维码](https://s2.loli.net/2022/04/12/kpaO594er6RXQ7D.jpg)
-
+</Recv>
 </Example>
 
 ## 搭建说明

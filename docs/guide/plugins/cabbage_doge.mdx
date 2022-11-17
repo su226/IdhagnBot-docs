@@ -2,7 +2,7 @@
 description: 菜狗，带RGB的
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv } from "@site/src/components/Example";
 
 # cabbage_doge
 菜狗，带RGB的
@@ -27,8 +27,10 @@ import Example from "@site/src/components/Example";
 * Material Design 颜色名（[列表](https://mui.com/zh/material-ui/customization/color/#2014-material-design-color-palettes)）：`blue500`
   * 考虑到国内可能访问不了 [MD 官网](https://material.io/design/color/the-color-system.html)，上述链接是 Material-UI 的网站
 
-<Example input="菜狗 red green blue">
+<Example>
+<Send>/菜狗 red green blue</Send>
+<Recv>
 
-![](/example/cabbage_doge.gif)
-
+![菜狗例图](/example/cabbage_doge.gif)
+</Recv>
 </Example>

@@ -1,0 +1,28 @@
+.ShrinkIcons {
+  display: inline-flex;
+  position: relative;
+}
+
+.ShrinkIcons :global(.MuiSvgIcon-root) {
+  transition: transform .25s, opacity .25s;
+}
+
+.IconB {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: scale(.5);
+  opacity: 0;
+}
+
+.ShrinkIcons.Flip .IconA {
+  transform: scale(.5);
+  opacity: 0;
+}
+
+.ShrinkIcons.Flip .IconB {
+  transform: scale(1);
+  opacity: 1;
+}

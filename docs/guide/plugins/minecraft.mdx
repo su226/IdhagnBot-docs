@@ -2,7 +2,7 @@
 description: 简易 Minecraft 服务器 Ping
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv } from "@site/src/components/Example";
 
 # minecraft
 简易 Minecraft 服务器 Ping
@@ -15,14 +15,16 @@ import Example from "@site/src/components/Example";
 <Command name={["minecraft", "mc"]} brief="查询Minecraft服务器的状态" perm="minecraft">
 如有异常会自动发送反馈
 </Command>
-<Example input="minecraft">
+<Example>
+<Send>/minecraft</Send>
+<Recv>
 
 A Minecraft Server
 版本：1.18.2
 1/10名玩家：su226
 地址：
 127.0.0.1 0ms
-
+</Recv>
 </Example>
 
 ## 搭建说明

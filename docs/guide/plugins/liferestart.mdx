@@ -2,7 +2,7 @@
 description: 人生重开模拟器
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv } from "@site/src/components/Example";
 
 # liferestart
 人生重开模拟器
@@ -12,7 +12,7 @@ import Example from "@site/src/components/Example";
 
 发送 `/人生重开 经典` 或者 `/人生重开 角色` 即可游玩，考虑到使用次数较多，也可分别简写为 `/重开 c` 和 `/重开 h`，完整用法见下。
 
-<Command name={["人生重开", "liferestart", "life", "restart", "remake", "人生", "重开"]} brief="现可在群里快速重开" perm="liferestart">
+<Command name={["人生重开", "liferestart", "life", "restart", "remake", "人生", "重开"]} brief="现可在群里快速重开" perm="liferestart" mono>
 
 usage: /人生重开 {经典,c,查看角色,角色列表,创建角色,重命名角色,角色,h,成就,重开排行,成就排行,事件排行,天赋排行} ...
 
@@ -32,7 +32,9 @@ positional arguments:
 
 </Command>
 
-<Example input="人生重开 c" collapsed>
+<Example collapsed>
+<Send>/人生重开 c</Send>
+<Recv>
 
 种子：198828329
 0: 天赋异禀 - 初始可用属性点+2
@@ -50,8 +52,9 @@ positional arguments:
 \- 发送 “随” 随机选择
 \- 发送 “换” 重新抽天赋
 \- 发送 “退” 退出游戏
-
-> 随
+</Recv>
+<Send>随</Send>
+<Recv>
 
 已选天赋:
 天赋异禀 - 初始可用属性点+2
@@ -61,11 +64,12 @@ positional arguments:
 \- 发送 4 个空格分隔的数字分配颜值、智力、体质和家境
 \- 发送 “随” 随机分配
 \- 发送 “退” 退出游戏
+</Recv>
+<Send>随</Send>
+<Recv>
 
-> 随
-
-![](/example/liferestart.png)
-
+![人生重开模拟器例图](/example/liferestart.png)
+</Recv>
 </Example>
 
 ## 搭建说明
@@ -100,82 +104,82 @@ game: # LifeRestartPy的设置，涉及到游戏数据，以下为默认值
       - {min: 70, rarity: 2, message_id: finished_games_4}
       - {min: 100, rarity: 3, message_id: finished_games_5}
       achievements: # 成就数
-      - {min: 0, rarity: Rarity.COMMON, message_id: achievements_0}
-      - {min: 10, rarity: Rarity.UNCOMMON, message_id: achievements_1}
-      - {min: 30, rarity: Rarity.UNCOMMON, message_id: achievements_2}
-      - {min: 50, rarity: Rarity.RARE, message_id: achievements_3}
-      - {min: 70, rarity: Rarity.RARE, message_id: achievements_4}
-      - {min: 100, rarity: Rarity.LEGENDARY, message_id: achievements_5}
+      - {min: 0, rarity: 0, message_id: achievements_0}
+      - {min: 10, rarity: 1, message_id: achievements_1}
+      - {min: 30, rarity: 1, message_id: achievements_2}
+      - {min: 50, rarity: 2, message_id: achievements_3}
+      - {min: 70, rarity: 2, message_id: achievements_4}
+      - {min: 100, rarity: 3, message_id: achievements_5}
       charm: # 颜值
-      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
-      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
-      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
-      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
-      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
-      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
-      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
+      - {min: 0, rarity: 0, message_id: common_0}
+      - {min: 1, rarity: 0, message_id: common_1}
+      - {min: 2, rarity: 0, message_id: common_2}
+      - {min: 4, rarity: 0, message_id: common_3}
+      - {min: 7, rarity: 1, message_id: common_4}
+      - {min: 9, rarity: 2, message_id: common_5}
+      - {min: 11, rarity: 3, message_id: common_6}
       money: # 家境
-      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
-      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
-      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
-      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
-      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
-      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
-      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
+      - {min: 0, rarity: 0, message_id: common_0}
+      - {min: 1, rarity: 0, message_id: common_1}
+      - {min: 2, rarity: 0, message_id: common_2}
+      - {min: 4, rarity: 0, message_id: common_3}
+      - {min: 7, rarity: 1, message_id: common_4}
+      - {min: 9, rarity: 2, message_id: common_5}
+      - {min: 11, rarity: 3, message_id: common_6}
       spirit: # 快乐
-      - {min: 0, rarity: Rarity.COMMON, message_id: spirit_0}
-      - {min: 1, rarity: Rarity.COMMON, message_id: spirit_1}
-      - {min: 2, rarity: Rarity.COMMON, message_id: spirit_2}
-      - {min: 4, rarity: Rarity.COMMON, message_id: spirit_3}
-      - {min: 7, rarity: Rarity.UNCOMMON, message_id: spirit_4}
-      - {min: 9, rarity: Rarity.RARE, message_id: spirit_5}
-      - {min: 11, rarity: Rarity.LEGENDARY, message_id: spirit_6}
+      - {min: 0, rarity: 0, message_id: spirit_0}
+      - {min: 1, rarity: 0, message_id: spirit_1}
+      - {min: 2, rarity: 0, message_id: spirit_2}
+      - {min: 4, rarity: 0, message_id: spirit_3}
+      - {min: 7, rarity: 1, message_id: spirit_4}
+      - {min: 9, rarity: 2, message_id: spirit_5}
+      - {min: 11, rarity: 3, message_id: spirit_6}
       intelligence: # 智力
-      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
-      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
-      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
-      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
-      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
-      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
-      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
-      - {min: 21, rarity: Rarity.LEGENDARY, message_id: intelligence_7}
-      - {min: 131, rarity: Rarity.LEGENDARY, message_id: intelligence_8}
-      - {min: 501, rarity: Rarity.LEGENDARY, message_id: intelligence_9}
+      - {min: 0, rarity: 0, message_id: common_0}
+      - {min: 1, rarity: 0, message_id: common_1}
+      - {min: 2, rarity: 0, message_id: common_2}
+      - {min: 4, rarity: 0, message_id: common_3}
+      - {min: 7, rarity: 1, message_id: common_4}
+      - {min: 9, rarity: 2, message_id: common_5}
+      - {min: 11, rarity: 3, message_id: common_6}
+      - {min: 21, rarity: 3, message_id: intelligence_7}
+      - {min: 131, rarity: 3, message_id: intelligence_8}
+      - {min: 501, rarity: 3, message_id: intelligence_9}
       strength: # 体质
-      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
-      - {min: 1, rarity: Rarity.COMMON, message_id: common_1}
-      - {min: 2, rarity: Rarity.COMMON, message_id: common_2}
-      - {min: 4, rarity: Rarity.COMMON, message_id: common_3}
-      - {min: 7, rarity: Rarity.UNCOMMON, message_id: common_4}
-      - {min: 9, rarity: Rarity.RARE, message_id: common_5}
-      - {min: 11, rarity: Rarity.LEGENDARY, message_id: common_6}
-      - {min: 21, rarity: Rarity.LEGENDARY, message_id: strength_7}
-      - {min: 101, rarity: Rarity.LEGENDARY, message_id: strength_8}
-      - {min: 401, rarity: Rarity.LEGENDARY, message_id: strength_9}
-      - {min: 1001, rarity: Rarity.LEGENDARY, message_id: strength_10}
-      - {min: 2001, rarity: Rarity.LEGENDARY, message_id: strength_11}
+      - {min: 0, rarity: 0, message_id: common_0}
+      - {min: 1, rarity: 0, message_id: common_1}
+      - {min: 2, rarity: 0, message_id: common_2}
+      - {min: 4, rarity: 0, message_id: common_3}
+      - {min: 7, rarity: 1, message_id: common_4}
+      - {min: 9, rarity: 2, message_id: common_5}
+      - {min: 11, rarity: 3, message_id: common_6}
+      - {min: 21, rarity: 3, message_id: strength_7}
+      - {min: 101, rarity: 3, message_id: strength_8}
+      - {min: 401, rarity: 3, message_id: strength_9}
+      - {min: 1001, rarity: 3, message_id: strength_10}
+      - {min: 2001, rarity: 3, message_id: strength_11}
       age: # 享年
-      - {min: 0, rarity: Rarity.COMMON, message_id: age_0}
-      - {min: 1, rarity: Rarity.COMMON, message_id: age_1}
-      - {min: 10, rarity: Rarity.COMMON, message_id: age_2}
-      - {min: 18, rarity: Rarity.COMMON, message_id: age_3}
-      - {min: 40, rarity: Rarity.COMMON, message_id: age_4}
-      - {min: 60, rarity: Rarity.UNCOMMON, message_id: age_5}
-      - {min: 70, rarity: Rarity.UNCOMMON, message_id: age_6}
-      - {min: 80, rarity: Rarity.RARE, message_id: age_7}
-      - {min: 90, rarity: Rarity.RARE, message_id: age_8}
-      - {min: 95, rarity: Rarity.LEGENDARY, message_id: age_9}
-      - {min: 100, rarity: Rarity.LEGENDARY, message_id: age_10}
-      - {min: 500, rarity: Rarity.LEGENDARY, message_id: age_11}
+      - {min: 0, rarity: 0, message_id: age_0}
+      - {min: 1, rarity: 0, message_id: age_1}
+      - {min: 10, rarity: 0, message_id: age_2}
+      - {min: 18, rarity: 0, message_id: age_3}
+      - {min: 40, rarity: 0, message_id: age_4}
+      - {min: 60, rarity: 1, message_id: age_5}
+      - {min: 70, rarity: 1, message_id: age_6}
+      - {min: 80, rarity: 2, message_id: age_7}
+      - {min: 90, rarity: 2, message_id: age_8}
+      - {min: 95, rarity: 3, message_id: age_9}
+      - {min: 100, rarity: 3, message_id: age_10}
+      - {min: 500, rarity: 3, message_id: age_11}
       overall: # 总评
-      - {min: 0, rarity: Rarity.COMMON, message_id: common_0}
-      - {min: 41, rarity: Rarity.COMMON, message_id: common_1}
-      - {min: 50, rarity: Rarity.COMMON, message_id: common_2}
-      - {min: 60, rarity: Rarity.COMMON, message_id: common_3}
-      - {min: 80, rarity: Rarity.UNCOMMON, message_id: common_4}
-      - {min: 100, rarity: Rarity.RARE, message_id: common_5}
-      - {min: 110, rarity: Rarity.LEGENDARY, message_id: common_6}
-      - {min: 120, rarity: Rarity.LEGENDARY, message_id: common_7}
+      - {min: 0, rarity: 0, message_id: common_0}
+      - {min: 41, rarity: 0, message_id: common_1}
+      - {min: 50, rarity: 0, message_id: common_2}
+      - {min: 60, rarity: 0, message_id: common_3}
+      - {min: 80, rarity: 1, message_id: common_4}
+      - {min: 100, rarity: 2, message_id: common_5}
+      - {min: 110, rarity: 3, message_id: common_6}
+      - {min: 120, rarity: 3, message_id: common_7}
       messages: # 以上 message_id 对应的内容
         common_0: 地狱
         common_1: 折磨

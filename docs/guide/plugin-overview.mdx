@@ -2,12 +2,14 @@
 sidebar_position: 4
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
 
 # 插件总览
-IdhagnBot 提供了大量的通用插件，目前不能阻止插件加载，但你可以使用 [权限系统](/docs/guide/concepts/permission) 来阻止使用对应插件的命令。
+IdhagnBot 提供了大量的通用插件，你可以使用 [权限系统](/docs/guide/concepts/permission) 来阻止使用对应插件的命令（可热重载），也可以单独阻止某个插件加载（不可热重载）。
 
-群主也可以编写自定义插件并放到 user_plugins 目录下，目前并不能直接加载 [Nonebot2 市场](https://v2.nonebot.dev/store) 里的插件，但你可以在 user_plugins 里的插件使用 [`nonebot.require`](https://v2.nonebot.dev/docs/api/plugin/load#require)。注意市场插件并不会使用 IdhagnBot 的权限、上下文、帮助等系统，可能会带来用户体验上的割裂感，请**自行权衡**。
+群主也可以编写自定义插件并放到 user_plugins 目录下，或者在配置文件中加载 [Nonebot2 市场](https://v2.nonebot.dev/store) 里的插件。（除了更改配置文件，也可以在 user_plugins 里的插件使用 [`nonebot.require`](https://v2.nonebot.dev/docs/api/plugin/load#require)）注意市场插件并不会使用 IdhagnBot 的权限、上下文、帮助等系统，可能会带来用户体验上的割裂感，请**自行权衡**。
+
+部分命令较多的插件区分“子模块”，子模块同样可以用配置文件阻止加载。
 
 注意并不是所有通用插件都是开箱即用的，部分插件需要安装可选依赖或者修改配置文件。
 
@@ -25,6 +27,22 @@ IdhagnBot 提供了大量的通用插件，目前不能阻止插件加载，但�
 * ~~卖萌~~
   * ~~孩子真的不擅长卖萌qwq~~
 
+## 配置文件
+configs/plugins.yaml
+```yaml
+blacklist: # 插件 / 子模块黑名单
+- some_plugin
+- some_plugin.some_module
+# 注意：除非你知道你在做什么，不要禁用 context 和 help（如果反转黑名单，务必启用它们）
+invert_blacklist: false
+# 反转黑名单，注意如果对应插件没有加载子模块也不会加载
+# 也就是说，如果名单中有子模块 some_plugin.some_module，也必须要有插件 some_plugin
+extra_plugins: # 额外插件包列表
+- nonebot_plugin_someplugin
+extra_dirs: # 额外插件目录列表，默认包含 user_plugins
+- user_plugins
+```
+
 ## 提示
 
 命令信息格式如下：
@@ -33,6 +51,10 @@ IdhagnBot 提供了大量的通用插件，目前不能阻止插件加载，但�
 </Command>
 
 命令示例格式如下（可点击复制或折叠）：
-<Example input="命令输入">
-命令输出
+<Example>
+<Send>/命令</Send>
+<Recv>命令输出</Recv>
+<Note>一些补充说明</Note>
+<Send>发送消息</Send>
+<Recv>更多输出</Recv>
 </Example>

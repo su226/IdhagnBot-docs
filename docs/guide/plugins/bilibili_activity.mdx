@@ -1,0 +1,50 @@
+---
+description: B站动态推送
+---
+import Command from "@site/src/components/Command";
+
+# bilibili_activity
+B站动态推送
+
+## 用户说明
+群主配置好本插件后，IdhagnBot 会每 10 分钟（默认）检查一次 B 站更新，因此有不超过 10 分钟的延迟是正常现象。
+
+目前 IdhagnBot 支持无图动态、有图动态（相簿）、视频、专栏、音频以及它们的转发，特殊的，番剧只支持转发，其他内容也会推送，但会显示为“不能解析”。
+
+## 搭建说明
+:::caution 免责声明
+IdhagnBot 作者不对滥用此插件而被 B 站封禁负责，风险自负。
+:::
+
+这个插件并不是开箱即用的~~（废话，我又不知道你的B站帐号）~~，你需要先配置`configs/bilibili_activity.yaml`，如使用 gRPC API，你还需要安装 gRPC 相关依赖：`pdm install -G grpc`
+```yaml
+interval: 1 # 两次推送间隔的秒数，默认为 1 秒，过短可能会被 B 站风控 IP
+grpc: true
+# true（默认）使用 gRPC API，需要安装 grpc 依赖：pdm install -G grpc
+# false 使用 JSON API，注意 JSON API 被 B 站风控的可能较大，建议推送间隔不低于 10 秒并且禁用并行
+concurrency: 5 # 并行检查的用户数，超过的将会分批次检查，默认为 5
+users: # 要推送的用户，可以有多个
+- uid: 123456789 # B 站 UID，即 space.bilibili.com 后面那个
+  targets:
+  - group: 123456789 # 推送到群聊
+  - user: 123456789 # 推送到私聊
+ignore_regexs: # 如果动态包含以下正则表达式之一则不推送
+- 正则表达式
+ignore_forward_regexs: # 如果是转发，且原动态包含以下正则表达式之一则不推送
+- 正则表达式
+```
+
+如果需要立即推送动态，比如有网络原因导致的漏推送，管理员或更高权限可执行 `/检查动态` 立即检查动态更新（注意 IdhagnBot 一定不会推送机器人启动前发送的动态），或执行 `/推送动态 <动态号>` 强制推送某条动态。动态和相簿的动态号是 t.bilibili.com 后面的那串数字，视频和专栏的动态号只能通过动态列表 API 获取，且从 AV 号或 BV 号反查动态号的方法未知。
+
+当在私聊中发送了 `/ctx <群号>` 之后执行 `/推送动态`，动态会被推送到指定群，而非发送回私聊。
+
+<Command name="检查动态" brief="立即检查B站动态更新" perm="bilibili_activity.check_now" level="admin">
+
+*该命令没有帮助*
+</Command>
+<Command name="推送动态" brief="强制推送B站动态" perm="bilibili_activity.force_push" level="admin">
+
+/推送动态 &lt;动态号&gt;
+动态的动态号是t.bilibili.com后面的数字
+视频的动态号只能通过API获取（不是AV或BV号）
+</Command>

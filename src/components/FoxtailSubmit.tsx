@@ -10,15 +10,7 @@ import Snackbar from "@mui/material/Snackbar";
 import TextField from "@mui/material/TextField";
 import { Base64 } from 'js-base64';
 import React from "react";
-
-function copy(text: string) {
-  const elem = document.createElement("textarea");
-  elem.value = text;
-  document.body.append(elem);
-  elem.select();
-  document.execCommand("Copy");
-  elem.remove();
-}
+import { copy } from "./common";
 
 const Command = styled.pre`
   white-space: pre-wrap;

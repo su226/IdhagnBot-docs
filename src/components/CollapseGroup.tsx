@@ -43,3 +43,33 @@ export default function CollapseGroup(props: CollapseGroupProps): JSX.Element {
     </ExpandAll.Provider>
   );
 }
+
+function chunked<T>(list: T[], n: number): T[][] {
+  const chunks: T[][] = [];
+  let chunk: T[] = [];
+  for (const item of list) {
+    chunk.push(item);
+    if (chunk.length === n) {
+      chunks.push(chunk);
+      chunk = [];
+    }
+  }
+  if (chunk.length > 0) {
+    chunks.push(chunk);
+  }
+  return chunks;
+}
+
+export interface CollapseAutoGroupProps {
+  children?: JSX.Element[]
+  every?: number
+}
+
+export function CollapseAutoGroup(props: CollapseAutoGroupProps): JSX.Element[] {
+  const every = props.every || 10;
+  return chunked(props.children, every).map((chunk, i) => 
+    <CollapseGroup key={i} title={`${every * i + 1} - ${every * i + chunk.length}`}>
+      {chunk}
+    </CollapseGroup>
+  );
+}

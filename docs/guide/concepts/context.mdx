@@ -60,10 +60,12 @@ from nonebot.adapters.onebot.v11 import Event
 from util import command
 
 # 关于 CommandBuilder 的详细用法，请参考对应文档
-matcher = (command.CommandBuilder("some_plugin.some_command", "命令名")
+matcher = (
+  command.CommandBuilder("some_plugin.some_command", "命令名")
   # 群号可指定多个，对于 in_group 也可以不指定，代表任意群聊
   .has_group(123456789, 987654321)
-  .build())
+  .build()
+)
 @matcher.handle()
 async def handler(event: Event) -> None:
   # 调用 context.get_event_context 来获取当前事件的上下文

@@ -2,7 +2,7 @@
 description: neofetch | lolcat
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv } from "@site/src/components/Example";
 
 # idhagnfetch
 neofetch --kitty ~/图片/兽设与绘画/蓝莓/希望永存.png | lolcat -s 300<br /><small>夹 带 私 货 <span style={{opacity: .5}}>ps: AUR 上似乎只有 rust-lolcat-git 能和带图片的 neofetch 一起用</span></small>
@@ -14,12 +14,13 @@ neofetch --kitty ~/图片/兽设与绘画/蓝莓/希望永存.png | lolcat -s 30
 
 服务器在线在重启系统（含崩溃自动重启）时归零
 机器人在线在重启机器人（含重启系统）时归零
-
 </Command>
-<Example input="idhagnfetch">
+<Example>
+<Send>/idhagnfetch</Send>
+<Recv>
 
-![](/example/idhagnfetch.png)
-
+![idhagnfetch例图](/example/idhagnfetch.png)
+</Recv>
 </Example>
 
 ## 搭建说明
@@ -40,6 +41,8 @@ items: # 显示的条目，默认如下（全部）
                  # 占用只支持 N 卡闭源驱动和 A 卡，其他显示为未知
 - memory # 内存占用
 - swap # 交换（虚拟内存）占用
+- disks # 硬盘占用
+- battery # 电池电量和是否充电（没有电池自动隐藏）
 - python # Python 版本
 - nonebot # Nonebot2 版本
 - idhagnbot # IdhagnBot 版本（目前未使用）

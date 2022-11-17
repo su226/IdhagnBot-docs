@@ -9,15 +9,14 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 ## 货币系统
 IdhagnBot 有一个简单的货币系统，目前只有 <PlaceholderLink href="/docs/guide/plugins/purchase">purchase</PlaceholderLink> 和 <PlaceholderLink href="/docs/guide/plugins/sign">sign</PlaceholderLink> 插件使用这个系统，不同群聊之间的货币是独立的。具体请参考 <PlaceholderLink href="/docs/api/util.currency">API 文档</PlaceholderLink>。
 
-状态文件在 `states/coin.yaml`，参考如下：
+状态文件在 `states/currency/群号.yaml`，参考如下：
 
 :::caution
 你通常不应该修改状态文件，除非别无选择。
 :::
 ```yaml
-groups:
-  123456789: # 群号
-    987654321: 100 # 用户: 金币数
+users:
+  987654321: 100 # 用户: 金币数
 ```
 
 ## 用户别名
@@ -29,9 +28,9 @@ groups:
 
 别名还可以用于给群员“起外号”~~，如果给某人起了不太好听的外号而被他打了我不为此负责~~。
 
-使用 `/match 名字` 可以查看名字能搜索到哪些群员，使用 `/match QQ号` 可以查看群员的所有别名，包括自动生成的。
+使用 `/match 名字` 可以查看名字能搜索到哪些群员（如果只有一个群员，也会显示他的别名），使用 `/match QQ号` 可以查看群员的所有别名，包括自动生成的。
 
-`config/account_aliases.yaml`
+`config/user_aliases.yaml`
 ```yaml
 aliases:
 - contexts: # 这些别名在哪些上下文生效，不指定时在所有上下文生效
@@ -46,9 +45,9 @@ aliases:
 ```
 
 ### 开发示例
-通常你需要使用 `util.account_aliases.match_uid`，这个函数会在内部处理大部分细节，在出错时抛出 `util.util.AggregateError`，包含*相对*友好的错误信息，当一个名称既能精确匹配也能模糊匹配时，精确匹配优先。
+通常你需要使用 `util.user_aliases.match_uid`，这个函数会在内部处理大部分细节，在出错时抛出 `util.util.AggregateError`，包含*相对*友好的错误信息，当一个名称既能精确匹配也能模糊匹配时，精确匹配优先。
 
-如果需要更底层的方法，你可以使用 `util.account_aliases.get_aliases` 和 `util.account_aliases.match`，参见 <PlaceholderLink href="/docs/api/util.account_aliases">API 文档</PlaceholderLink>。
+如果需要更底层的方法，你可以使用 `util.user_aliases.get_aliases` 和 `util.user_aliases.match`，参见 <PlaceholderLink href="/docs/api/util.user_aliases">API 文档</PlaceholderLink>。
 
 ## 日志
 IdhagnBot 和 Nonebot2 一样，也使用 Loguru 作为日志库，但 IdhagnBot 覆盖了 Nonebot2 的默认格式。
@@ -64,7 +63,7 @@ sinks: # 如果不指定，默认值如下，可以指定多个 sink
   # 如果你将机器人作为 Systemd 服务运行，推荐使用 syslog
   # file: 日志文件名 # 和 type 二选一，目前不支持 Loguru 的高级特性，如大小限制
 warnings_as_log: true # 将 Python 标准库 warnings 输出的警告作为 WARN 等级的日志输出，默认为 true
-stdio_as_log: true # 将 stdout 和 stderr 分别作为 INFO 和 ERROR 等级的日志输出，默认为 true
+stdio_as_log: false # 将 stdout 和 stderr 分别作为 INFO 和 ERROR 等级的日志输出，默认为 false
 ```
 
 开发示例请参见 [Loguru](https://github.com/Delgan/loguru)。
@@ -72,17 +71,23 @@ stdio_as_log: true # 将 stdout 和 stderr 分别作为 INFO 和 ERROR 等级的
 ## 杂项方法
 <!-- 这里的零宽字符是 MDX v1 的限制，参见: https://docusaurus.io/zh-CN/docs/markdown-features/react#markdown-and-jsx-interoperability -->
 
-&zwj;<PlaceholderLink href="/docs/api/util.util">`util.util`</PlaceholderLink> 包含一些实用但琐碎的方法。*这个命名也许应该改成 `util.misc` 的，我有点脑抽……*
+&zwj;<PlaceholderLink href="/docs/api/util.colorutil">`util.colorutil`</PlaceholderLink> 包含一些解析颜色字符串和处理颜色的方法，解析颜色字符串时支持 3 位或 6 位十六进制、CSS 颜色名、`rgb(r, g, b)`、`hsl(h, s, l)`、Material Design 颜色名，不支持 Alpha 通道。
 
-&zwj;<PlaceholderLink href="/docs/api/util.color">`util.color`</PlaceholderLink> 包含一些解析颜色字符串和处理颜色的方法，解析颜色字符串时支持 3 位或 6 位十六进制、CSS 颜色名、`rgb(r, g, b)`、`hsl(h, s, l)`、Material Design 颜色名，不支持 Alpha 通道。
+&zwj;<PlaceholderLink href="/docs/api/util.hook">`util.hook`</PlaceholderLink> 包含 NoneBot 没有的额外钩子，目前只有 on_message_sent 一个。
 
-&zwj;<PlaceholderLink href="/docs/api/util.binomial">`util.binomial`</PlaceholderLink> 包含一个二项分布随机数生成器，从 NPM 模块 [@stdlib/random-base-binomial](https://github.com/stdlib-js/random-base-binomial/blob/main/lib/sample2.js) 移植过来，目的是让 coin 和 dice 不再依赖 NumPy。
+&zwj;<PlaceholderLink href="/docs/api/util.importing">`util.importing`</PlaceholderLink> 用于加载插件和子模块。
 
-`config/util.yaml`
+&zwj;<PlaceholderLink href="/docs/api/util.imutil">`util.imutil`</PlaceholderLink> 包含一些处理 Pillow 图片的实用方法。
+
+&zwj;<PlaceholderLink href="/docs/api/util.misc">`util.misc`</PlaceholderLink> 包含一些实用但琐碎的方法。*~~这个命名也许应该改成 `util.misc` 的，我有点脑抽……~~之前叫util.util，现在已经改了*
+
+&zwj;<PlaceholderLink href="/docs/api/util.record">`util.record`</PlaceholderLink> 使用 SQLModel 记录收到的消息，用于<PlaceholderLink href="/docs/guide/plugins/wordcloud">词云</PlaceholderLink>等功能。
+
+`config/misc.yaml`
 ```yaml
 special_font:
-  # 目前只有唯一一个特殊字体，pixel，用在 meme_text.nokia 中，未指定时 fallback 为 sans
-  pixel: Unifont
+  pixel: Unifont # 用在 meme_text.nokia 中，未指定时 fallback 为 sans
+  osu: "" # 用在 meme_text.osu 中，未指定时 fallback 为 sans bold
 font_substitute:
   # PangoCairo 使用 FontConfig，因此 IdhagnBot 会跟随系统设置，但你也可以手动覆盖
   # 目前 IdhagnBot 使用了这些通用名
@@ -106,7 +111,7 @@ IdhagnBot 使用 PangoCairo 来渲染文字，以提供 Emoji 等特殊符号的
 [配置文件见上](#杂项方法)
 
 ### 开发示例
-util.text 主要提供 layout、render 和 paste 三个函数，paste 会将文字粘贴到目标图像上（并返回渲染的图片），是最便捷的函数。如果需要更多的控制，render 返回 [PIL.Image.Image](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image)，layout 返回 [Pango.Layout](https://lazka.github.io/pgi-docs/Pango-1.0/classes/Layout.html)。具体请参考 <PlaceholderLink href="/docs/api/util.text">API 文档</PlaceholderLink>。
+util.textutil 主要提供 layout、render 和 paste 三个函数，paste 会将文字粘贴到目标图像上（并返回渲染的图片），是最便捷的函数。如果需要更多的控制，render 返回 [PIL.Image.Image](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image)，layout 返回 [Pango.Layout](https://lazka.github.io/pgi-docs/Pango-1.0/classes/Layout.html)。具体请参考 <PlaceholderLink href="/docs/api/util.textutil">API 文档</PlaceholderLink>。
 
 ## 浏览器渲染
 IdhagnBot ~~由于作者的精神洁癖，~~偏向尽可能使用 Pillow、PyCairo、NumPy、OpenCV 等库生成图片而非调用浏览器，但以下功能由于极其复杂只能使用浏览器渲染：
@@ -116,12 +121,12 @@ IdhagnBot ~~由于作者的精神洁癖，~~偏向尽可能使用 Pillow、PyCai
 [配置文件见上](#杂项方法)
 
 ### 开发示例
-`util.util.browser` 会使用配置文件中的 Chromium 路径创建 [Pyppeteer](https://github.com/pyppeteer/pyppeteer) 的浏览器实例，并且自动关闭浏览器，防止后台残留。
+`util.misc.browser` 会使用配置文件中的 Chromium 路径创建 [Pyppeteer](https://github.com/pyppeteer/pyppeteer) 的浏览器实例，并且自动关闭浏览器，防止后台残留。
 
 ```python
-from util import util
+from util import misc
 
-async with util.browser() as browser:
+async with misc.browser() as browser:
   pass # 使用获取的 browser
 ```
 
@@ -131,15 +136,15 @@ IdhagnBot 默认使用双立方插值来缩放图片或进行其他变换，通�
 [配置文件见上](#杂项方法)
 
 ### 开发示例
-在使用 Image.resize 等方法时，请使用 `util.util.resample` 和 `util.util.scale_resample`，而非硬编码采样。
+在使用 Image.resize 等方法时，请使用 `util.imutil.resample` 和 `util.imutil.scale_resample`，而非硬编码采样。
 
 ```python
 from PIL import Image
-from util import util
+from util import imutil
 
 im = Image.new("RGBA", (100, 100))
 # scale_resample 可能被指定为 Box、Hamming 或 Lanczos，不要用在 resize 以外的方法中
-im.resize((50, 50), util.scale_resample)
+im.resize((50, 50), imutil.scale_resample())
 # resample 一定只会被指定为 Nearest、Bilinear 或 Bicubic
-im.rotate(45, util.resample)
+im.rotate(45, imutil.resample())
 ```

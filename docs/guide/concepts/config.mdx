@@ -6,13 +6,13 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 # 配置文件
 
 ## 搭建说明
-IdhagnBot 的所有配置文件都存放在 configs 目录下，并且 IdhagnBot 有用于存放运行时产生的缓存等数据的“状态文件”，存放在 states 目录下。虽然配置和状态都以人类可读的 YAML 格式存储，但通常情况下你不只应该修改配置文件，不应该修改状态文件，除非别无选择或本文档明确告知可以这么做。
+IdhagnBot 的所有配置文件都存放在 configs 目录下，并且 IdhagnBot 有用于存放运行时产生的缓存等数据的“状态文件”，存放在 states 目录下。虽然配置和状态都以人类可读的 YAML 格式存储，但通常情况下你不只应该修改配置文件，不应该修改状态文件，除非别无选择。
 
 大多数配置文件采用“懒加载”，并不会在启动时读取，而是在第一次使用时读取。当第一次读取时，如果文件不存在，会在日志中输出缺失的文件名。如果文件不存在，或者文件缺失某个配置项，对应配置项会使用默认值而非报错，这是为了降低配置的难度，但默认行为可能不是你需要的。（比如默认只响应私聊，不响应任何群聊）
 
-配置文件可以使用 `/reload` 命令热重载，热重载目前并不是“懒加载”的，而且并不是所有的配置都支持热重载。
+配置文件可以使用 `/reload` 命令热重载，并不是所有的配置都支持热重载，而且并不是所有支持热重载的配置文件都是“懒加载”的。
 
-配置和状态文件均存在两种变种，一种是所有群聊共用一份，一种是每个群聊单独创建一份。在 default.yaml 存在时创建不存在的群配置，会自动复制一份，注意 default.yaml 只会在创建时生效，并不会作为 fallback。
+配置和状态文件均存在两种变种，一种是所有群聊共用一份，一种是每个群聊单独创建一份。当读取不存在的群配置时，会尝试自动复制一份 default.yaml，注意这只会在创建时生效，并不会作为 fallback。
 ```
 📁 configs
 |-📁 some_group_config 示例：每个群聊单独的配置
@@ -33,7 +33,7 @@ Shared/GroupState 除了使用 states 而非 configs 文件夹存储，和 Share
 ```python
 from nonebot.adapters.onebot.v11 import Event
 from pydantic import BaseModel
-from util import command, config_v2, context
+from util import command, configs, context
 
 class SomeModel(BaseModel):
   # 你可以像其他 Pydantic 模型一样编写配置模型
@@ -43,14 +43,14 @@ class SomeModel(BaseModel):
 
 # 第一个参数为配置文件名，对于共用配置会自动加上 .yaml 拓展名，对于独立配置会创建文件夹
 # 第二个参数为 BaseModel 的子类
-# 第三个参数为是否可以热重载，可省略，省略时为 True
-STATE = config_v2.GroupState("some_state", SomeModel, True)
+# 第三个参数为是否可以热重载，可以是 False（不可热重载）、"eager"（立即重载）、"lazy"（延迟重载，默认）
+STATE = configs.GroupState("some_state", SomeModel, "lazy")
 
 # 使用 onload 装饰器可以控制加载配置文件时的行为
-# 唯一一个参数为是否禁用懒加载，考虑到此类配置文件通常涉及到定时任务等，省略参数时为 True
+# 目前装饰器没有任何参数
 # SharedConfig 和 SharedState 需要的函数: Callable[[SomeModel | None, SomeModel], None]
 # GroupConfig 和 GroupState 需要的函数: Callable[[SomeModel | None, SomeModel, int], None]
-@STATE.onload(False)
+@STATE.onload()
 def on_reload(old: SomeModel | None, new: SomeModel, gid: int) -> None:
   # old 在第一次加载时为 None，重载时为重载前的配置
   # new 始终为加载后的配置
@@ -62,11 +62,12 @@ matcher = command.CommandBuilder("some_plugin.some_command", "测试命令").bui
 async def handler(event: Event) -> None:
   # SharedConfig 和 SharedState 调用时无需参数
   # SharedConfig 和 GroupState 调用时需要群号，通常是使用 context.get_event_context 获取，参见“上下文”
-  state = STATE(context.get_event_context(event))
+  ctx = context.get_event_context(event)
+  state = STATE(ctx)
   # 调用创建的 CONFIG / STATE 来获取当前的配置/状态对象，重新加载时当前对象会失效
   # 因此请在每次处理命令时都获取配置，而不是把配置缓存起来，BaseConfig 内部会处理缓存
   # ... 其余代码 ...
-  state.dump()
+  STATE.dump(ctx)
   # 调用 dump 将状态写入到磁盘上，不建议对 CONFIG 调用 dump。
 ```
 
@@ -109,44 +110,51 @@ class GroupConfig(config.BaseConfig[TModel, int]):
       yield i,
 ```
 
-### 过时的 API
-你可能注意到配置模块的名字是 `util.config_v2`，而非 `util.config`，因为 IdhagnBot 还有一些插件还在使用过时的配置 API，而没有迁移。
-
-过时 API 也区分配置和状态，但并没有为每个群单独配置的功能，你需要自行实现这些，并且不支持懒加载和热重载。
-
-请不要使用过时 API，它将会在迁移完成后删除，届时 `util.config_v2` 将会重命名为 `util.config`。
-
 ## 列表
-使用新配置 API 的插件和辅助模块列表：
+* ⏩：重载时不使用懒加载
+* ❄️：不支持热重载
+* 👥：不同群之间文件独立
 
-标注 ⏩ 的配置不使用懒加载，标注 ❄️ 的配置不支持热重载
+### 配置文件列表
+* ⏩ bilibili_activity
+* bilibili_check
+* bilibili_live
+* catdog
+* coin
+* color
+* ⏩ context
+* ⏩ daily
+* dice
+* forbidden_word
+* fortune
+* foxtail
+* furbot
+* help
+* idhagnfetch
+* ❄️ image_board
+* liferestart
+* ⏩ log
+* minecraft
+* misc
+* permission
+* ❄️ plugins
+* qimeng
+* sign
+* trending
+* user_aliases
+* welcome
+* wikipedia
+* wordcloud
 
-* <PlaceholderLink href="/docs/guide/plugins/bilibili_check">bilibili_check</PlaceholderLink>
-* ⏩ [daily](/docs/guide/plugins/daily)
-* [fortune](/docs/guide/plugins/fortune)
-* [idhagnfetch](/docs/guide/plugins/idhagnfetch)
-* [minecraft](/docs/guide/plugins/minecraft)
-* ⏩ <PlaceholderLink href="/docs/guide/plugins/sign">sign</PlaceholderLink>
-* ⏩ <PlaceholderLink href="/docs/api/util.log">util.log</PlaceholderLink>
-* <PlaceholderLink href="/docs/api/util.permission">util.permission</PlaceholderLink>
-* ⏩ <PlaceholderLink href="/docs/api/util.util">util.util</PlaceholderLink>
-
-使用过时 API 的插件和辅助模块列表：
-* <PlaceholderLink href="/docs/guide/plugins/auto_strike">auto_strike</PlaceholderLink>
-* [bilibili_activity](/docs/guide/plugins/bilibili_activity)
-* <PlaceholderLink href="/docs/guide/plugins/bilibili_live">bilibili_live</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/coin">coin</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/dog">dog</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/emojimix">emojimix</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/fallback">fallback</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/forbidden_word">forbidden_word</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/image_board">image_board</PlaceholderLink>
-* [liferestart](/docs/guide/plugins/liferestart)
-* <PlaceholderLink href="/docs/guide/plugins/purchase">purchase</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/trending">trending</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/welcome">welcome</PlaceholderLink>
-* <PlaceholderLink href="/docs/guide/plugins/wikipedia">wikipedia</PlaceholderLink>
-* <PlaceholderLink href="/docs/api/util.account_aliases">util.account_aliases</PlaceholderLink>
-* [util.context](/docs/api/util.context)
-* <PlaceholderLink href="/docs/api/util.currency">util.currency</PlaceholderLink>
-* <PlaceholderLink href="/docs/api/util.help">util.help</PlaceholderLink>
+### 状态文件列表
+* bilibili_check
+* color
+* ⏩ context
+* 👥 currency
+* daily
+* 👥 forbidden_word
+* 👥 goods
+* liferestart
+* 👥 scheduled
+* 👥 sign
+* trending

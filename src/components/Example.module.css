@@ -1,72 +1,114 @@
-.example {
-  box-shadow: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+.Example {
   margin-bottom: var(--ifm-leading);
 }
 
-.exampleHeader {
+.ForwardButtonIcon {
+  margin-left: auto;
+}
+
+.MessageGroup > * {
+  border-top: 1px solid rgba(0,0,0,.12);
+}
+
+[data-theme=dark] .MessageGroup > * {
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.Message {
   display: flex;
 }
 
-.exampleHeader :global .card__header {
-  padding: .5rem 0;
+.Message :global .MuiButtonBase-root {
+  min-width: 0;
+  border-radius: 0;
+}
+
+.MessagePrefix {
   font-family: var(--ifm-font-family-monospace);
-  flex-grow: 1;
+  position: relative;
+}
+
+.MessagePrefix::before {
+  display: block;
+  padding: 0 8px;
+  height: 36px;
+  line-height: 36px;
+  transition: opacity .25s;
+}
+
+.Message:hover > .MessagePrefix::before {
+  opacity: 0;
+}
+
+.MessagePrefixSend::before {
+  content: ">>>";
+  color: var(--ifm-color-primary);
+}
+
+.MessagePrefixRecv::before {
+  content: "<<<";
+  color: rgba(0,0,0,.5);
+}
+
+[data-theme=dark] .MessagePrefixRecv::before {
+  color: rgba(255,255,255,.5);
+}
+
+.MessageCopy:global(.MuiButtonBase-root) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.Message:hover > .MessagePrefix .MessageCopy {
+  opacity: .5;
+}
+
+.Message > .MessagePrefix:hover .MessageCopy {
+  opacity: 1;
+}
+
+.MessageButton {
+  margin-left: auto;
+}
+
+.MessageContent {
+  padding: 4px 8px 4px 0;
   white-space: pre-wrap;
 }
 
-.exampleHeader :global .card__header:first-child {
-  padding-left: var(--ifm-card-horizontal-spacing);
+.MessageContent p,
+.MessageContent details,
+.MessageContent .Example {
+  margin-bottom: 0;
 }
 
-.exampleHeader :global .card__header:last-child {
-  padding-right: var(--ifm-card-horizontal-spacing);
+.MessageContent img,
+.MessageContent audio {
+  vertical-align: bottom;
 }
 
-.exampleButton {
-  padding: 0 var(--ifm-card-horizontal-spacing);
-  display: flex;
-  align-items: center;
-  transition-property: background-color;
-  transition-duration: var(--ifm-button-transition-duration);
-  transition-timing-function: var(--ifm-transition-timing-default);
-  cursor: pointer;
+.MessageContent img {
+  width: 100%;
+  max-width: 300px;
 }
 
-.exampleButton:hover,
-.exampleButton:focus {
-  background-color: var(--ifm-color-secondary);
+.Note {
+  color: rgba(0,0,0,.5);
 }
 
-.exampleButton:active {
-  background-color: var(--ifm-color-secondary-dark);
+[data-theme=dark] .Note {
+  color: rgba(255,255,255,.5);
 }
 
-[data-theme=dark] .exampleButton:hover,
-[data-theme=dark] .exampleButton:focus {
-  background-color: var(--ifm-color-gray-800);
-}
-
-[data-theme=dark] .exampleButton:active {
-  background-color: var(--ifm-color-gray-700);
-}
-
-.exampleButton svg {
-  width: 24px;
-  opacity: .56;
-}
-
-.example :global .card__body {
+.Note::before {
+  content: '>>>';
+  padding: 0 8px;
   font-family: var(--ifm-font-family-monospace);
-  white-space: pre-wrap;
-  background-color: var(--ifm-code-background);
-  padding-bottom: var(--ifm-card-vertical-spacing);
-}
-
-.example blockquote p::before {
-  content: ">>> ";
-}
-
-.example :global .card__footer {
-  padding: .5rem var(--ifm-card-horizontal-spacing);
+  opacity: 0;
 }

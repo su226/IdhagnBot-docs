@@ -1,0 +1,50 @@
+.Command {
+  margin-bottom: var(--ifm-leading);
+}
+
+.CommandHeader {
+  display: flex;
+}
+
+.CommandTitle {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+}
+
+.CommandTitle code {
+  line-height: 1;
+  margin-right: 8px;
+}
+
+.CommandBrief {
+  font-size: .875em;
+}
+
+.CommandButtons {
+  margin-left: auto;
+}
+
+.CommandButtons :global .MuiButtonBase-root {
+  min-width: 0;
+  border-radius: 0;
+}
+
+.CommandUsage {
+  white-space: pre-wrap;
+  background-color: rgba(0,0,0,.05);
+  padding: 4px 8px;
+}
+
+[data-theme=dark] .CommandUsage {
+  background-color: rgba(255,255,255,.025);
+}
+
+.CommandUsage p {
+  margin-bottom: 0;
+}
+
+.CommandInfo {
+  padding: 4px 8px;
+  font-size: .875em;
+}

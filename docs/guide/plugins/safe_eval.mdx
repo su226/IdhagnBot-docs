@@ -2,7 +2,7 @@
 description: （可能不）安全地运行 Python 和 NodeJS 代码
 ---
 import Command from "@site/src/components/Command";
-import Example from "@site/src/components/Example";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
 
 # safe_eval
 （可能不）安全地运行 Python 和 NodeJS 代码
@@ -29,33 +29,58 @@ import Example from "@site/src/components/Example";
 时间限制为 10 秒
 内存限制为 128.0 M
 输出限制为 1024 字节
-
 </Command>
-<Example input={"python print(\"Hello, World!\")"}>
+<Example>
+<Send mono>/python print("Hello, World!")</Send>
+<Recv>
 
 退出代码：0
 标准输出：
 Hello, World!
 标准错误：（空）
-
+</Recv>
 </Example>
-<Example input={"python\nimport os\nwhile True:\n  os.fork()"}>
+<Example>
+<Send mono>
+
+/python
+import os
+while True:
+&nbsp;&nbsp;os.fork()
+</Send>
+<Recv>
 
 退出代码：1
 标准输出：（空）
 标准错误：（末尾没有换行）
 BlockingIOError: [Errno 11] Resource temporarily unavailable
-*（部分内容省略）*
-
+</Recv>
+<Note>（部分内容省略）</Note>
 </Example>
-<Example input={"python\nimport time\ntime.sleep(100)"}>
+<Example>
+<Send mono>
+
+/python
+import time
+time.sleep(100)
+</Send>
+<Recv>
 
 退出代码：-9（超时）
 标准输出：（空）
 标准错误：（空）
-
+</Recv>
 </Example>
-<Example input={"python\nimport random\na = bytearray()\nwhile True:\n  a.extend(random.randbytes(1048576))"}>
+<Example>
+<Send mono>
+
+/python
+import random
+a = bytearray()
+while True:
+&nbsp;&nbsp;a.extend(random.randbytes(1048576))
+</Send>
+<Recv mono>
 
 退出代码：1
 标准输出：（空）
@@ -65,7 +90,7 @@ Traceback (most recent call last):
 &nbsp;&nbsp;&nbsp;&nbsp;exec(data["code"], {}, {})
 &nbsp;&nbsp;File "&lt;string&gt;", line 4, in &lt;module&gt;
 MemoryError
-
+</Recv>
 </Example>
 
 <Command name={["javascript", "js", "node"]} brief="在沙箱中运行NodeJS代码" perm="safe_eval.javascript">
@@ -82,13 +107,15 @@ MemoryError
 该命令有以下别名：js、node
 
 </Command>
-<Example input={"javascript console.log(\"Hello, World!\");"}>
+<Example>
+<Send mono>/javascript console.log("Hello, World!");</Send>
+<Recv>
 
 退出代码：0
 标准输出：
 Hello, World!
 标准错误：（空）
-
+</Recv>
 </Example>
 
 ## 搭建说明
