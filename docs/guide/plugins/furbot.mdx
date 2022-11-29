@@ -1,121 +1,113 @@
 ---
-description: 绒狸（需申请Token）
+description: 绒狸（需要申请Token）
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 需要手动配置, permalink: config-required}
+- {label: 需要Token或帐号, permalink: token-required}
+- {label: 使用第三方服务, permalink: third-party-service}
+- {label: 含Furry相关, permalink: furry}
+- {label: 纯Furry相关, permalink: furry-only}
 ---
 import Command from "@site/src/components/Command";
 import Example, { Send, Recv, Note } from "@site/src/components/Example";
 
 # furbot
-绒狸（需申请Token）
+绒狸（需要申请Token）
 
 ## 用户说明
-发送命令“/绒狸”或者**关键字**（不是命令，没有斜线）“来只毛” 查看毛图。
+发送命令 `/绒狸` 或者**关键字**（不是命令，没有斜线）`来只毛` 查看毛图。
 
-无论是“/绒狸”还是“来只毛”都接受额外参数，可以是名字或者 ID，如：“/绒狸 瑞狩”或者“来只毛 6”
+无论是 `/绒狸` 还是 `来只毛` 都接受额外参数，可以是名字或者 ID，如：`/绒狸 瑞狩` 或者 `来只毛 6`
 
-在未启用兽云祭或手动指定优先绒狸时，也可以使用通用关键字“来只”触发命令。
+在未启用兽云祭或手动指定优先绒狸时，也可以使用通用关键字 `来只` 触发命令。
 
-以下所有命令的帮助均位于 furbot [子分类](/docs/guide/concepts/help)中，你可以使用“/help furbot”查看。
+以下所有命令的帮助均位于 furbot [子分类](/docs/guide/concepts/help)中，你可以使用 `/help furbot` 查看。
 
 <Example>
-<Send>/help furbot</Send>
-<Recv>
-
-第 1 页，共 1 页
-使用 /帮助 &lt;命令名&gt; 查看详细用法
+  <Send>/help furbot</Send>
+  <Recv>
+{`第 1 页，共 1 页
+使用 /帮助 <命令名> 查看详细用法
 绒狸官方群：893579624
 /每日鉴毛 - 绒狸每日鉴毛
 /绒狸 - 使用绒狸API的随机兽图
 /绒狸投稿 - 向绒狸投稿毛毛
-/绒狸查询 - 查询毛毛的绒狸FID
-</Recv>
+/绒狸查询 - 查询毛毛的绒狸FID`}
+  </Recv>
 </Example>
 
-<Command name="绒狸" brief="使用绒狸API的随机兽图" perm="furbot.picture">
-
+<Command name="绒狸" brief="使用绒狸API的随机兽图" perm="furbot.picture">{`\
 /绒狸 - 发送随机毛图
 /绒狸 [名字或ID] - 发送指定毛图
 内容来自绒狸 API，官方群：893579624
 也可以使用关键词“来只毛”触发
-</Command>
+`}</Command>
 <Example>
-<Send>/绒狸</Send>
-<Recv>
+  <Send>/绒狸</Send>
+  <Recv>
 
 ======== 绒狸 ========
 ID: 6
 名字: 瑞狩
 ![绒狸例图](/example/furbot/random.jpg)
-</Recv>
-</Example>
-<Example>
-<Send>/绒狸 瑞狩</Send>
-<Note>输出省略</Note>
-</Example>
-<Example>
-<Send>/绒狸 6</Send>
-<Note>输出省略</Note>
+
+  </Recv>
+  <Note>也可使用以下形式等，注意“来只毛”前面没有斜线</Note>
+  <Send>/绒狸 瑞狩</Send>
+  <Send>/绒狸 6</Send>
+  <Send>来只毛</Send>
+  <Send>来只毛 瑞狩</Send>
 </Example>
 
-你可以使用“/绒狸查询”来查询毛毛的ID，注意为了保持 IdhagnBot 的简洁统一，IdhagnBot 并没有“来只毛”以外的关键字，**不能**使用其他绒狸机器人的关键字“查fid”。
+你可以使用 `/绒狸查询` 来查询毛毛的ID，注意为了保持 IdhagnBot 的简洁统一，IdhagnBot 并没有 `来只毛` 以外的关键字，**不能**使用其他绒狸机器人的关键字 `查fid`。
 
 <Command name="绒狸查询" brief="查询毛毛的绒狸FID" perm="furbot.query">
-
 /绒狸查询 [名字]
-
 </Command>
 <Example>
-<Send>/绒狸查询 瑞狩</Send>
-<Recv>
-
-======== 绒狸 ========
+  <Send>/绒狸查询 瑞狩</Send>
+  <Recv>
+{`======== 绒狸 ========
 查询结果
 名字：瑞狩
-ID：6、1172、1173、1240、1241、3149
-
-</Recv>
+ID：6、1172、1173、1240、1241、3149`}
+  </Recv>
 </Example>
 
-除此之外，你还可以发送“/每日鉴毛”查看随机或指定一期每日鉴毛，注意由于 API 的限制，不能查看最新一期。~~你倒是可以用二分法自己慢慢找~~
+除此之外，你还可以发送 `/每日鉴毛` 查看随机或指定一期每日鉴毛，注意由于 API 的限制，不能查看最新一期。~~你倒是可以用二分法自己慢慢找~~
 
-<Command name="每日鉴毛" brief="绒狸每日鉴毛" perm="furbot.daily">
-
+<Command name="每日鉴毛" brief="绒狸每日鉴毛" perm="furbot.daily">{`\
 /每日鉴毛 - 随机一期每日鉴毛
-/每日鉴毛 &lt;名字&gt; - 指定毛毛的每日鉴毛
-/每日鉴毛 &lt;ID&gt; - 指定ID的每日鉴毛
-
-</Command>
+/每日鉴毛 <名字> - 指定毛毛的每日鉴毛
+/每日鉴毛 <ID> - 指定ID的每日鉴毛
+`}</Command>
 <Example>
-<Send>/每日鉴毛</Send>
-<Recv>
+  <Send>/每日鉴毛</Send>
+  <Recv>
 
 ======== 绒狸 ========
 ID: 293
 名字: 阿布多瑞
 ![每日鉴毛例图](/example/furbot/daily.jpg)
-</Recv>
-</Example>
-<Example>
-<Send>/每日鉴毛 阿布多瑞</Send>
-<Note>输出省略</Note>
-</Example>
-<Example>
-<Send>/每日鉴毛 293</Send>
-<Note>输出省略</Note>
+
+  </Recv>
+  <Note>也可使用以下形式</Note>
+  <Send>/每日鉴毛 阿布多瑞</Send>
+  <Send>/每日鉴毛 293</Send>
 </Example>
 
 只有[绒狸官方群](https://jq.qq.com/?_wv=1027&k=5YmdAAH9)的机器人能使用投稿和反馈，因此 IdhagnBot 的投稿命令会引导用户使用小程序。
 
 <Command name="绒狸投稿" brief="向绒狸投稿毛毛" perm="furbot.submit">
-
-*该命令没有帮助*
-
+  <em>该命令没有帮助</em>
 </Command>
 <Example>
-<Send>绒狸投稿</Send>
-<Recv>
+  <Send>绒狸投稿</Send>
+  <Recv>
 
 ![小程序二维码](https://s2.loli.net/2022/04/12/kpaO594er6RXQ7D.jpg)
-</Recv>
+
+  </Recv>
 </Example>
 
 ## 搭建说明
@@ -123,7 +115,7 @@ ID: 293
 
 在填写 Token 后，除了可以直接使用相关命令，还可以在 [daily 插件](/docs/guide/plugins/daily#搭建说明)（每日推送）中增加绒狸每日鉴毛。
 
-:::caution IdhagnBot 作者的话
+:::note IdhagnBot 作者的话
 似乎绒狸作者并不是经常看问卷结果，如果填写问卷之后没有答复，还请前往绒狸官方群。
 
 ~~实在不想申请 Token 还是用兽云祭吧，那个是开放接入的。（被打）~~

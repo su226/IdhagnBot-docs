@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@mui/material";
 
 export interface ExpandAllType {
   value: boolean,
@@ -33,9 +34,9 @@ export default function CollapseGroup(props: CollapseGroupProps): JSX.Element {
   return (
     <ExpandAll.Provider value={expandAll}>
       <p>
-        <button className="button button--primary" onClick={expand}>全部展开</button>
+        <Button variant="contained" onClick={expand}>全部展开</Button>
         {" "}
-        <button className="button button--secondary" onClick={collapse}>全部收起</button>
+        <Button variant="outlined" onClick={collapse}>全部收起</Button>
         {" "}
         {props.title}
       </p>

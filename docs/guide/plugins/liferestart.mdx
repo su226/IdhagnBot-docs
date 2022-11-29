@@ -1,5 +1,8 @@
 ---
 description: 人生重开模拟器
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 有状态文件, permalink: has-state}
 ---
 import Command from "@site/src/components/Command";
 import Example, { Send, Recv } from "@site/src/components/Example";
@@ -33,10 +36,9 @@ positional arguments:
 </Command>
 
 <Example collapsed>
-<Send>/人生重开 c</Send>
-<Recv>
-
-种子：198828329
+  <Send>/人生重开 c</Send>
+  <Recv>
+{`种子：198828329
 0: 天赋异禀 - 初始可用属性点+2
 1: 钻石健身卡 - 家境>10时体质+3
 2: 乡间微风 - 你出生在农村
@@ -48,28 +50,28 @@ positional arguments:
 8: 宙斯 - 参加奥赛的几率提高
 9: 把握不住 - 你有强迫症
 10: 形象管理 - 24岁时颜值+2
-\- 发送 3 个空格分隔的数字选择天赋，第一个天赋将会被继承
-\- 发送 “随” 随机选择
-\- 发送 “换” 重新抽天赋
-\- 发送 “退” 退出游戏
-</Recv>
-<Send>随</Send>
-<Recv>
-
-已选天赋:
+- 发送 3 个空格分隔的数字选择天赋，第一个天赋将会被继承
+- 发送 “随” 随机选择
+- 发送 “换” 重新抽天赋
+- 发送 “退” 退出游戏`}
+  </Recv>
+  <Send>随</Send>
+  <Recv>
+{`已选天赋:
 天赋异禀 - 初始可用属性点+2
 乡间微风 - 你出生在农村
 钻石健身卡 - 家境>10时体质+3
 可分配 22 点属性
-\- 发送 4 个空格分隔的数字分配颜值、智力、体质和家境
-\- 发送 “随” 随机分配
-\- 发送 “退” 退出游戏
-</Recv>
-<Send>随</Send>
-<Recv>
+- 发送 4 个空格分隔的数字分配颜值、智力、体质和家境
+- 发送 “随” 随机分配
+- 发送 “退” 退出游戏`}
+  </Recv>
+  <Send>随</Send>
+  <Recv>
 
 ![人生重开模拟器例图](/example/liferestart.png)
-</Recv>
+
+  </Recv>
 </Example>
 
 ## 搭建说明

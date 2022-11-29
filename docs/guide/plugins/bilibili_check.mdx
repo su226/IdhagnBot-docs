@@ -1,0 +1,62 @@
+---
+description: B站查成分（需要B站Cookie）
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 需要手动配置, permalink: config-required}
+- {label: 需要Token或帐号, permalink: token-required}
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import { Ruby } from "@site/src/components/typography";
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# bilibili_check
+B站查成分（需要B站Cookie）
+
+一键查询<Ruby rt="DD">单推</Ruby>了多少 VTB。本插件参考自 [noneplugin/nonebot-plugin-ddcheck](https://github.com/noneplugin/nonebot-plugin-ddcheck)，不过本插件**并不依赖于浏览器渲染**。
+
+## 用户说明
+发送 `/查成分 <用户名或 ID>` 就可以看到他关注了多少 VTB。VTB 数据来自 [vtbs.moe](https://vtbs.moe) 的 API，*因此请不要找 IdhagnBot 作者反馈收录问题*。
+
+:::note
+以前 B 站的 API 有设计缺陷，就算用户将关注列表设置为不公开也可以通过 API 获取到完整的关注列表，现在已经被修复了。
+
+不过现在从 API 获取关注列表依然没有网页只能查看 5 页的限制。
+:::
+
+<Example>
+  <Send>/查成分 动动枪</Send>
+  <Recv>
+
+![查成分例图](/example/bilibili_check.png)
+
+  </Recv>
+  <Note>在我自己的关注列表找了半天差点找不到适合的样例：有的关注不公开、有的没关注 VTB、有的关注太多图很长、有的之前在某个地方见过我，怕他找我麻烦……[手动捂脸]</Note>
+</Example>
+
+<Command name="查成分" brief="卧槽，□批！" perm="bilibili_check">
+{"/查成分 <用户名或ID>"}
+</Command>
+
+## 搭建说明
+本插件需要你的 B 站 Cookie 来访问 API，如果没有指定 Cookie，会自动禁用命令。**填入无效的 Cookie 会让命令报错，因此如果哪天突然报错的话可能是 Cookie 过期，请先尝试重新获取 Cookie。**
+
+`configs/bilibili_check.yaml`
+```yaml
+cookie: "你的 Cookie"
+```
+
+:::danger
+**Cookie 相当于帐号的控制权，千万不要泄露给别人！**如有不慎泄露，立即修改密码，这会下线所有设备，也就是让当前的所有 Cookie 失效。
+
+IdhagnBot 不会收集你的 Cookie，请放心使用。
+:::
+
+你可以使用浏览器的开发工具获取你的 Cookie：打开 B 站，按下 <kbd>F12</kbd>，选择“网络”（Network），随便点一个域名为 bilibili.com 的请求（如果没有请求可以**保持开发工具打开**并刷新），将请求头中的 Cookie 复制下来，**不要包含** `Cookie:`。
+
+如果你在意是哪些 Cookie 会被本插件用到的话，`SESSDATA` 和 `buvid3`，不过不排除 B 站以后修改 API 的可能~~以及你手贱没复制完整的可能~~，建议复制整个 Cookie。
+
+* ✅ `cookie: "SESSDATA=xxxxxx; buvid3=xxxxxx; ..."`
+* ❌ `cookie: "Cookie: SESSDATA=xxxxxx; buvid3=xxxxxx; ..."`
+
+![获取B站Cookie](/example/bilibili_cookie.png)

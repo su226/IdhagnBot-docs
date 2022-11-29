@@ -1,0 +1,63 @@
+---
+description: 哎哟这个色啊！好色！
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# color
+哎哟这个色啊！好色！
+
+## 用户说明
+顾名思义，这是一个“色”图插件，不带参数时会随机一个颜色，同 [cabbage_doge](/docs/guide/plugins/cabbage_doge)，支持以下颜色格式：
+
+* 3 位 16 进制，井号可选：`#123`（等价于 `#112233`）
+* 6 位 16 进制，井号可选：`#123456`
+* CSS 颜色名（[列表](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color#value)）：`blue`
+* rgb()：`rgb(12,34,56)`
+* hsl()：`hsl(123deg,34%,56%)`
+* Material Design 颜色名（[列表](https://mui.com/zh/material-ui/customization/color/#2014-material-design-color-palettes)）：`blue500`
+  * 考虑到国内可能访问不了 [MD 官网](https://material.io/design/color/the-color-system.html)，上述链接是 Material-UI 的网站
+
+除此之外，也可以使用 [Simple Icons](https://simpleicons.org) 上的品牌色，如 `/色图 archlinux`。
+
+如果颜色存在于 CSS 颜色、Material Design 色板或者 Simple Icons 品牌色中也会显示，如果一个颜色对应多个品牌，会显示数量而非名称。
+
+<Example>
+  <Send>/色图 archlinux</Send>
+  <Recv>
+
+![色图例图](/example/color.png)
+
+  </Recv>
+  <Note>以下形式等也是等价的<del>，甚至可以赌能不能随机出来</del></Note>
+  <Send>/色图 1793d1</Send>
+  <Note>1793d1 前面的井号可有可无</Note>
+  <Send>/色图 rgb(23, 147, 209)</Send>
+  <Note>不同与 cabbage_doge，因为只有一个颜色，所以可以带空格。</Note>
+</Example>
+
+<Command name={["色图", "color"]} brief="哎哟这个色啊！好色！" perm="color">{`\
+支持多种格式，比如以下均为蓝色
+/色图 #0000ff
+/色图 0000ff
+/色图 #00f
+/色图 00f
+/色图 rgb(0, 0, 255)
+/色图 hsl(240, 100%, 50%)
+/色图 blue
+也可以使用 simpleicons.org 上的品牌色
+`}</Command>
+
+## 搭建说明
+*如果要出于避嫌或者其他什么需要，*你可以在配置文件中禁用品牌色。
+
+`configs/color.yaml`
+```yaml
+brand_enable: true # 是否使用品牌色，默认为 true
+brand_cache_duration: 86400 # Simple Icons 缓存有效期，单位为秒，默认为 86400 秒（一天）
+simpleicons_data_url: "https://github.com/simple-icons/simple-icons/raw/develop/_data/simple-icons.json"
+# Simple Icons 的数据文件地址，如果项目地址有变或者需要使用 jsDelivr 等 CDN 可更改此地址
+```

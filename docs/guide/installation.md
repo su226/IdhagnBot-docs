@@ -1,10 +1,13 @@
 ---
 sidebar_position: 2
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 需要手动配置, permalink: config-required}
 ---
 # 安装
 
 ## 安装 IdhagnBot
-IdhagnBot 的开发主要在 ArchLinux 上完成，且需要至少 Python 3.10，不保证在 Windows 或 MacOS 上的兼容性，如有问题或需求可以[发起 Issue](https://github.com/su226/IdhagnBot/issues)。
+IdhagnBot 的开发主要在 ArchLinux 上完成，且需要至少 Python 3.8（建议使用 3.10，部分插件不能在 3.11 中使用），不保证在 Windows 或 MacOS 上的兼容性，如有问题或需求可以[发起 Issue](https://github.com/su226/IdhagnBot/issues)。
 
 以下命令请根据发行版替换。
 
@@ -40,7 +43,7 @@ AIOHTTP 也作为其他插件的HTTP库使用，因此使用其他驱动器也�
 * https://v2.nonebot.dev/docs/tutorial/choose-driver#aiohttp
 * https://adapter-onebot.netlify.app/docs/guide/setup/#正向-websocket-连接
 
-:::caution
+:::info
 本项目并不使用 nb-cli，请使用 pip 或 pdm 安装相关依赖。
 :::
 

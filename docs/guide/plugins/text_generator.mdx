@@ -1,0 +1,39 @@
+---
+description: 花式文字生成器
+tags:
+- {label: 使用可选依赖, permalink: optional-dependency}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# text_generator
+花式文字生成器
+
+## 用户说明
+目前只有两个功能：`/淫语` 和 `/颠倒`
+
+`/淫语` 原作者是 RimoChan*，才不是作者~~对着自家崽子和机器人~~发情呢*。[原 GitHub Repo](https://github.com/RimoChan/yinglish)
+
+<Example>
+  <Send>/淫语 吃葡萄不吐葡萄皮。</Send>
+  <Recv>……吃〇〇不吐葡……葡萄皮……</Recv>
+  <Note>转化是随机的，也就是不同尝试的结果可能不同。<del>所以这就是我照抄原 Repo 样例的原因</del></Note>
+</Example>
+
+<Example>
+  <Send>/颠倒 Hello, World!</Send>
+  <Recv>¡plɹoM ‘ollǝH</Recv>
+  <Note>仅支持英文、数字和部分半角符号，中文只反转顺序<em>，毕竟 Unicode 不可能闲得蛋疼加一片码点存储颠倒的中文</em>。</Note>
+</Example>
+
+<Command name="淫语" brief="“较开放的漫画”会出现这个" perm="text_generator.ero">
+{"/淫语 <文字>"}
+</Command>
+
+<Command name="颠倒" brief="上下颠倒文字" perm="text_generator.ero">{`\
+/颠倒 <文字>
+仅支持英文大小写和数字，中文只反转顺序
+`}</Command>
+
+## 搭建说明
+`/淫语` 依赖[结巴分词](https://github.com/fxsjy/jieba)库，使用 `pdm install -G jieba` 安装，未安装结巴分词会自动禁用这个命令。

@@ -9,18 +9,16 @@ import Example, { Send, Recv } from "@site/src/components/Example";
 
 ## 用户说明
 
-<Command name="菜狗" brief="生成彩色菜狗GIF" perm="cabbage_doge">
-
+<Command name="菜狗" brief="生成彩色菜狗GIF" perm="cabbage_doge">{`\
 /菜狗 - 生成随机颜色的菜狗
-/菜狗 &lt;颜色&gt; - 生成指定颜色的菜狗
-/菜狗 &lt;多个颜色&gt; - 生成渐变色的菜狗
+/菜狗 <颜色> - 生成指定颜色的菜狗
+/菜狗 <多个颜色> - 生成渐变色的菜狗
 颜色可以是16进制，也可以是CSS颜色
-
-</Command>
+`}</Command>
 
 颜色可以使用：
-* 3 位 16 进制：`#123`（等价于 `#112233`）
-* 6 位 16 进制：`#123456`
+* 3 位 16 进制，井号可选：`#123`（等价于 `#112233`）
+* 6 位 16 进制，井号可选：`#123456`
 * CSS 颜色名（[列表](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color#value)）：`blue`
 * rgb()：`rgb(12,34,56)`
 * hsl()：`hsl(123deg,34%,56%)`
@@ -28,9 +26,10 @@ import Example, { Send, Recv } from "@site/src/components/Example";
   * 考虑到国内可能访问不了 [MD 官网](https://material.io/design/color/the-color-system.html)，上述链接是 Material-UI 的网站
 
 <Example>
-<Send>/菜狗 red green blue</Send>
-<Recv>
+  <Send>/菜狗 red green blue</Send>
+  <Recv>
 
 ![菜狗例图](/example/cabbage_doge.gif)
-</Recv>
+
+  </Recv>
 </Example>

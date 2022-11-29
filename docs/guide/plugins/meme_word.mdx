@@ -1,0 +1,148 @@
+---
+description: 文字梗图生成器
+tags:
+- {label: 使用可选依赖, permalink: optional-dependency}
+---
+import ExampleMasonry from "@site/src/components/ExampleMasonry";
+import Example, { Send, Recv } from "@site/src/components/Example";
+
+# meme_word
+文字梗图生成器
+
+部分梗图来自 [nonebot-plugin-memes](https://github.com/noneplugin/nonebot-plugin-memes) 和 [nonebot-plugin-logo](https://github.com/noneplugin/nonebot-plugin-logo)，`/orly` 来自 [nanmu42/orly](https://github.com/nanmu42/orly)。
+
+## 用户说明
+### 示例
+<!-- 等以后图更多了再解除这里的注释吧 -->
+<!--
+:::caution ~~别说我没警告过你~~
+流量党慎点
+:::
+下文包含大量（12张，每20张一组）预览，滑到底时自动加载更多。<br />
+~~有钱到可疑的兽人控~~土豪、WiFi 党或电脑党也可以点蓝色按钮。
+-->
+
+<ExampleMasonry base="meme_word">{[
+  {
+    "name": ["成瘾前后", "成瘾"],
+    "perm": "meme_word.addict",
+    "example": "/成瘾前后 ArchLinux",
+    "image": "addict.png",
+    "usage": "/成瘾 <文本>",
+    "brief": "会露出笑容"
+  },
+  {
+    "name": ["5000兆元", "兆元", "5000choyen", "choyen"],
+    "perm": "meme_word.5000choyen",
+    "example": "/5000兆元 Idhagn Bot",
+    "image": "5000choyen.png",
+    "usage": "/5000兆元 <红色文本> [银色文本]",
+    "brief": "生成想要5000兆元风格文字"
+  },
+  {
+    "name": ["喜报"],
+    "perm": "meme_word.goodnews",
+    "example": "/喜报 草",
+    "image": "goodnews.png",
+    "usage": "/喜报 <文本>",
+    "brief": "NullPointerException"
+  },
+  {
+    "name": ["谷歌", "google"],
+    "perm": "meme_word.google",
+    "example": "/google Microsoft",
+    "image": "google.png",
+    "usage": "/谷歌 <文本>",
+    "brief": "G,O,O,G,L,E,咕噜咕噜"
+  },
+  {
+    "name": ["lolcat"],
+    "perm": "meme_word.lolcat",
+    "example": "/lolcat 非常好视频，英雄联盟，爱来自瓷器❤️",
+    "image": "lolcat.png",
+    "usage": "/lolcat <文本>\n灵感来自github.com/busyloop/lolcat",
+    "brief": "彩虹和独角兽！"
+  },
+  {
+    "name": ["鲁迅说", "鲁迅"],
+    "perm": "meme_word.luxun",
+    "example": "/鲁迅说 我没有说过这句话",
+    "image": "luxun.png",
+    "usage": "/鲁迅说 <文本>",
+    "brief": "我没说过这句话"
+  },
+  {
+    "name": ["诺基亚", "nokia", "无内鬼"],
+    "perm": "meme_word.nokia",
+    "example": "/诺基亚 无内鬼来点涩图",
+    "image": "nokia.png",
+    "usage": "/诺基亚 <文本>\n自动换行，文本不能超过 7 行",
+    "brief": "无内鬼，来点涩图"
+  },
+  {
+    "name": ["orly", "动物书"],
+    "perm": "meme_word.orly",
+    "example": "/orly QQ机器人 从入门到入土",
+    "image": "orly.png",
+    "usage": "usage: orly [--header HEADER] [--subtitle SUBTITLE] [--position {左上,左下,右上,右下,lt,lb,rt,rb}] [--author AUTHOR]\n            [--color COLOR] [--image IMAGE] [--no-grayscale]\n            title1 [title2]\n\npositional arguments:\n  title1                标题第一行\n  title2                标题第二行\n\noptions:\n  --header HEADER, -h HEADER\n                        页眉\n  --subtitle SUBTITLE, -s SUBTITLE\n                        副标题\n  --position {左上,左下,右上,右下,lt,lb,rt,rb}, -p {左上,左下,右上,右下,lt,lb,rt,rb}\n                        副标题方位\n  --author AUTHOR, -a AUTHOR\n                        作者（默认为昵称）\n  --color COLOR, -c COLOR\n                        颜色，0-16为内置颜色，也可是颜色代码，默认为内置颜色中随机\n  --image IMAGE, -i IMAGE\n                        图片，0-41为内置图片，也可是链接，默认为内置图片中随机\n  --no-grayscale, -G    不对下载的图片去色\n",
+    "brief": "学计算机的应该不陌生"
+  },
+  {
+    "name": ["osu"],
+    "perm": "meme_word.osu",
+    "example": "/osu owo",
+    "image": "osu.png",
+    "usage": "/osu <文本>\n默认为“osu?”",
+    "brief": "Click the circles?"
+  },
+  {
+    "name": ["p站", "ph"],
+    "perm": "meme_word.pornhub",
+    "example": "/p站 Git hub",
+    "image": "pornhub.png",
+    "usage": "/p站 <左侧文本> <右侧文本>",
+    "brief": "生成你懂得的logo"
+  },
+  {
+    "name": ["油管", "yt", "youtube"],
+    "perm": "meme_word.youtube",
+    "example": "/油管 Bili Bili",
+    "image": "youtube.png",
+    "usage": "/油管 <左侧文本> <右侧文本>",
+    "brief": "生成油管logo"
+  },
+  {
+    "name": ["抖音", "tiktok"],
+    "perm": "meme_word.tiktok",
+    "example": "/抖音 记录每种生物",
+    "image": "tiktok.png",
+    "usage": "/抖音 <文本>",
+    "brief": "记录每种生物"
+  }
+]}</ExampleMasonry>
+
+### 关于诺基亚
+由于 Nonebot2 会忽略命令名之后第一个字前的所有空格和空行，如果你需要诺基亚的开头是空格或空行，你可以在诺基亚后面加一个 `.` 点号。
+
+<Example collapsed>
+  <Send>/诺基亚.   ←这里有几个空格</Send>
+  <Recv>
+
+![](/example/meme_word/nokia_whitespace.png)
+
+  </Recv>
+</Example>
+
+## 搭建说明
+虽然 meme_word 本身没有配置文件，但 `/诺基亚` 需要一个叫 `pixel` 的[特殊字体](/docs/guide/misc#杂项方法)，推荐使用 [GNU Unifont](http://www.unifoundry.com/unifont/index.html)*（冷知识：Minecraft 的中文字体也是这个）*
+
+`/osu` 可以设置叫 `osu` 的特殊字体，推荐设置为 Aller Bold（也就是 osu! 的 Logo 字体），如果没有设置，会 fallback 到 `sans bold`。
+
+`/诺基亚` 依赖[结巴分词](https://github.com/fxsjy/jieba)库，使用 `pdm install -G jieba` 安装，未安装结巴分词会自动禁用这个命令。
+
+`configs/misc.yaml`
+```yaml
+special_font:
+  pixel: Unifont
+  osu: Aller Bold
+```

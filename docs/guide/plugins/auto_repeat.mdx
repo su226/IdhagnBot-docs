@@ -1,0 +1,23 @@
+---
+description: 机器人的本质更是复读机
+---
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# auto_repeat
+机器人的本质更是复读机
+
+*此时一个靓仔路过并摔坏了复读机*
+
+## 用户说明
+~~这有什么好说明的。~~当机器人收到连续两条相同的消息时机器人就会自动复读，并且只会复读一次，除非再收到不同的消息。
+
+注意：由于 go-cqhttp 不支持原创表情且没有 `[CQ:unsupported]` 之类的功能，IdhagnBot 只能使用正则表达式来排除原创表情，但这也会导致 `[中括号包裹的文字]` 这样的消息不会复读。
+
+<Example>
+  <Send>Hello, World!</Send>
+  <Send>Hello, World!</Send>
+  <Recv>Hello, World!</Recv>
+  <Note>在收到不同的消息前，IdhagnBot 不会再次复读“Hello, World!”了。</Note>
+</Example>
+
+~~看这不就没了吗。~~

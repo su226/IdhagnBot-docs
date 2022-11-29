@@ -1,14 +1,11 @@
 import { Collapsible } from "@docusaurus/theme-common";
 import { mdiMinus, mdiPlus } from "@mdi/js";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
+import { Button, Paper, Tooltip, Typography } from "@mui/material";
 import clsx from "clsx";
 import React from "react";
 import { useExpandAll } from "./CollapseGroup";
 import classes from "./Command.module.css";
-import { MdiIcon } from "./common";
+import MdiIcon from "./MdiIcon";
 import ShrinkIcons from "./ShrinkIcons";
 
 interface CommandProps {
@@ -18,7 +15,8 @@ interface CommandProps {
   level?: "admin" | "owner" | "super"
   collapsed?: boolean,
   mono?: boolean,
-  children?: JSX.Element[]
+  children?: React.ReactNode,
+  group?: boolean
 }
 
 const LEVEL_NAMES = {
@@ -43,11 +41,8 @@ export default function Command(props: CommandProps): JSX.Element {
           <Typography variant="overline">
             命令
           </Typography>
-          <Tooltip title={expanded ? "收起" : "展开"}>
-            <Button
-              className={clsx(classes.ShrinkIcons, expanded && classes.Flip)}
-              onClick={() => setExpanded(!expanded)}
-            >
+          <Tooltip title={expanded ? "收起" : "展开"} placement="left">
+            <Button onClick={() => setExpanded(!expanded)}>
               <ShrinkIcons flip={expanded}>
                 <MdiIcon className={classes.IconA} path={mdiPlus} />
                 <MdiIcon className={classes.IconB} path={mdiMinus} />
@@ -61,20 +56,33 @@ export default function Command(props: CommandProps): JSX.Element {
           {props.children}
         </div>
         <div className={classes.CommandInfo}>
-          {aliases.length > 0 && <>
-            {"别名 "}
-            {aliases.map((n, i) => <React.Fragment key={n}>
-              {i != 0 && "、"}
-              <code>/{n}</code>
-            </React.Fragment>)}
-            <br />
-          </>}
+          {aliases.length > 0 &&
+            <>
+              {"别名 "}
+              {aliases.map((n, i) =>
+                <React.Fragment key={n}>
+                  {i != 0 && "、"}
+                  <code>/{n}</code>
+                </React.Fragment>)
+              }
+              <br />
+            </>
+          }
           权限节点 <code>{props.perm}</code>
-          {props.level && <>
-            <br />
-            {"默认权限等级 "}
-            <code>{props.level}</code>（{LEVEL_NAMES[props.level]}）
-          </>}
+          {props.level &&
+            <>
+              <br />
+              {"默认权限等级 "}
+              <code>{props.level}</code>
+              {" " + LEVEL_NAMES[props.level]}
+            </>
+          }
+          {props.group &&
+            <>
+              <br />
+              必须在群聊上下文中执行
+            </>
+          }
         </div>
       </Collapsible>
     </Paper>

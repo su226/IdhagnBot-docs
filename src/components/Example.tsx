@@ -1,14 +1,12 @@
 import { Collapsible } from "@docusaurus/theme-common";
 import { mdiCheck, mdiContentCopy, mdiMinus, mdiPlus } from "@mdi/js";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
+import { Button, Paper, Tooltip, Typography } from "@mui/material";
 import clsx from "clsx";
 import React from "react";
 import { useExpandAll } from "./CollapseGroup";
 import classes from "./Example.module.css";
-import { MdiIcon, copy } from "./common";
+import copyTextToClipboard from "copy-text-to-clipboard";
+import MdiIcon from "./MdiIcon";
 import ShrinkIcons from "./ShrinkIcons";
 
 interface ExampleProps {
@@ -20,25 +18,23 @@ export default function Example(props: ExampleProps): JSX.Element {
   const [expanded, setExpanded] = React.useState(!props.collapsed);
   useExpandAll(setExpanded);
 
-  const [firstOrig, ...rest] = props.children;
-  const first = React.cloneElement(firstOrig, {
-    button: (
-      <>
-        <Typography variant="overline">示例</Typography>
-        <Tooltip title={expanded ? "收起" : "展开"} placement="left">
-          <Button onClick={() => setExpanded(!expanded)}>
-            <ShrinkIcons flip={expanded}>
-              <MdiIcon path={mdiPlus} />
-              <MdiIcon path={mdiMinus} />
-            </ShrinkIcons>
-          </Button>
-        </Tooltip>
-      </>
-    )
-  })
+  const [first, ...rest] = props.children;
   return (
     <Paper className={classes.Example} variant="outlined">
-      {first}
+      <div className={classes.ExampleHeader}>
+        {first}
+        <div className={classes.ExampleButtons}>
+          <Typography variant="overline">示例</Typography>
+          <Tooltip title={expanded ? "收起" : "展开"} placement="left">
+            <Button onClick={() => setExpanded(!expanded)}>
+              <ShrinkIcons flip={expanded}>
+                <MdiIcon path={mdiPlus} />
+                <MdiIcon path={mdiMinus} />
+              </ShrinkIcons>
+            </Button>
+          </Tooltip>
+        </div>
+      </div>
       <Collapsible className={classes.MessageGroup} lazy collapsed={!expanded}>
         {rest}
       </Collapsible>
@@ -74,8 +70,7 @@ export function Forward(props: ExampleProps) {
 interface MessageProps {
   type?: "send" | "recv"
   mono?: boolean
-  button?: JSX.Element
-  children: any
+  children: React.ReactNode
 }
 
 function Message(props: MessageProps): JSX.Element {
@@ -85,7 +80,7 @@ function Message(props: MessageProps): JSX.Element {
   const type = props.type ?? "send";
   const prefixClass = type == "send" ? classes.MessagePrefixSend : classes.MessagePrefixRecv;
   function copyContent() {
-    copy(contentRef.current.textContent);
+    copyTextToClipboard(contentRef.current.textContent);
     setCopied(true);
     clearTimeout(timeoutRef.current);
     timeoutRef.current = window.setTimeout(() => setCopied(false), 1000);
@@ -93,7 +88,7 @@ function Message(props: MessageProps): JSX.Element {
   return (
     <div className={classes.Message}>
       <div className={clsx(classes.MessagePrefix, prefixClass)}>
-        <Tooltip title={copied ? "已复制" : "复制"} placement="right">
+        <Tooltip title={copied ? "已复制" : "复制（只能复制文本）"} placement="right">
           <Button className={classes.MessageCopy} onClick={copyContent}>
             <ShrinkIcons flip={copied}>
               <MdiIcon path={mdiContentCopy} />
@@ -102,21 +97,16 @@ function Message(props: MessageProps): JSX.Element {
           </Button>
         </Tooltip>
       </div>
-      <div className={clsx(classes.MessageContent, props.mono && "monospace")} ref={contentRef}>
+      <div className={clsx(classes.MessageBlock, classes.MessageContent, props.mono && "monospace")} ref={contentRef}>
         {props.children}
       </div>
-      {props.button &&
-        <div className={classes.MessageButton}>
-          {props.button}
-        </div>
-      }
     </div>
   );
 }
 
 interface SendRecvProps {
   mono?: boolean
-  children: JSX.Element[]
+  children: React.ReactNode
 }
 
 export function Send(props: SendRecvProps): JSX.Element {
@@ -132,5 +122,19 @@ interface NoteProps {
 }
 
 export function Note(props: NoteProps): JSX.Element {
-  return <div className={classes.Note}>{props.children}</div>;
+  return (
+    <div className={classes.Note}>
+      <div className={classes.MessageContent}>
+        {props.children}
+      </div>
+    </div>
+  );
+}
+
+export function Name(props: NoteProps): JSX.Element {
+  return (
+    <div className={clsx(classes.Name, classes.MessageContent)}>
+      {props.children}
+    </div>
+  );
 }

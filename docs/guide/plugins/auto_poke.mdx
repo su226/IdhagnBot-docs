@@ -1,0 +1,39 @@
+---
+description: 用来骚扰别人的（划掉）自动戳
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+import { PlaceholderLink } from "@site/src/components/typography";
+
+# auto_poke
+~~用来骚扰别人的~~自动戳
+
+你发消息我就戳，你敢回我<PlaceholderLink href="/docs/guide/plugins/fallback">我就说自己是机器人</PlaceholderLink>，最爱看你无能狂怒的样子，你就说气不气。
+
+:::caution 免责声明
+IdhagnBot 作者不为可能的玩脱、被围殴、进 ~~CPU~~ ICU 乃至死亡负责。
+
+*并且我也知道这篇文档真的写得很欠。*
+:::
+
+## 用户说明
+看了上面的描述你是不是心动了，不过很显然这个功能默认是超管才能用的，可不敢让别人乱用，是不是很失望。
+
+<Command name="自动戳" brief="查看、设置和清除自动戳"  perm ="auto_poke" level="super" group>{`\
+/自动戳 - 查看自动戳
+/自动戳 <QQ号列表> - 设置自动戳
+/自动戳 clear|清除 - 清除自动戳
+`}</Command>
+
+可以填 QQ 号，也可以填名字，参见[别名系统](/docs/guide/misc#别名系统)
+
+<Example>
+  <Send>/自动戳 <em>某个你不喜欢的人</em> <em>另外一个你不喜欢的人</em></Send>
+  <Recv>已设置自动戳：123456789、987654321</Recv>
+  <Note>以后当他们两个说了任何一句话，机器人都会戳一戳他们，你也可以加上更多人。😈</Note>
+  <Send>/自动戳 清除</Send>
+  <Recv>已清除自动戳</Recv>
+  <Note>别忘了“事了拂衣去，深藏功与名”。👼</Note>
+</Example>
+
+当然，这一切都最好在私聊中发送 `/ctx <群号>` 再执行，参见[上下文](/docs/guide/concepts/context)，我可不希望你大声密谋被发现了被当场打进 ICU 然后抱怨是作者我的问题。¯\\\_(ツ)\_/¯

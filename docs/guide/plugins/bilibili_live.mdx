@@ -1,0 +1,38 @@
+---
+description: B站直播推送
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 需要手动配置, permalink: config-required}
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import Command from "@site/src/components/Command";
+
+# bilibili_live
+B站直播推送
+
+## 用户说明
+搭建者配置好本插件后，IdhagnBot 默认会每 10 秒钟检查一次 B 站更新，与 [bilibili_activity](/docs/guide/plugins/bilibili_activity) 不同的是推送的 UP 主数量并不会影响推送速度。
+
+推送样式是与 [bilibili_link](/docs/guide/plugins/bilibili_link) 类似的图片。
+
+## 搭建说明
+:::caution 免责声明
+IdhagnBot 作者不对滥用此插件而被 B 站封禁负责，风险自负。
+:::
+
+这个插件并不是开箱即用的~~（废话，我又不知道你的B站帐号）~~，你需要先配置 `configs/bilibili_live.yaml`
+```yaml
+interval: 10 # 两次推送间隔的秒数，默认为 10 秒，过短可能会被 B 站风控 IP
+users: # 要推送的用户，可以有多个
+- uid: 123456789 # B 站 UID，即 space.bilibili.com 后面那个（不是直播间号）
+  targets:
+  - group: 123456789 # 推送到群聊
+  - user: 123456789 # 推送到私聊
+```
+
+如果需要立即推送直播，比如有网络原因导致的漏推送，管理员或更高权限可执行 `/检查直播` 立即检查直播间更新（注意如果启动 IdhagnBot 时已经开播，是不会推送的）。
+
+<Command name="检查直播" brief="立即检查直播间状态" perm="bilibili_live.check" level="admin">{`\
+立即检查直播间是否开播
+每 10 秒会自动检查
+`}</Command>

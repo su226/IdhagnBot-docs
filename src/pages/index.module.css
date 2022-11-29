@@ -61,7 +61,7 @@
 
 .usage svg {
   width: 48px;
-  flex-shrink: 0;
+  height: 48px;
   margin-right: .5rem;
 }
 

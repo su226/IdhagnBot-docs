@@ -1,22 +1,8 @@
-import styled from "@emotion/styled";
-import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormLabel from "@mui/material/FormLabel";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import Snackbar from "@mui/material/Snackbar";
-import TextField from "@mui/material/TextField";
-import { Base64 } from 'js-base64';
+import { Button, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup, Snackbar, TextField } from "@mui/material";
+import copyTextToClipboard from "copy-text-to-clipboard";
+import { Base64 } from "js-base64";
 import React from "react";
-import { copy } from "./common";
-
-const Command = styled.pre`
-  white-space: pre-wrap;
-  word-break: break-all;
-  margin: var(--ifm-leading) 0;
-`;
+import classes from "./FoxtailSubmit.module.css";
 
 export default function FoxtailSubmit() {
   const [open, setOpen] = React.useState(false);
@@ -45,7 +31,7 @@ export default function FoxtailSubmit() {
       setOpen(true);
       setError(true);
     } else {
-      copy(command);
+      copyTextToClipboard(command);
     }
   }
   function handleClose(event: React.SyntheticEvent | Event, reason?: string) {
@@ -74,7 +60,7 @@ export default function FoxtailSubmit() {
         <FormHelperText>可选，不会公开，只有审核能看到。</FormHelperText>
       </FormControl>
       <Button onClick={copyCommand} variant="contained" fullWidth>复制投稿命令</Button>
-      <Command>{command}</Command>
+      <pre className={classes.Command}>{command}</pre>
       <Snackbar
         open={open}
         autoHideDuration={3000}

@@ -1,0 +1,49 @@
+---
+description: 点歌插件（目前只支持网易云）
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# music
+点歌插件（目前只支持网易云）
+
+## 用户说明
+<Command name={["网易云", "netease", "163", "cloudmusic"]} brief="网易云点歌" perm="music.netease">{`\
+/网易云 <关键字> - 搜索关键字
+/网易云 <id> - 发送指定ID的歌
+`}</Command>
+
+<Example>
+  <Send>/网易云 Moonlight Rameses B</Send>
+  <Recv>
+{`1: Moonlight - Rameses B - Inspire - EP
+2: Moonlight - Rameses B/Miyoki - Moonlight
+3: Moonlight (feat. Miyoki) - Rameses B/Miyoki - Moonlight (feat. Miyoki)
+4: moonlight - dhruv - moonlight
+5: [VIP] Moonlight - XXXTENTACION - ?
+6: Moonlight - XXXTENTACION - Good Vibes
+7: moonlight - mich - moonlight
+8: Moonlight - lil MILK - Moonlight
+9: [VIP] Moonlight - XXXTENTACION - ? (Deluxe)
+10: Muse (Inspired by Rameses B - Moonlight) - 刘逸辰 - Detached
+第 1 页，共 3 页，21 首歌
+- 发送数字选歌，VIP歌曲只能查看不能播放
+- 发送“下”加载下一页
+- 发送“取”取消点歌`}
+  </Recv>
+  <Send>1</Send>
+  <Recv>
+
+[![Moonlight - Rameses B](/example/netease.png)](https://y.music.163.com/m/song/26159000)
+
+  </Recv>
+  <Send>/网易云 26159000</Send>
+  <Recv>
+
+[![Moonlight - Rameses B](/example/netease.png)](https://y.music.163.com/m/song/26159000)
+
+  </Recv>
+</Example>

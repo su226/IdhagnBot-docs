@@ -1,0 +1,77 @@
+.MasonryButton {
+  flex-direction: column;
+}
+
+.MasonryImage {
+  width: 100%;
+  background-color: var(--ifm-pre-background);
+}
+
+.MasonryImage img,
+.DetailImage {
+  display: block;
+  margin: 0 auto;
+}
+
+.DetailHeader {
+  display: flex;
+  align-items: flex-start;
+}
+
+.DetailTitle:global.MuiDialogTitle-root {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.DetailName {
+  margin-right: .5em;
+}
+
+.DetailBrief {
+  font-size: .75em;
+  opacity: .5;
+}
+
+.DetailClose:global.MuiIconButton-root {
+  margin-top: 12px;
+  margin-right: 12px;
+}
+
+.DetailContent:global.MuiDialogContent-root {
+  padding-top: 0;
+}
+
+.DetailExample {
+  padding: 0;
+  white-space: pre-wrap;
+}
+
+.DetailExample,
+.DetailUsage {
+  border: 1px solid rgba(0,0,0,.1);
+}
+
+.DetailExampleHeader {
+  display: flex;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.DetailExampleContent {
+  flex-grow: 1;
+  padding: 8px;
+}
+
+.DetailExampleCopy:global.MuiButton-root {
+  min-width: 0;
+  border-radius: 0;
+}
+
+.DetailUsage {
+  white-space: pre-wrap;
+}
+
+.DetailInfo {
+  font-size: .875em;
+}

@@ -5,15 +5,15 @@ import Command from "@site/src/components/Command";
 import Example, { Send, Recv, Note } from "@site/src/components/Example";
 
 # 插件总览
-IdhagnBot 提供了大量的通用插件，你可以使用 [权限系统](/docs/guide/concepts/permission) 来阻止使用对应插件的命令（可热重载），也可以单独阻止某个插件加载（不可热重载）。
+IdhagnBot 提供了大量的通用插件，你可以使用 [权限系统](/docs/guide/concepts/permission) 来阻止使用对应插件的命令（可热重载），也可以单独阻止某个插件加载（不可热重载），注意**不要**禁用[基础插件](/docs/tags/essential-plugin)（如使用白名单，务必启用基础插件）。部分命令较多的插件区分“子模块”，子模块同样可以用配置文件阻止加载。
 
-群主也可以编写自定义插件并放到 user_plugins 目录下，或者在配置文件中加载 [Nonebot2 市场](https://v2.nonebot.dev/store) 里的插件。（除了更改配置文件，也可以在 user_plugins 里的插件使用 [`nonebot.require`](https://v2.nonebot.dev/docs/api/plugin/load#require)）注意市场插件并不会使用 IdhagnBot 的权限、上下文、帮助等系统，可能会带来用户体验上的割裂感，请**自行权衡**。
+注意并不是所有通用插件都是开箱即用的，部分插件需要安装可选依赖或者修改配置文件才能使用部分或者全部功能，参见：[需要可选依赖的插件](/docs/tags/optional-dependency)、[需要手动配置的插件](/docs/tags/config-required)、[需要帐号或Token的插件](/docs/tags/token-required)
 
-部分命令较多的插件区分“子模块”，子模块同样可以用配置文件阻止加载。
+除以上标签，你可以参考[标签列表](/docs/tags)中的其他标签，比如假设你想在非 Furry 群中使用 IdhagnBot，你可以参考[包含Furry相关内容的插件](/docs/tags/furry)和[只包含Furry相关内容的插件](/docs/tags/furry)；或者说你对可选依赖或者第三方服务有比我更强的精神洁癖；再或者说你只是想知道[哪些插件有配置文件](/docs/tags/has-config)或[状态文件](/docs/tags/has-state)。
 
-注意并不是所有通用插件都是开箱即用的，部分插件需要安装可选依赖或者修改配置文件。
+搭建者也可以编写自定义插件并放到 user_plugins 目录下，或者在配置文件中加载 [Nonebot2 市场](https://v2.nonebot.dev/store) 里的插件。（除了更改配置文件，也可以在 user_plugins 里的插件使用 [`nonebot.require`](https://v2.nonebot.dev/docs/api/plugin/load#require)）注意市场插件并不会使用 IdhagnBot 的权限、上下文、帮助等系统，可能会带来用户体验上的割裂感，请**自行权衡**。
 
-在 [插件列表](/docs/guide/plugins) 中会列出所有通用插件的命令格式、使用方法、配置文件和权限节点，对于自定义插件或市场插件，请向对应的作者求助。如果市场插件有兼容性问题，请先在纯净的 Nonebot2 环境（非 IdhagnBot）确认是市场插件本身的问题还是 IdhagnBot 的问题再 [发起 Issue](https://github.com/su226/IdhagnBot/issues)。
+在[插件列表](/docs/guide/plugins)中会列出所有通用插件的命令格式、使用方法、配置文件和权限节点，对于自定义插件或市场插件，请向对应的作者求助。如果市场插件有兼容性问题，请先在纯净的 Nonebot2 环境（非 IdhagnBot）确认是市场插件本身的问题还是 IdhagnBot 的问题再 [发起 Issue](https://github.com/su226/IdhagnBot/issues)。
 
 你也可以在 Issue 中请求移植某个插件的功能，IdhagnBot 目前并没有一个特定的主题，因此只要具有一定实用性的插件均可以移植，但带有以下内容的插件会被**谨慎**考虑：
 
@@ -28,12 +28,12 @@ IdhagnBot 提供了大量的通用插件，你可以使用 [权限系统](/docs/
   * ~~孩子真的不擅长卖萌qwq~~
 
 ## 配置文件
-configs/plugins.yaml
+`configs/plugins.yaml`
 ```yaml
 blacklist: # 插件 / 子模块黑名单
 - some_plugin
 - some_plugin.some_module
-# 注意：除非你知道你在做什么，不要禁用 context 和 help（如果反转黑名单，务必启用它们）
+# 注意：除非你知道你在做什么，不要禁用任何基础插件（如果反转黑名单，务必启用它们）
 invert_blacklist: false
 # 反转黑名单，注意如果对应插件没有加载子模块也不会加载
 # 也就是说，如果名单中有子模块 some_plugin.some_module，也必须要有插件 some_plugin
@@ -44,7 +44,6 @@ extra_dirs: # 额外插件目录列表，默认包含 user_plugins
 ```
 
 ## 提示
-
 命令信息格式如下：
 <Command name={["命令名", "命令别名"]} brief="命令" perm="权限节点">
 此处是 /help 命令名 显示的帮助
@@ -52,9 +51,9 @@ extra_dirs: # 额外插件目录列表，默认包含 user_plugins
 
 命令示例格式如下（可点击复制或折叠）：
 <Example>
-<Send>/命令</Send>
-<Recv>命令输出</Recv>
-<Note>一些补充说明</Note>
-<Send>发送消息</Send>
-<Recv>更多输出</Recv>
+  <Send>/命令</Send>
+  <Recv>命令输出</Recv>
+  <Note>一些补充说明</Note>
+  <Send>发送消息</Send>
+  <Recv>更多输出</Recv>
 </Example>

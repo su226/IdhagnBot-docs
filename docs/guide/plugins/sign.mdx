@@ -1,0 +1,74 @@
+---
+description: 简洁强大的签到功能
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+import { PlaceholderLink } from "@site/src/components/typography";
+
+# sign
+简洁强大的签到功能
+
+## 用户说明
+在群里发送 `/签到` 即可签到，发送 `/签到排名` 可以查看**当天**的签到排名。*嫌 `/签到` 打字麻烦可以输 `/sign`。*
+
+目前金币的唯一来源是 `/签到`，唯一用途是 <PlaceholderLink href="/docs/guide/plugins/purchase">`/购买`</PlaceholderLink>*，以后会加更多的🕊️🕊️🕊️*。
+
+前几名签到，以及每天连续签到可以获得更多金币，不同配置的数据可能不同，例图中为默认配置。~~反正闲着没事做抢首签真的很有意思uwu~~
+
+<Example>
+  <Send>/签到</Send>
+  <Recv>
+
+![签到例图](/example/sign.ring.png)
+
+  </Recv>
+  <Note>注：下方的一言来自 <a href="https://hitokoto.cn">hitokoto.cn</a></Note>
+  <Send>/签到排名</Send>
+  <Recv>
+
+![签到排名例图](/example/sign.leaderboard.png)
+
+  </Recv>
+</Example>
+
+<Command name={["签到", "sign"]} brief="每日签到获取金币" perm="sign.sign">{`\
+每天签到可获得80至120金币
+连续签到或前3名可获得更多金币  
+`}</Command>
+
+<Command name={["签到排名", "签到排行"]} brief="查看签到排名" perm="sign.leaderboard">
+  <em>该命令没有帮助</em>
+</Command>
+
+## 搭建说明
+签到的奖励、排行加成和连签加成可以在配置文件中修改，以下为默认配置可供参考。
+
+```yaml
+coin: [80, 120] # 基础金币的范围
+combo_each: 0.1 # 连续签到的每日加成，也就是第二天 10%，第三天 20%，以此类推
+combo_max: 1.0 # 连续签到的最大加成，超过之后不会继续增长
+first_award: [0.5, 0.25, 0.1] # 前 n 名签到的奖励，可以有任意数量而非只能 3 个
+first_prefix: ["🥇", "🥈", "🥉"] # 仅在 formatter 为 legacy 时有效，前 n 名在排行榜上的前缀，超过的将会是数字加点，如“4.”
+max_rank: 10 # 排行榜的最大长度
+formatter: ring # 默认为 ring，如果你喜欢 IdhagnBot 之前的风格，也可以改成 legacy 
+```
+
+传统风格示例
+
+<Example>
+  <Send>/签到</Send>
+  <Recv>
+
+签到成功，获得165个金币，共有165个金币
+排名加成：50%
+今日排名第1，连续签到1天，总计签到13天
+![传统风格例图](/example/sign.legacy.png)
+
+  </Recv>
+</Example>
+
+## 开发示例
+请参见[货币系统](/docs/guide/misc#货币系统)

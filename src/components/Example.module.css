@@ -2,8 +2,19 @@
   margin-bottom: var(--ifm-leading);
 }
 
-.ForwardButtonIcon {
+.ExampleHeader {
+  display: flex;
+}
+
+.ExampleButtons {
   margin-left: auto;
+  flex-shrink: 0;
+}
+
+.ExampleButtons :global .MuiButton-root,
+.MessageCopy:global.MuiButton-root {
+  min-width: 0;
+  border-radius: 0;
 }
 
 .MessageGroup > * {
@@ -18,13 +29,7 @@
   display: flex;
 }
 
-.Message :global .MuiButtonBase-root {
-  min-width: 0;
-  border-radius: 0;
-}
-
 .MessagePrefix {
-  font-family: var(--ifm-font-family-monospace);
   position: relative;
 }
 
@@ -32,6 +37,7 @@
   display: block;
   padding: 0 8px;
   height: 36px;
+  font-family: var(--ifm-font-family-monospace);
   line-height: 36px;
   transition: opacity .25s;
 }
@@ -54,7 +60,7 @@
   color: rgba(255,255,255,.5);
 }
 
-.MessageCopy:global(.MuiButtonBase-root) {
+.MessageCopy:global.MuiButton-root {
   position: absolute;
   top: 0;
   left: 0;
@@ -65,26 +71,17 @@
   transition: opacity .25s;
 }
 
-.Message:hover > .MessagePrefix .MessageCopy {
-  opacity: .5;
-}
-
-.Message > .MessagePrefix:hover .MessageCopy {
+.Message:hover > .MessagePrefix > .MessageCopy {
   opacity: 1;
 }
 
-.MessageButton {
-  margin-left: auto;
-}
-
-.MessageContent {
+.MessageBlock {
   padding: 4px 8px 4px 0;
   white-space: pre-wrap;
 }
 
 .MessageContent p,
-.MessageContent details,
-.MessageContent .Example {
+.MessageContent blockquote {
   margin-bottom: 0;
 }
 
@@ -93,12 +90,13 @@
   vertical-align: bottom;
 }
 
-.MessageContent img {
+.MessageContent img:global:not(.face) {
   width: 100%;
   max-width: 300px;
 }
 
 .Note {
+  display: flex;
   color: rgba(0,0,0,.5);
 }
 
@@ -107,8 +105,13 @@
 }
 
 .Note::before {
-  content: '>>>';
+  content: ">>>";
   padding: 0 8px;
   font-family: var(--ifm-font-family-monospace);
   opacity: 0;
+}
+
+.Name {
+  font-size: .875em;
+  opacity: .5;
 }

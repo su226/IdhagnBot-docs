@@ -32,3 +32,7 @@
 .monospace {
   font-family: var(--ifm-font-family-monospace);
 }
+
+.face {
+  width: 24px;
+}

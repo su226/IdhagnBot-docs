@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 ---
-import PlaceholderLink from "@site/src/components/PlaceholderLink";
+import { PlaceholderLink } from "@site/src/components/typography.tsx";
 
 # 配置文件
 
@@ -111,50 +111,52 @@ class GroupConfig(config.BaseConfig[TModel, int]):
 ```
 
 ## 列表
+你也可以参考[有配置文件的插件列表](/docs/tags/has-config)和[有状态文件的插件列表](/docs/tags/has-state)。
+
 * ⏩：重载时不使用懒加载
 * ❄️：不支持热重载
 * 👥：不同群之间文件独立
 
 ### 配置文件列表
-* ⏩ bilibili_activity
-* bilibili_check
-* bilibili_live
-* catdog
-* coin
-* color
-* ⏩ context
-* ⏩ daily
-* dice
-* forbidden_word
-* fortune
-* foxtail
-* furbot
-* help
-* idhagnfetch
-* ❄️ image_board
-* liferestart
-* ⏩ log
-* minecraft
-* misc
-* permission
-* ❄️ plugins
-* qimeng
-* sign
-* trending
-* user_aliases
-* welcome
-* wikipedia
-* wordcloud
+* ⏩ [bilibili_activity](/docs/guide/plugins/bilibili_activity#搭建说明)
+* [bilibili_check](/docs/guide/plugins/bilibili_check#搭建说明)
+* [bilibili_live](/docs/guide/plugins/bilibili_live#搭建说明)
+* [catdog](/docs/guide/plugins/catdog#搭建说明)
+* [coin](/docs/guide/plugins/coin#搭建说明)
+* [color](/docs/guide/plugins/color#搭建说明)
+* ⏩ [context](/docs/guide/concepts/context#搭建说明)
+* ⏩ [daily](/docs/guide/plugins/daily#搭建说明)
+* [dice](/docs/guide/plugins/dice#搭建说明)
+* <PlaceholderLink href="/docs/guide/plugins/forbidden_word">forbidden_word</PlaceholderLink>
+* [fortune](/docs/guide/plugins/fortune#搭建说明)
+* [foxtail](/docs/guide/plugins/foxtail#搭建说明)
+* [furbot](/docs/guide/plugins/furbot#搭建说明)
+* [help](/docs/guide/concepts/help#搭建说明)
+* [idhagnfetch](/docs/guide/plugins/idhagnfetch#搭建说明)
+* ❄️ <PlaceholderLink href="/docs/guide/plugins/image_board">image_board</PlaceholderLink>
+* [liferestart](/docs/guide/plugins/liferestart#搭建说明)
+* ⏩ [log](/docs/guide/misc#日志)
+* [minecraft](/docs/guide/plugins/minecraft#搭建说明)
+* [misc](/docs/guide/misc#杂项方法)
+* [permission](/docs/guide/concepts/permission#搭建说明)
+* ❄️ [plugins](/docs/guide/plugin-overview#配置文件)
+* [qimeng](/docs/guide/plugins/qimeng#搭建说明)
+* [sign](/docs/guide/plugins/sign#搭建说明)
+* [trending](/docs/guide/plugins/trending#搭建说明)
+* [user_aliases](/docs/guide/misc#用户别名)
+* <PlaceholderLink href="/docs/guide/plugins/welcome">welcome</PlaceholderLink>
+* <PlaceholderLink href="/docs/guide/plugins/wikipedia">wikipedia</PlaceholderLink>
+* <PlaceholderLink href="/docs/guide/plugins/wordcloud">wordcloud</PlaceholderLink>
 
 ### 状态文件列表
-* bilibili_check
-* color
-* ⏩ context
-* 👥 currency
-* daily
-* 👥 forbidden_word
-* 👥 goods
-* liferestart
-* 👥 scheduled
-* 👥 sign
-* trending
+* [bilibili_check](/docs/guide/plugins/bilibili_check#搭建说明)
+* [color](/docs/guide/plugins/color#搭建说明)
+* ⏩ [context](/docs/guide/concepts/context#搭建说明)
+* 👥 [currency](/docs/guide/misc#货币系统)
+* [daily](/docs/guide/plugins/daily#搭建说明)
+* 👥 <PlaceholderLink href="/docs/guide/plugins/forbidden_word">forbidden_word</PlaceholderLink>
+* 👥 <PlaceholderLink href="/docs/guide/plugins/purchase">goods</PlaceholderLink>
+* [liferestart](/docs/guide/plugins/liferestart#搭建说明)
+* 👥 <PlaceholderLink href="/docs/guide/plugins/scheduled">scheduled</PlaceholderLink>
+* 👥 [sign](/docs/guide/plugins/sign#搭建说明)
+* [trending](/docs/guide/plugins/trending#搭建说明)

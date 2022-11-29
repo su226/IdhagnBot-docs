@@ -1,0 +1,39 @@
+---
+description: 抛硬币🪙
+tags:
+- {label: 有配置文件, permalink: has-config}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv } from "@site/src/components/Example";
+
+# coin
+抛硬币🪙
+
+## 用户说明
+硬币有两种模式，在数量较少时直接随机，在数量较大时使用二项分布随机。早期版本 IdhagnBot 使用 [NumPy](https://numpy.org) 的二项分布随机数生成器，后来改为从 [stdlib-js/random-base-binomial](https://github.com/stdlib-js/random-base-binomial/blob/main/lib/sample2.js) 移植，基于 Python 标准库 [random](https://docs.python.org/3.10/library/random.html) 的实现。
+
+<Example>
+  <Send>/硬币</Send>
+  <Recv>你抛出了一枚硬币，反面朝上</Recv>
+  <Send>/硬币 100</Send>
+  <Recv>你抛出了 100 枚硬币，48 枚正面朝上，51 枚反面朝上，1 枚立起来了</Recv>
+</Example>
+
+<Command name={["硬币", "coin"]} brief="试试你的运气" perm="coin">{`\
+/硬币 - 抛出一枚硬币
+/硬币 <硬币数量> - 抛出一把硬币
+硬币数量必须是不超过 1000000000000000 的正整数
+超过 10000 的硬币将会使用二项分布估算
+`}</Command>
+
+## 搭建说明
+如果你想要一枚正反面不均匀的黑心硬币，你可以修改配置文件。注意以下选项都是权重而不是概率，也就是说正面朝上的概率是 `front_weight / (front_weight + back_weight + stand_weight)`，而非 `front_weight / 100`
+
+`configs/coin.yaml`
+```yaml
+front_weight: 49.5 # 正面朝上的权重
+back_weight: 49.5 # 反面朝上的权重
+stand_weight: 1 # 立起来的权重
+limit: 10000 # 直接模拟的限制
+binomial_limit: 1000000000000000 # 使用二项分布时的限制
+```

@@ -1,13 +1,16 @@
 ---
 sidebar_position: 6
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 有状态文件, permalink: has-state}
 ---
-import PlaceholderLink from "@site/src/components/PlaceholderLink";
+import { PlaceholderLink } from "@site/src/components/typography";
 
 # 杂项
-一些杂项功能的说明和配置，用户通常不需要涉及这些，以下内容主要供群主和开发者查阅。
+一些杂项功能的说明和配置，用户通常不需要涉及这些，以下内容主要供搭建者和开发者查阅。
 
 ## 货币系统
-IdhagnBot 有一个简单的货币系统，目前只有 <PlaceholderLink href="/docs/guide/plugins/purchase">purchase</PlaceholderLink> 和 <PlaceholderLink href="/docs/guide/plugins/sign">sign</PlaceholderLink> 插件使用这个系统，不同群聊之间的货币是独立的。具体请参考 <PlaceholderLink href="/docs/api/util.currency">API 文档</PlaceholderLink>。
+IdhagnBot 有一个简单的货币系统，目前只有 <PlaceholderLink href="/docs/guide/plugins/purchase">purchase</PlaceholderLink> 和 [sign](/docs/guide/plugins/sign) 插件使用这个系统，不同群聊之间的货币是独立的。具体请参考 <PlaceholderLink href="/docs/api/util.currency">API 文档</PlaceholderLink>。
 
 状态文件在 `states/currency/群号.yaml`，参考如下：
 
@@ -58,15 +61,25 @@ sinks: # 如果不指定，默认值如下，可以指定多个 sink
 - level: INFO # 日志等级，可以是字符串或数字，不区分大小写，参见 Loguru 的日志等级
   fold_nonebot: true # 是否将 nonebot. 开头的模块都显示为 nonebot，就像 Nonebot2 默认的日志一样
   format: "<g>{time:HH:mm:ss}</g>|<lvl>{level:8}</lvl>| <c>{name}</c> - {message}" # 日志格式，此处为默认格式
-  type: stderr # stdout、stderr 或 syslog
+  colorize: null # 是否使用彩色日志，false 强制关闭，true 强制开启，null 自动检测
+  backtrace: true # 异常的 traceback 是否显示完整栈（而非只显示到 try-except）
+  diagnose: false # 异常是否显示变量的值等（可能包含敏感内容，并且很长）
+  # type: stderr # stdout、stderr 或 syslog
   # syslog 使用 Python 的 syslog 标准库，只在 POSIX 系统上可用（如 Linux、Mac 等）
   # 如果你将机器人作为 Systemd 服务运行，推荐使用 syslog
-  # file: 日志文件名 # 和 type 二选一，目前不支持 Loguru 的高级特性，如大小限制
+  file: 日志文件名 # 和 type 二选一，只有 file 能用下面的选项
+  rotation: 日志滚动
+  retention: 清理旧日志
+  compression: 压缩日志
+  encoding: utf8 # 编码，默认为 utf8
+  newline: null # 为 null 时使用系统换行，也可指定为 "\r"、"\n" 或者 "\r\n"
 warnings_as_log: true # 将 Python 标准库 warnings 输出的警告作为 WARN 等级的日志输出，默认为 true
-stdio_as_log: false # 将 stdout 和 stderr 分别作为 INFO 和 ERROR 等级的日志输出，默认为 false
+stdio_as_log: false # 将 stdout 和 stderr 分别作为 INFO 和 ERROR 等级的日志输出，默认为 false，不建议开启，可能导致奇怪的问题
 ```
 
-开发示例请参见 [Loguru](https://github.com/Delgan/loguru)。
+关于 rotation、retention 和 compression 的写法，请参见 [Loguru 的文档](https://github.com/Delgan/loguru#easier-file-logging-with-rotation--retention--compression)
+
+开发示例也请参见 [Loguru](https://github.com/Delgan/loguru)。
 
 ## 杂项方法
 <!-- 这里的零宽字符是 MDX v1 的限制，参见: https://docusaurus.io/zh-CN/docs/markdown-features/react#markdown-and-jsx-interoperability -->
@@ -86,8 +99,8 @@ stdio_as_log: false # 将 stdout 和 stderr 分别作为 INFO 和 ERROR 等级�
 `config/misc.yaml`
 ```yaml
 special_font:
-  pixel: Unifont # 用在 meme_text.nokia 中，未指定时 fallback 为 sans
-  osu: "" # 用在 meme_text.osu 中，未指定时 fallback 为 sans bold
+  pixel: Unifont # 用在 meme_word.nokia 中，未指定时 fallback 为 sans
+  osu: "" # 用在 meme_word.osu 中，未指定时 fallback 为 sans bold
 font_substitute:
   # PangoCairo 使用 FontConfig，因此 IdhagnBot 会跟随系统设置，但你也可以手动覆盖
   # 目前 IdhagnBot 使用了这些通用名
@@ -103,6 +116,25 @@ chromium: "" # Pyppeteer 使用的 Chromium 路径，默认为空，即让 Pyppe
 # 以下两项默认都是 bicubic
 resample: bicubic # Pillow 除缩放外的图片插值方式，可用：nearest、bilinear、bicubic
 scale_resample: bicubic # Pillow 缩放图片插值方式，除上面三个还可用：box、hamming、lanczos
+# 以下四项请参考 PyCairo 的文档：https://pycairo.readthedocs.io/en/latest/reference/enums.html
+# default 为使用系统默认值
+text_antialias: gray # 字体抗锯齿方式，默认：gray，可用：default、none、fast、good、best、gray、subpixel
+# best 抗拒齿在部分平台上可能无法正常渲染
+# 不建议使用次像素抗拒齿，会导致字体边缘发绿等问题
+text_subpixel: default # 次像素排列方式，默认：default，可用：default、rgb、bgr、vrgb、vbgr
+# 这个选项只在使用次像素抗锯齿时有效
+text_hint_metrics: true # 是否微调字体度量，默认：true，可用：default、true、false
+text_hint_style: slight # 是否微调字体轮廓，默认：slight，可用：default、none、slight、medium、full
+libimagequant: false
+# 默认为 false，要启用 libimagequant，将此处改为 true 并参考下文自行编译安装 Pillow
+# 因为 libimagequant 为 GPL 协议，PyPI 上的 Pillow 二进制包没有编译 libimagequant 支持
+# 如果为 true 但 libimagequant 不可用，会显示一个警告并使用 quantize 指定的量化方法
+# 另外，libimagequant 包含抖动仿色，因此启用之后下面的 dither 将不生效
+quantize: fastoctree
+# 默认为 fastoctree，也可为 mediancut 或者 maxcoverage
+# 注意对于 RGBA 图片无论设置为什么都会使用 fastoctree，因为其余两个不支持 RGBA
+dither: true
+# 是否启用抖动仿色，默认为 true
 ```
 
 ## 字体渲染
@@ -147,4 +179,39 @@ im = Image.new("RGBA", (100, 100))
 im.resize((50, 50), imutil.scale_resample())
 # resample 一定只会被指定为 Nearest、Bilinear 或 Bicubic
 im.rotate(45, imutil.resample())
+```
+
+## 抖动仿色
+IdhagnBot 在保存 GIF 时会自动转换为色板图片并应用抖动仿色，默认使用 [`Quantize.MEDIANCUT`](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Quantize)（对于 RGBA 的图片强制使用 `Quantize.FASTOCTREE`，因为只有它支持 RGBA，除非启用 libimagequant）。
+
+[因为 libimagequant 为 GPL 协议](https://pngquant.org/lib/)，PyPI 上的 Pillow 二进制包没有编译 libimagequant 支持，要启用 libimagequant，需要自行安装 libimagequant，再从源码编译安装 Pillow，并更改[配置文件](#杂项方法)。
+
+```shell
+sudo pacman -S libimagequant
+# 方式1: 适用于 venv 和 PEP582
+# （PDM 目前不支持单独重装某一个包，这行命令会重装所有包）
+PDM_NO_BINARY='Pillow' pdm sync -r
+# 方式2: 仅适用于 venv，如果找不到 pip 可以运行 pdm run python -m ensurepip
+pdm run python -m pip install Pillow --no-cache-dir --force-reinstall --no-binary Pillow
+# 检查: 下面这行应该输出 True
+pdm run python -c 'from PIL import features; print(features.check("libimagequant"))'
+```
+
+### 开发示例
+`util.imutil.to_segment` 在保存 GIF 时会自动转换为色板图片并应用抖动仿色，如果需要手动转换，使用 `util.imutil.quantize`
+
+```python
+from util import imutil
+
+# fmt 为保存静态图的格式，默认为 png。
+# afmt 为保存动图时的格式，默认为 gif，也可以是 png（APNG）和 webp。
+# 在使用 gif 时会自动应用抖动仿色
+# frames 为包含动图帧的数组，如果只有一帧将不会保存为动图
+# frametime 为每一帧的时间，可以是单个毫秒数，即所有帧时间相同
+# 也可以是与 frames 等长的毫秒数数组或者与 frames 等长的动图
+segment = imutil.to_segment(frames, frametime, fmt="png", afmt="gif")
+# 返回的是 nonebot 的 MessageSegment
+await matcher.send(segment)
+
+im = imutil.quantize(im) # 如果需要手动转换
 ```

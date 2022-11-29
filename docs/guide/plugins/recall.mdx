@@ -1,0 +1,47 @@
+---
+description: 让机器人撤回自己的消息
+tags:
+- {label: 使用可选依赖, permalink: optional-dependency}
+---
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# recall
+让机器人撤回自己的消息
+
+## 用户说明
+
+### 手动撤回
+对机器人的消息回复 `撤` 机器人就会**尝试**撤回自己的消息，也就是说如果机器人不是管理员，撤回消息依然有 2 分钟的限制。
+
+如果机器人是管理员，机器人也会撤回你发送的 `撤` 字。
+
+<Example>
+  <Recv><em>机器人发送的消息</em></Recv>
+  <Send>
+    <blockquote><em>机器人发送的消息</em></blockquote>
+    撤
+  </Send>
+  <Note>IdhagnBot 撤回了一条消息：“<em>机器人发送的消息</em>”</Note>
+  <Note>IdhagnBot 撤回了你的一条消息：“撤”</Note>
+</Example>
+
+### 自动撤回
+当你撤回了发送的命令时，机器人会自动撤回命令的结果。
+
+<Example>
+  <Send>/petpet 奈亚拉托提镨</Send>
+  <Recv>
+
+![petpet例图](/example/meme_pic/petpet.gif)
+
+  </Recv>
+  <Note>你撤回了一条消息：“/petpet 奈亚拉托提镨”</Note>
+  <Note>IdhagnBot 撤回了一条消息：“[图片]”</Note>
+</Example>
+
+## 搭建说明
+recall 有两种模式：内存模式和数据库模式。在内存模式下为了防止内存无限增长，IdhagnBot 只会保留 2 分钟命令结果的消息 ID，这对于群员撤回消息已经足够。
+
+但当机器人帐号是管理员时，其他管理员不能直接撤回他的消息，只能使用手动撤回功能，在消息较多时会有明显的不便。因此建议启用数据库模式，这个模式下会永久保存消息 ID（直到手动清理），此时管理员只需撤回自己或群员发送的命令即可。
+
+数据库模式在检测到 SQL 相关依赖后会自动启用，否则会回退到内存模式，使用这个命令来安装：`pdm install -G sql`

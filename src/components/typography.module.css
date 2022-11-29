@@ -1,0 +1,13 @@
+.Abbr {
+  text-decoration: underline dotted;
+}
+
+.PlaceholderLink {
+  --ifm-link-color: var(--ifm-color-danger);
+  --ifm-link-hover-color: var(--ifm-color-danger);
+  cursor: pointer;
+}
+
+.PlaceholderLink:hover {
+  text-decoration: var(--ifm-link-hover-decoration);
+}

@@ -1,12 +1,11 @@
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { mdiAccount, mdiAccountSupervisor, mdiApplicationBracesOutline } from "@mdi/js";
-import Icon from "@mdi/react";
-import Admonition from '@theme/Admonition';
+import Admonition from "@theme/Admonition";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 import React from "react";
-
+import MdiIcon from "../components/MdiIcon";
 import styles from "./index.module.css";
 
 function HomepageHeader() {
@@ -117,21 +116,21 @@ function HomepageMain(): JSX.Element {
       <section className={styles.usages}>
         <h2>快速入门</h2>
         <div className={styles.usage}>
-          <h3><Icon path={mdiAccount} />我是用户</h3>
+          <h3><MdiIcon path={mdiAccount} />我是用户</h3>
           <p>
             体验 IdhagnBot 最简单的方法是加入<Link to="https://qm.qq.com/cgi-bin/qm/qr?k=USDC9Yc0PPxBHHIVp5KIoHYSmuBHJK2u">作者的闲聊群</Link>，没有话题限制，并且作者也很好说话。<br />
             当然，请不要讨论政治等敏感或令人不快的话题。
           </p>
         </div>
         <div className={styles.usage}>
-          <h3><Icon path={mdiAccountSupervisor} />我是群主</h3>
+          <h3><MdiIcon path={mdiAccountSupervisor} />我是群主</h3>
           <p>
             你可以参考<Link to="/docs/guide">文档</Link>学习如何安装和配置 IdhagnBot。<br />
             <del>如果和作者关系足够好的话，你也可以让作者托管在他自己的（并不是非常稳定的）电脑上。</del>
           </p>
         </div>
         <div className={styles.usage}>
-          <h3><Icon path={mdiApplicationBracesOutline} />我是开发者</h3>
+          <h3><MdiIcon path={mdiApplicationBracesOutline} />我是开发者</h3>
           <p>
             由于作者长期单打独斗，IdhagnBot 的 API 时常变动，不过你依然可以发起 Issue 或者 PR。<br />
             建议加入群里交流，以防不必要的麻烦。（目前人数较少，因此没有单独的开发群）

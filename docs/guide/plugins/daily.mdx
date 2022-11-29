@@ -1,9 +1,15 @@
 ---
 description: 意义不是很大的每日推送
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 需要手动配置, permalink: config-required}
+- {label: 使用第三方服务, permalink: third-party-service}
+- {label: 使用可选依赖, permalink: optional-dependency}
+- {label: 含Furry相关, permalink: furry}
 ---
 import Command from "@site/src/components/Command";
 import Example, { Send, Recv, Forward } from "@site/src/components/Example";
-import PlaceholderLink from "@site/src/components/PlaceholderLink";
+import { PlaceholderLink } from "@site/src/components/typography";
 
 # daily
 意义不是很大的每日推送
@@ -12,27 +18,25 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 在开启了每日推送的群里，你应该会每天早上收到类似于这样的消息（会有一点点长）：
 
 <Example>
-<Send>/今天</Send>
-<Recv>七点几勒，起床先啦！各位兽受们早上好</Recv>
-<Recv>
-<Forward collapsed>
-<Recv>
-
-昨天最能水的成员：
-🥇 su226 - 5 条
-</Recv>
-<Recv>
+  <Send>/今天</Send>
+  <Recv>七点几勒，起床先啦！各位兽受们早上好</Recv>
+  <Recv>
+  <Forward collapsed>
+  <Recv>
+{`昨天最能水的成员：
+🥇 su226 - 5 条`}
+  </Recv>
+  <Recv>
 
 ![绒狸每日鉴毛例图](/example/furbot/daily.jpg)
-</Recv>
-<Recv>
 
-今天是：
-距su226的生日还剩85天
-</Recv>
-<Recv>
-
-今天是10月16日，历史上的今天是：
+  </Recv>
+  <Recv>
+{`今天是：
+距su226的生日还剩85天`}
+  </Recv>
+  <Recv>
+{`今天是10月16日，历史上的今天是：
 1553 - 德国画家老卢卡斯·克拉纳赫逝世
 1642 - 明朝崇祯皇帝的妃子田秀英去世
 1758 - 美国辞典编纂者诺亚·韦伯斯特出生
@@ -47,31 +51,34 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 1943 - 日本大正天皇的生母柳原爱子去世
 1945 - 联合国粮食及农业组织成立
 1949 - 中国与蒙古国建交
-1959 - 美国前国务卿马歇尔逝世
-</Recv>
-<Recv>
+1959 - 美国前国务卿马歇尔逝世`}
+  </Recv>
+  <Recv>
 
 ![摸鱼日历例图](/example/daily/moyu.png)
 你可以发送 /摸鱼 再次查看
-</Recv>
-<Recv>
+
+  </Recv>
+  <Recv>
 
 ![60秒例图](/example/daily/60s.png)
 你可以发送 /60秒 再次查看
-</Recv>
-<Recv>
+
+  </Recv>
+  <Recv>
 
 ![每日一句例图](/example/daily/sentence.png)
 你可以发送 /一句 再次查看
-</Recv>
-</Forward>
-</Recv>
+
+  </Recv>
+  </Forward>
+  </Recv>
 </Example>
 
 你也可以发送以下命令主动查看：
 
 <Command name="今天" brief="今天的问好你看了吗" perm="daily.today">
-包含 /摸鱼、/60s 和 /一句 的内容
+通常包含 /摸鱼、/60s 和 /一句 的内容
 </Command>
 <Command name="历史" brief="看看历史上的今天" perm="daily.history">
 接口来自https://www.ipip5.com/today/
@@ -87,10 +94,9 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 </Command>
 
 <Example collapsed>
-<Send>/历史</Send>
-<Recv>
-
-今天是10月16日，历史上的今天是：
+  <Send>/历史</Send>
+  <Recv>
+{`今天是10月16日，历史上的今天是：
 1553 - 德国画家老卢卡斯·克拉纳赫逝世
 1642 - 明朝崇祯皇帝的妃子田秀英去世
 1758 - 美国辞典编纂者诺亚·韦伯斯特出生
@@ -105,47 +111,49 @@ import PlaceholderLink from "@site/src/components/PlaceholderLink";
 1943 - 日本大正天皇的生母柳原爱子去世
 1945 - 联合国粮食及农业组织成立
 1949 - 中国与蒙古国建交
-1959 - 美国前国务卿马歇尔逝世
-
-</Recv>
+1959 - 美国前国务卿马歇尔逝世`}
+  </Recv>
 </Example>
 <Example collapsed>
 <Send>/摸鱼日历</Send>
-<Recv>
+  <Recv>
 
 ![摸鱼日历例图](/example/daily/moyu.png)
-</Recv>
+
+  </Recv>
 </Example>
 <Example collapsed>
-<Send>/60秒</Send>
-<Recv>
+  <Send>/60秒</Send>
+  <Recv>
 
 ![60秒例图](/example/daily/60s.png)
-</Recv>
+
+  </Recv>
 </Example>
 <Example collapsed>
-<Send>/每日一句</Send>
-<Recv>
+  <Send>/每日一句</Send>
+  <Recv>
 
 ![每日一句例图](/example/daily/sentence.png)
-</Recv>
-<Recv><audio controls src="/example/daily/sentence.mp3" /></Recv>
+
+  </Recv>
+  <Recv><audio controls src={require("/example/daily/sentence.mp3").default} /></Recv>
 </Example>
 
 :::caution
-似乎[今日兽兽的上游](https://github.com/ye-tutu/nonebot_plugin_everyfurry)停更了，现在运行 /今日兽兽 得到“似乎没有今日兽兽”是正常现象，这不是 IdhagnBot 的问题。
+似乎[今日兽兽的上游](https://github.com/ye-tutu/nonebot_plugin_everyfurry)停更了，现在运行 `/今日兽兽` 得到“似乎没有今日兽兽”是正常现象，这不是 IdhagnBot 的问题。
 :::
 
 <Command name={"今日兽兽"} perm="daily.everyfurry">
 接口来自https://hifurry.cn
 </Command>
 <Example>
-<Send>/今日兽兽</Send>
-<Recv>似乎没有今日兽兽</Recv>
+  <Send>/今日兽兽</Send>
+  <Recv>似乎没有今日兽兽</Recv>
 </Example>
 
-:::tip
-主动查看每日鉴毛、发言排行和 EPIC 喜加一的功能分别位于插件 [furbot](/docs/guide/plugins/furbot)、<PlaceholderLink href="/docs/guide/plugins/wordcloud">wordcloud</PlaceholderLink> 和 <PlaceholderLink href="/docs/guide/plugins/epicfree">epicfree</PlaceholderLink>，并不是本插件。
+:::info
+主动查看每日鉴毛、发言排行和 EPIC 喜加一的功能分别位于插件 [furbot](/docs/guide/plugins/furbot)、<PlaceholderLink href="/docs/guide/plugins/wordcloud">wordcloud</PlaceholderLink> 和 [epic_free](/docs/guide/plugins/epic_free)，并不是本插件。
 
 在私聊中发送“/今天”不会显示排行。~~废话，私聊哪来群员~~
 :::

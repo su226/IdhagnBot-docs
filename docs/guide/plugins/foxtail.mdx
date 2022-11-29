@@ -1,5 +1,10 @@
 ---
 description: 兽云祭
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 使用第三方服务, permalink: third-party-service}
+- {label: 含Furry相关, permalink: furry}
+- {label: 纯Furry相关, permalink: furry-only}
 ---
 import Command from "@site/src/components/Command";
 import Example, { Send, Recv, Note } from "@site/src/components/Example";
@@ -8,38 +13,36 @@ import Example, { Send, Recv, Note } from "@site/src/components/Example";
 兽云祭
 
 ## 用户说明
-发送命令“/兽云祭”或者**关键字**（不是命令，没有斜线）“来只兽” 查看兽图。
+发送命令 `/兽云祭` 或者**关键字**（不是命令，没有斜线）`来只兽` 查看兽图。
 
-无论是“/兽云祭”还是“来只兽”都接受额外参数，可以指定名字、类型、SID或者UID，如：“/兽云祭 司可sego”、“/兽云祭 毛图”、“来只兽 司可sego 毛图”、“来只兽 922”、“来只兽 gZIHj-AgTSx-QAvbD-fqk6V”
+无论是 `/兽云祭` 还是 `来只兽` 都接受额外参数，可以指定名字、类型、SID或者UID，如：`/兽云祭 司可sego`、`/兽云祭 毛图`、`来只兽 司可sego 毛图`、`来只兽 922`、`来只兽 gZIHj-AgTSx-QAvbD-fqk6V`
 
-在未启用绒狸、未配置绒狸Token或手动指定优先兽云祭时，也可以使用通用关键字“来只”触发命令。
+在未启用绒狸、未配置绒狸Token或手动指定优先兽云祭时，也可以使用通用关键字 `来只` 触发命令。
 
-以下所有命令的帮助均位于 foxtail [子分类](/docs/guide/concepts/help)中，你可以使用“/help foxtail”查看。
+以下所有命令的帮助均位于 foxtail [子分类](/docs/guide/concepts/help)中，你可以使用`/help foxtail`查看。
 
 <Example>
-<Send>/help foxtail</Send>
-<Recv>
-
-第 1 页，共 1 页
-使用 /帮助 &lt;命令名&gt; 查看详细用法
+  <Send>/help foxtail</Send>
+  <Recv>
+{`第 1 页，共 1 页
+使用 /帮助 <命令名> 查看详细用法
 /兽云祭 - 使用兽云祭API的随机兽图
 /兽云祭信息 - 兽云祭服务器信息
 /兽云祭投稿 - 投稿兽图
-/兽云祭搜索 - 搜索兽图
-</Recv>
+/兽云祭搜索 - 搜索兽图`}
+  </Recv>
 </Example>
 
-<Command name="兽云祭" brief="使用兽云祭API的随机兽图" perm="foxtail.picture">
-
+<Command name="兽云祭" brief="使用兽云祭API的随机兽图" perm="foxtail.picture">{`\
 /兽云祭 [名字] [类型] - 发送随机兽图，名字和类型都可省略
-/兽云祭 &lt;图片SID或UID&gt; - 发送指定兽图
+/兽云祭 <图片SID或UID> - 发送指定兽图
 内容来自兽云祭 API，官网：furbot.cn
 类型包括：设定(0)、毛图(1)、插画(2)
 也可以使用关键词“来只兽”触发
-</Command>
+`}</Command>
 <Example>
-<Send>/兽云祭</Send>
-<Recv>
+  <Send>/兽云祭</Send>
+  <Recv>
 
 ======== 兽云祭 ========
 名字: 司可sego
@@ -50,79 +53,63 @@ UID: gZIHj-AgTSx-QAvbD-fqk6V
 点赞: 0
 收藏: 0
 ![兽云祭例图](/example/foxtail.jpg)
-</Recv>
-</Example>
-<Example>
-<Send>/兽云祭 司可sego</Send>
-<Note>输出省略</Note>
-</Example>
-<Example>
-<Send>/兽云祭 毛图</Send>
-<Note>输出省略</Note>
-</Example>
-<Example>
-<Send>/兽云祭 司可sego 毛图</Send>
-<Note>输出省略</Note>
-</Example>
-<Example>
-<Send>/兽云祭 922</Send>
-<Note>输出省略</Note>
-</Example>
-<Example>
-<Send>/兽云祭 gZIHj-AgTSx-QAvbD-fqk6V</Send>
-<Note>输出省略</Note>
+
+  </Recv>
+  <Note>也可使用以下形式等，注意“来只兽”前面没有斜线</Note>
+  <Send>/兽云祭 司可sego</Send>
+  <Send>/兽云祭 毛图</Send>
+  <Send>/兽云祭 司可sego 毛图</Send>
+  <Send>/兽云祭 922</Send>
+  <Send>/兽云祭 gZIHj-AgTSx-QAvbD-fqk6V</Send>
+  <Send>来只兽</Send>
+  <Send>来只兽 司可sego</Send>
 </Example>
 
-你可以使用“/兽云祭搜索”来搜索兽图（不建议用太短的关键字，结果可能会非常长！）
+你可以使用 `/兽云祭搜索` 来搜索兽图（不建议用太短的关键字，结果可能会非常长！）
 
 <Command name="兽云祭搜索" brief="搜索兽图" perm="foxtail.search">
-
-/兽云祭 &lt;名字&gt; - 搜索兽图
+{"/兽云祭 <名字> - 搜索兽图"}
 </Command>
 <Example>
-<Send>/兽云祭搜索 司可sego</Send>
-<Recv>
-
-======== 兽云祭 ========
+  <Send>/兽云祭搜索 司可sego</Send>
+  <Recv>
+{`======== 兽云祭 ========
 司可sego
-毛图：915、916、917、918、919、920、921、922、923、924、925、926、927、928
-</Recv>
+毛图：915、916、917、918、919、920、921、922、923、924、925、926、927、928`}
+  </Recv>
 </Example>
 
-另外你还可以发送“/兽云祭信息”查看服务器状态和图片总数，如果你对这个非常好奇的话。
+另外你还可以发送 `/兽云祭信息` 查看服务器状态和图片总数，如果你对这个非常好奇的话。
 
 <Command name="兽云祭信息" brief="兽云祭服务器信息" perm="foxtail.info">
-
-*该命令没有帮助*
+  <em>该命令没有帮助</em>
 </Command>
 <Example>
-<Send>/兽云祭信息</Send>
-<Recv>
-
-======== 兽云祭 ========
+  <Send>/兽云祭信息</Send>
+  <Recv>
+{`======== 兽云祭 ========
 主页访问次数：276
 图片查看次数：19668
 图片总数：5363
 公开图片数：276
 待审核图片数: 1
-运行时长: 101天
-</Recv>
+运行时长: 101天`}
+  </Recv>
 </Example>
 
 考虑到过于复杂的命令难以理解，要向兽云祭投稿，你需要先使用[这里的图形界面](/docs/misc/foxtail-submit)生成投稿命令，再发送图片。
 
 *（那堆基于 argparse 的命令我自己用起来挺爽的，但没有 Linux 经验的人就不太爽了[手动捂脸]）*
 
-<Command name="兽云祭投稿" brief="投稿兽图" perm="foxtail.submit">
-
-/兽云祭投稿 &lt;投稿数据&gt;
+<Command name="兽云祭投稿" brief="投稿兽图" perm="foxtail.submit">{`\
+/兽云祭投稿 <投稿数据>
 投稿数据可在这里生成：https://idhagnbot.su226.tk/docs/misc/foxtail-submit
-</Command>
+`}</Command>
 
 ## 搭建说明
 兽云祭插件开箱即用，不需要申请 Token 等，因此唯一的配置项是关键字。
 
-不过你可能还想修改[绒狸插件](/docs/guide/plugins/furbot#搭建说明)配置文件中的 universal_keyword 和 universal_prefer，来让通用关键字“来只”优先使用兽云祭。如果绒狸不可用，比如没有配置 Token，这一步是不必要的。
+不过你可能还想修改[绒狸插件](/docs/guide/plugins/furbot#搭建说明)配置文件中的 universal_keyword 和 universal_prefer，来让通用关键字 `来只` 优先使用兽云祭。如果绒狸不可用，比如没有配置 Token，这一步是不必要的。
 
 `configs/foxtail.yaml`
 ```yaml

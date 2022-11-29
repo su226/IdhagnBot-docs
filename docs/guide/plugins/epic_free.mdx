@@ -1,0 +1,38 @@
+---
+description: E宝又在送什么？
+tags:
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv } from "@site/src/components/Example";
+
+# epic_free
+E宝又在送什么？
+
+## 用户说明
+顾名思义，这个插件可以看 [EPIC Games](https://store.epicgames.com) 在送和将要送什么游戏，*喜加一什么的最爽了*。
+
+<Example>
+  <Send>/epicfree</Send>
+  <Recv>
+
+《星球大战™：战机中队》 目前免费，截止到 2022-12-02 00:00
+https://www.epicgames.com/store/zh-CN/p/star-wars-squadrons
+![《星球大战™：战机中队》封面](/example/epicfree-0.jpg)
+《Fort Triumph》 将在 2022-12-02 00:00 免费，截止到 2022-12-09 00:00
+https://www.epicgames.com/store/zh-CN/p/fort-triumph
+![《Fort Triumph》封面](/example/epicfree-1.jpg)
+《RPG in a Box》 将在 2022-12-02 00:00 免费，截止到 2022-12-09 00:00
+https://www.epicgames.com/store/zh-CN/p/rpg-in-a-box
+![《RPG in a Box》封面](/example/epicfree-2.jpg)
+
+  </Recv>
+</Example>
+
+<Command name={["epicfree", "epic", "e宝", "喜加一"]} brief="看看E宝又在送什么" perm="epicfree">{`\
+/epicfree - 查看现在的免费游戏
+你送游戏你是我宝，你卖游戏翻脸不认（雾）
+`}</Command>
+
+## 搭建说明
+虽然 epic_free 插件本身没有配置项，但你可以在 [daily](/docs/guide/plugins/daily#搭建说明) 插件的每日推送中加入 EPIC Games 喜加一的推送。

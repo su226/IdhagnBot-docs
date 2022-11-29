@@ -1,0 +1,53 @@
+---
+description: 吾有一友曰：我没说过这句话
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note, Forward, Name } from "@site/src/components/Example";
+
+# fake_forawrd
+吾有一友曰：我没说过这句话
+
+## 用户说明
+这个插件可以生成假的合并转发，考虑到这个功能被滥用的可能性，生成的合并转发会**强制**加上机器人的提示。
+
+<Example>
+  <Send>/我有一个朋友 su226 我是受</Send>
+  <Recv>
+    <Forward collapsed>
+      <Recv>
+        <Name>@IdhagnBot</Name>
+        免责声明：本消息由机器人发送，仅供娱乐，切勿当真！
+      </Recv>
+      <Recv>
+        <Name>@su226</Name>
+        我是受
+      </Recv>
+    </Forward>
+  </Recv>
+  <Note>多条消息可以用“--”（两个半角横线）分割</Note>
+  <Send>/我有一个朋友 su226 我是受 -- 奈亚拉托提镨 楼上说得对 -- 克图格铔 楼上说得对</Send>
+  <Recv>
+    <Forward collapsed>
+      <Recv>
+        <Name>@IdhagnBot</Name>
+        免责声明：本消息由机器人发送，仅供娱乐，切勿当真！
+      </Recv>
+      <Recv>
+        <Name>@su226</Name>
+        我是受
+      </Recv>
+      <Recv>
+        <Name>@奈亚拉托提镨</Name>
+        楼上说得对
+      </Recv>
+      <Recv>
+        <Name>@克图格铔</Name>
+        楼上说得对
+      </Recv>
+    </Forward>
+  </Recv>
+</Example>
+
+<Command name={["我有一个朋友", "朋友", "吾有一友", "friend"]} brief="鲁迅：我没有说过这句话" perm="fake_forward">
+{"/我有一个朋友 <用户> <消息> [-- <用户> <消息>...]"}
+</Command>

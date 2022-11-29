@@ -1,0 +1,70 @@
+---
+description: 汪，汪汪！喵？
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# catdog
+汪，汪汪！喵？
+
+*翻译成人话就是随机猫片和狗片。*
+
+## 用户说明
+静态猫片的 API 来自 [random.cat](http://random.cat)，动态猫片的 API 来自 [edgecats.net](https://edgecats.net)，（包括动态静态）狗片的 API 来自 [random.dog](https://random.dog)。
+
+<Example>
+  <Send>/喵</Send>
+  <Recv>
+
+![静态猫片例图](/example/catdog/cat.jpg)
+
+  </Recv>
+  <Send>/喵呜</Send>
+  <Recv>
+
+![动态猫片例图](/example/catdog/cat_gif.gif)
+
+  </Recv>
+  <Send>/汪</Send>
+  <Recv>
+
+![静态狗片例图](/example/catdog/dog.jpg)
+
+  </Recv>
+  <Send>/汪</Send>
+  <Recv>
+
+![动态狗片例图](/example/catdog/dog_gif.gif)
+
+  </Recv>
+  <Note>random.dog 除了 GIF 动图也有 MP4 和 WebM 视频。</Note>
+</Example>
+
+<Command name={["喵", "喵喵", "meow"]} brief="喵喵喵？喵喵。" perm="catdog.cat">
+喵，喵喵。（翻译：API在国外，该命令缓慢或出错是正常现象）
+</Command>
+<Command name="喵呜" brief="喵呜！喵——呜——" perm="catdog.cat_gif">
+呼噜呼噜，喵呜。（翻译：API在国外，该命令缓慢或出错是正常现象）
+</Command>
+<Command name={["汪", "汪汪", "woof"]} brief="汪？汪汪，汪汪汪！" perm="catdog.dog">
+汪汪，汪汪。（翻译：API在国外，该命令缓慢或出错是正常现象）
+</Command>
+<Command name="汪嗷" brief="汪，汪，汪嗷～" perm="catdog.dog_gif">
+汪汪……呜嗷！（翻译：API在国外，该命令缓慢或出错是正常现象）
+</Command>
+
+## 搭建说明
+由于 go-cqhttp 不能通过 file:// 或者 base64:// 链接发送视频（编写这个插件时版本是 v1.0.0-rc1），IdhagnBot 会使用 AIOHTTP 临时创建一个 HTTP 服务器，并使用本地 http:// 链接来发送视频，这要求 IdhagnBot 和 go-cqhttp 必须在同一个服务器上，否则请修改配置文件禁用视频。~~如果哪天修了踢我一脚~~
+
+另外，上文中提到的 API 都在国外，如有需要可以使用代理。
+
+`configs/catdog.yaml`
+```yaml
+timeout: 15 # 下载超时，单位为秒，默认为 15
+warn: true # 默认为 true，设置为 false 隐藏“API在国外，该命令缓慢或出错是正常现象”的警告
+dog_gif_only: false # random.dog 除了 GIF 也有 MP4 和 WebP，默认为 false，设置为 true 将只发送 GIF
+proxy: null # 代理服务器，设置为 null 时 不使用代理，默认为 null
+```

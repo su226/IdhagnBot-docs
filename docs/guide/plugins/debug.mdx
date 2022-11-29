@@ -1,0 +1,84 @@
+---
+description: 用于调试和手动操作机器人的插件
+tag:
+- {label: 含管理命令, permalink: admin-commands}
+---
+import { Abbr, Face } from "@site/src/components/typography";
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# debug
+用于调试和手动操作机器人的插件
+
+## 用户说明
+默认情况下，**只有超管可以执行**本插件的命令。
+
+`/api` 用于手动执行某个协议端 API，第一行为 API 名称，其余行为 YAML 格式的 API 数据。
+
+:::tip
+如果你不喜欢 YAML，YAML 是 JSON 的超集，也就是说合法的 JSON 也是合法的 YAML。
+:::
+
+<Example>
+  <Send mono>
+{`/api get_stranger_info
+user_id: 10001`}
+  </Send>
+  <Recv>执行成功</Recv>
+  <Note>为防止结果过长导致的刷屏和发送失败，不会发送结果，请在日志中查看。</Note>
+</Example>
+
+<Command name="api" brief="调试机器人API" perm="debug.api" level="super">{`\
+/api 接口 [YAML数据]
+YAML数据可换行
+结果请在日志中查看
+`}</Command>
+
+`/发送` 和 `/原始` 用于发送消息，在私聊[上下文](/docs/guide/concepts/context)中会把消息发回私聊，在群聊上下文中会把消息发送到对应的群聊。
+
+不同在于，`/原始` 会尝试解析文本中的 CQ 码，而 `/发送` 不会。
+
+<Example>
+  <Send>/发送 Hello, World! [CQ:face,id=277]</Send>
+  <Recv>Hello, World! [CQ:face,id=277]</Recv>
+  <Send>/原始 Hello, World! [CQ:face,id=277]</Send>
+  <Recv>Hello, World! <Face id={277} /></Recv>
+  <Send>/ctx de</Send>
+  <Recv>已进入 su226 Development（<Abbr title="真实群号已隐去">123456789</Abbr>）的群聊上下文</Recv>
+  <Send>/发送 Hello, World!</Send>
+  <Recv>已发送至 su226 Development</Recv>
+</Example>
+
+<Command name={["发送", "say", "s"]} brief="发送普通消息" perm="debug.say" level="super">{`\
+/发送 <消息>
+将会发送到当前上下文
+`}</Command>
+
+<Command name={["发送", "raw", "r"]} brief="发送含CQ码的消息" perm="debug.raw" level="super">{`\
+/发送原始 <富文本消息>
+将会发送到当前上下文
+`}</Command>
+
+`/执行` 用于执行命令**并将结果发送至某个群聊，不会包含命令本身**，如要包含命令本身，先运行 `/发送 <命令>` 再运行 `/执行 <命令>`。（`/执行` 的命令可以没有斜线，`/发送` 的必须要有）
+
+<Example>
+  <Send>/执行 petpet 奈亚拉托提镨</Send>
+  <Recv>已在 su226 Development 中执行命令</Recv>
+</Example>
+
+<Command name={["执行", "execute", "x"]} brief="在群内执行命令" perm="debug.execute" level="super">{`\
+/执行 <命令名> [参数]
+命令名可以不带斜线
+相当于在当前上下文执行命令
+`}</Command>
+
+`/重载` 用于重载所有支持热重载的配置文件。
+
+<Example>
+  <Send>/重载</Send>
+  <Recv>已重载所有配置</Recv>
+</Example>
+
+<Command name={["重载", "reload"]} brief="热重载支持的配置" perm="debug.execute" level="super">
+  <em>该命令没有帮助</em>
+</Command>

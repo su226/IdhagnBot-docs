@@ -1,0 +1,44 @@
+---
+description: 🐱 + 🤖 = ❓
+tags:
+- {label: 有状态文件, permalink: has-state}
+- {label: 使用第三方服务, permalink: third-party-service}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
+
+# emojimix
+🐱 + 🤖 = ❓
+
+emojimix 网站的原作者是 Tikolu，图片全部来自 Google，原网站：https://tikolu.net/emojimix
+
+## 用户说明
+发送 `/emojimix` 查看支持的 emoji，发送 `/emojimix random` 随机一个组合，发送 `/emojimix <一个emoji>` 随机另一个 emoji，发送 `/emojimix <两个emoji>` 显示指定组合。
+
+两个 emoji 可以不分割，也可以用空格或者加号分割。
+
+<Example>
+  <Send>/emojimix random</Send>
+  <Recv>
+
+🐱+🤖=
+![emojimix例图](/example/emojimix.png)
+
+  </Recv>
+  <Note><em>以下输出省略</em></Note>
+  <Send>/emojimix 🐱</Send>
+  <Send>/emojimix 🐱+🤖</Send>
+  <Send>/emojimix 🐱 🤖</Send>
+</Example>
+
+<Command name={["emojimix", "缝合", "emoji", "mix"]} brief="缝合两个emoji" perm="emojimix">{`\
+/emojimix - 查看支持的emoji
+/emojimix random - 随机缝合
+/emojimix <emoji> - 半随机缝合
+/emojimix <emoji1>+<emoji2> - 缝合两个emoji
+数据来自 https://tikolu.net/emojimix
+图片来自 Google
+`}</Command>
+
+## 搭建说明
+emojimix 的缓存在 `states/emojimix_cache`，对于支持的组合，会储存文件名类似于 `u2665-ufe0f_u1f644.png` 的图片，对于不支持的组合，会存储文件名类似于 `u1f499_u1f62f.unsupported` 的空文件用作标志。

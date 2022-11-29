@@ -1,0 +1,5 @@
+.Command {
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: var(--ifm-leading) 0;
+}

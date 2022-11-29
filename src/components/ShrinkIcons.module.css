@@ -3,7 +3,7 @@
   position: relative;
 }
 
-.ShrinkIcons :global(.MuiSvgIcon-root) {
+.ShrinkIcons :global .MuiSvgIcon-root {
   transition: transform .25s, opacity .25s;
 }
 

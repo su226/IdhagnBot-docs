@@ -1,5 +1,9 @@
 ---
 description: 简易 Minecraft 服务器 Ping
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 需要手动配置, permalink: config-required}
+- {label: 使用可选依赖, permalink: optional-dependency}
 ---
 import Command from "@site/src/components/Command";
 import Example, { Send, Recv } from "@site/src/components/Example";
@@ -8,7 +12,7 @@ import Example, { Send, Recv } from "@site/src/components/Example";
 简易 Minecraft 服务器 Ping
 
 ## 用户说明
-如果群主设置了服务器地址，发送 `/minecraft` 就能看到服务器的状态和地址。
+如果搭建者设置了服务器地址，发送 `/minecraft` 就能看到服务器的状态和地址。
 
 如果服务器连接失败，你无需操心，IdhagnBot 会自动向超管发送反馈。
 
@@ -16,15 +20,14 @@ import Example, { Send, Recv } from "@site/src/components/Example";
 如有异常会自动发送反馈
 </Command>
 <Example>
-<Send>/minecraft</Send>
-<Recv>
-
-A Minecraft Server
+  <Send>/minecraft</Send>
+  <Recv>
+{`A Minecraft Server
 版本：1.18.2
 1/10名玩家：su226
 地址：
-127.0.0.1 0ms
-</Recv>
+127.0.0.1 0ms`}
+  </Recv>
 </Example>
 
 ## 搭建说明

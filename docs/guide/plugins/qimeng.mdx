@@ -1,0 +1,78 @@
+---
+description:  趣绮梦Furry云黑（需要申请Token）
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 需要手动配置, permalink: config-required}
+- {label: 需要Token或帐号, permalink: token-required}
+- {label: 使用第三方服务, permalink: third-party-service}
+- {label: 含Furry相关, permalink: furry}
+- {label: 纯Furry相关, permalink: furry-only}
+---
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note, Forward, Name } from "@site/src/components/Example";
+
+# qimeng
+趣绮梦Furry云黑（需要申请Token）
+
+## 用户说明
+发送 `/查云黑 <QQ号>` 即可查询指定 QQ 号（可以指定多个，用**空格分割**），发送 `/查群云黑` 可以批量查询本群所有成员，数据来自于[趣绮梦Furry云黑](https://yunhei.qimeng.fun/)，上黑及下黑相关事宜请参考官网。如果机器人帐号是群管理员，其他群管理员还可以发送 `/踢群云黑` 批量踢出。（默认只踢云黑，要包括避雷请发送 `/踢群云黑 避雷`）
+
+除此之外，当有新成员进群时也会自动查询云黑，如有云黑记录自动警告；如果机器人帐号是管理员，当有人申请进群时也可以查询、警告和自动拒绝。
+
+<Example>
+  <Send>/查云黑 2854196310</Send>
+  <Recv>
+{`查询账号：2854196310
+此 账 号 目 前 提 交 为 避雷 / 前科 账 号
+记录老师：幻梦
+避雷起始时间：2022-04-21 21:42:37
+理由：记录一下 是QQ群管家(摊爪)
+请注意此人处于避雷名单或存在前科`}
+  </Recv>
+  <Send>/查云黑 2854196310 1234567890</Send>
+  <Recv>
+{`⚠️ 2854196310 位于避雷名单中。
+✅ 1234567890 无记录。`}
+  </Recv>
+  <Send>/查群云黑</Send>
+  <Recv>✅ 群内无云黑或避雷成员。</Recv>
+  <Note>以下数据是<b>虚构</b>的，仅供演示。</Note>
+  <Send>/踢群云黑</Send>
+  <Recv>
+{`🚨 9876543210 位于云黑名单中。
+是否全部踢出？请发送“是”或“否”`}
+  </Recv>
+  <Send>是</Send>
+  <Recv>成功踢出 1 个成员</Recv>
+  <Send>/踢群云黑 避雷</Send>
+  <Recv>
+{`🚨 9876543210 位于云黑名单中。
+⚠️ 1234567890 位于避雷名单中。
+是否全部踢出？请发送“是”或“否”`}
+  </Recv>
+  <Send>是</Send>
+  <Recv>成功踢出 2 个成员</Recv>
+</Example>
+
+## 搭建说明
+你需要先参考[趣绮梦Furry云黑](https://yunhei.qimeng.fun/)官网上的公告申请一个 API Token 并填写在配置文件中，否则 IdhagnBot 会自动禁用相关功能并隐藏帮助条目。
+
+你也可以在 Token 处填写 `spider` 启用爬虫模式，在爬虫模式下机器人将会模拟网页请求，注意因为目前 API 暂不完善，部分功能只有爬虫模式才能使用。
+
+|功能    |区别                                                                      |
+|--------|--------------------------------------------------------------------------|
+|避雷    |爬虫模式可以查询云黑和避雷，API 模式只能查询云黑。                        |
+|批量查询|只有爬虫模式可以使用批量查询（包括查群云黑）。                            |
+|信息    |爬虫模式能查询到上黑等级、上黑时间和登记老师，API 模式只能查询到上黑原因。|
+
+:::caution 免责声明
+IdhagnBot 作者不对滥用此插件（尤其是爬虫模式）而被封 IP 乃至上黑负责，风险自负。
+:::
+
+`configs/qimeng.yaml`
+```yaml
+token: "" # token，默认为空字符串，为空字符串时自动禁用相关功能
+# token 为 "spider" 时使用爬虫模式，为其他字符串时使用API模式
+auto_reject: false # 自动拒绝云黑成员申请，原因为“云黑用户，机器人自动拒绝”
+ignore: [2854196310] # 忽略名单，只在进群警告和查群云黑时有效，手动查询时无效，默认忽略Q群管家
+```

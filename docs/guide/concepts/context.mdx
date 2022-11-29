@@ -1,25 +1,70 @@
 ---
 sidebar_position: 1
+tags:
+- {label: 有配置文件, permalink: has-config}
+- {label: 有状态文件, permalink: has-state}
+- {label: 需要手动配置, permalink: config-required}
 ---
-import PlaceholderLink from "@site/src/components/PlaceholderLink";
+import { Abbr } from "@site/src/components/typography";
+import Command from "@site/src/components/Command";
+import Example, { Send, Recv, Note } from "@site/src/components/Example";
 
 # 上下文
-如果你是用户，你可能想过能否在私聊中触发机器人；如果你是群主，你可能想过为什么机器人启动后不响应群聊。
+如果你是用户，你可能想过能否在私聊中触发机器人；如果你是搭建者，你可能想过为什么机器人启动后不响应群聊。
 
 由于 IdhagnBot 在设计时的目标之一就有同时服务多个群聊，IdhagnBot 引入了一个称作“上下文”（Context）的模块来管理不同群聊之间的行为。
 
 ## 用户说明
 在群聊中使用 IdhagnBot，只能使用当前群聊里的命令，在私聊中使用 IdhagnBot，分这几种情况：
 
-* 一部分命令会自动检测你是否加了可以使用对应命令的群，只要加的群有至少一个能使用该命令，就会在帮助里显示，并且可以在私聊中使用。IdhagnBot 的通用插件中并不包含此类命令，但群主在编写 `user_plugins` 时可以加入此类命令。
-* 一部分命令需要你手动提供你所在的群号，只有提供了群号且对应群可以使用该命令时，命令才会在帮助里显示，并且才能在私聊中使用。如：<PlaceholderLink href="/docs/guide/plugins/sign">`/签到`</PlaceholderLink>
-* 一部分命令可以直接使用，其中一部分命令如果手动提供了群号，在功能上会有所不同。如：<PlaceholderLink href="/docs/guide/plugins/coin">`/硬币`</PlaceholderLink>（没有不同）、[`/rua`](/docs/guide/plugins/meme_pic)（有细微不同）
+* 一部分命令会自动检测你是否加了可以使用对应命令的群，只要加的群有至少一个能使用该命令，就会在帮助里显示，并且可以在私聊中使用。IdhagnBot 的通用插件中并不包含此类命令，但搭建者在编写 `user_plugins` 时可以加入此类命令。
+* 一部分命令需要你手动提供你所在的群号，只有提供了群号且对应群可以使用该命令时，命令才会在帮助里显示，并且才能在私聊中使用。如：[`/签到`](/docs/guide/plugins/sign)
+* 一部分命令可以直接使用，其中一部分命令如果手动提供了群号，在功能上会有所不同。如：[`/硬币`](/docs/guide/plugins/coin)（没有不同）、[`/petpet`](/docs/guide/plugins/meme_pic)（有细微不同）
 
-提供群号的方式是在私聊中发送 `/ctx 群号`，除了群号也可以使用群主在配置中指定的别名，要查看当前群聊的可用别名，请在群聊中发送 `/alias`。
+提供群号的方式是在私聊中发送 `/上下文 群号`，除了群号也可以使用搭建者在配置中指定的别名，要查看当前群聊的可用别名，请在群聊中发送 `/别名`。
 
-为防止误操作，一段时间（默认为 10 分钟）内没有在私聊中使用命令，就会清除提供的群号，你也可以发送 `/ctx exit` 立即清除。
+为防止误操作，一段时间（默认为 10 分钟）内没有在私聊中使用命令，就会清除提供的群号，你也可以发送 `/上下文 退出` 立即清除。
 
 ~~作者：很复杂是吧？其实我也这么觉得，可能没有我之外的第二个人能理解这种诡异的设计~~
+
+<Example>
+  <Send>/petpet 奈亚拉托提镨</Send>
+  <Recv>找不到 奈亚拉托提镨</Recv>
+  <Send>/签到</Send>
+  <Recv>命令不存在、权限不足或不适用于当前上下文</Recv>
+  <Send>/上下文 de</Send>
+  <Recv>已进入 su226 Development（<Abbr title="真实群号已隐去">123456789</Abbr>）的群聊上下文</Recv>
+  <Send>/别名</Send>
+  <Recv>
+{`当前群聊上下文有以下别名:
+de`}
+  </Recv>
+  <Send>/petpet 奈亚拉托提镨</Send>
+  <Recv>
+
+![petpet例图](/example/meme_pic/petpet.gif)
+
+  </Recv>
+  <Send>/签到</Send>
+  <Recv>
+
+![签到例图](/example/sign.ring.png)
+
+  </Recv>
+  <Send>/上下文 退出</Send>
+  <Recv>已退出群聊上下文</Recv>
+  <Note>以上示例是在私聊中执行的，群聊中<strong>没有</strong> /上下文 命令。</Note>
+</Example>
+
+<Command name={["上下文", "ctx"]} brief="进入或退出上下文" perm="context.ctx">{`\
+/上下文 - 查看当前上下文
+/上下文 <群号或别名> - 进入群聊上下文
+/上下文 退出|exit - 退出群聊上下文
+`}</Command>
+
+<Command name={["别名", "ctx"]} brief="查看当前群聊上下文的别名" perm="context.alias">
+  <em>该命令没有帮助</em>
+</Command>
 
 ## 搭建说明
 默认的配置只会响应私聊，如需响应群聊，请修改配置文件。
